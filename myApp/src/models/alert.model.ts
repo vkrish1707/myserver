@@ -2,7 +2,7 @@ import { showError } from '../lib/utilities/globalfunctions';
 import { Subject } from 'rxjs/Subject';
 import { of } from 'rxjs/observable/of';
 import { HttpClient } from '@angular/common/http';
-import { InjectorInstance } from '../app/app.module';
+import globals = require('../app/app.globals');
 
 export class AlertCollection {
     private alerts: Alert[] = new Array<Alert>();
@@ -39,7 +39,7 @@ export class AlertCollection {
 
     load() {
         let url = 'http://localhost:3000/api/alerts';
-        let http = InjectorInstance.get<HttpClient>(HttpClient);
+        let http = globals.InjectorInstance.get<HttpClient>(HttpClient);
         http.get<any>(url).subscribe(res => {this.newAlert = res});
     }
 }
