@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import globals = require('../app/app.globals');
 
 export class AlertCollection {
-    private alerts: Alert[] = new Array<Alert>();
-    private newAlertSubject = new Subject<Alert>();
+    private alerts: IAlert[] = new Array<IAlert>();
+    private newAlertSubject = new Subject<IAlert>();
 
     public newAlert = this.newAlertSubject.asObservable();
 
@@ -14,7 +14,7 @@ export class AlertCollection {
 
     add(id: number, message: string, icon: string) {
         if(this.find(id) == -1) {
-            let alert = new Alert();
+            let alert = <IAlert>{};
             alert.id = id;
             alert.message = message;
             alert.icon = icon;
@@ -40,11 +40,16 @@ export class AlertCollection {
     load() {
         let url = 'http://localhost:3000/api/alerts';
         let http = globals.InjectorInstance.get<HttpClient>(HttpClient);
-        http.get<any>(url).subscribe(res => {this.newAlert = res});
+        http.get<IAlert[]>(url).subscribe(alerts => {
+            for(let alert of alerts) {
+                this.add(alert.id, alert.message, alert.icon);
+                console.log(alert.id, alert.message, alert.icon);
+            }
+        });
     }
 }
 
-export class Alert {
+export interface IAlert {
     id: number;
     message: string;
     icon: string;

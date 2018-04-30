@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var Alert = require('./models/alerts');
 
@@ -7,6 +8,7 @@ var app = express();
 var Port = 3000;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/api/alerts', function (req, res, next) {
     Alert.getAlerts(function (err, alerts) {
@@ -14,7 +16,7 @@ app.get('/api/alerts', function (req, res, next) {
             res.sendStatus(401);
         }
 
-        res.json(alerts);
+        res.send(JSON.stringify(alerts));
     });
 });
 

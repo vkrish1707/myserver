@@ -7,7 +7,7 @@ var db = mongoose.connect;
 var AlertSchema = mongoose.Schema({
     id: { type: Number },
     message: { type: String },
-    icon: { type: string }
+    icon: { type: String }
 }, { timestamps: true });
 
 var Alert = module.exports = mongoose.model('Alert', AlertSchema);
