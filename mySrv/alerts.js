@@ -16,7 +16,7 @@ app.get('/api/alerts', function (req, res, next) {
             res.sendStatus(401);
         }
 
-        res.send(JSON.stringify(alerts));
+        res.json(alerts);
     });
 });
 

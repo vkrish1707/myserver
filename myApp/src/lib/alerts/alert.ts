@@ -1,4 +1,4 @@
-import { elipsis } from '../utilities/strutil';
+import { elipsis } from '../utilities/strUtil';
 
 export class Alert {
     id: number;
@@ -16,7 +16,7 @@ export class Alert {
 
     get iconType(): string {
         let result: string = 'error';
-        if(this.icon == 'success' || this.icon == 'info' || this.icon == 'warning' || this.icon == 'error') {
+        if (this.icon == 'success' || this.icon == 'info' || this.icon == 'error' || this.icon == 'warning') {
             result = this.icon;
         }
 
@@ -24,7 +24,7 @@ export class Alert {
     }
 
     public dismiss(): void {
-        this.dismissed = true; 
+        this.dismissed = true;
     }
 
     get isActive(): boolean {

@@ -1,7 +1,15 @@
-.btn-addNewAlert {
+
+.alertsContainer{
+   height: 220px;
+   padding: 10px;
+   /* background-color: palevioletred; */
+   /* width: auto; */
+}
+.btn-addNewAlert{
     margin-left: 0px;
-    padding: 1px;
+    margin-top: 11px;
 }
 input{
-    width: 446px;
+    width: 290px;
+    margin-top: 11px;
 }

@@ -1,6 +1,6 @@
 import { showError } from '../lib/utilities/globalfunctions';
 import { Subject } from 'rxjs/Subject';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs/Observable/of';
 import { HttpClient } from '@angular/common/http';
 import globals = require('../app/app.globals');
 
@@ -10,10 +10,9 @@ export class AlertCollection {
 
     public newAlert = this.newAlertSubject.asObservable();
 
-    constructor () {}
-
     add(id: number, message: string, icon: string) {
-        if(this.find(id) == -1) {
+        if (this.find(id) == -1) {
+            // tslint:disable-next-line:prefer-const
             let alert = <IAlert>{};
             alert.id = id;
             alert.message = message;
@@ -24,13 +23,12 @@ export class AlertCollection {
     }
 
     remove(id: number) {
-        let index = this.find(id);
+        const index = this.find(id);
         if (index != -1) {
             this.alerts.splice(index, 1);
-        }
-        else {
-            showError('alert with id = '+ id + ' not found ');
-        }
+        } else {
+             showError('alert with id = ' + id + ' not found');
+          }
     }
 
     private find(id: number): number {
@@ -39,11 +37,10 @@ export class AlertCollection {
 
     load() {
         let url = 'http://localhost:3000/api/alerts';
-        let http = globals.InjectorInstance.get<HttpClient>(HttpClient);
+        let http =  globals.InjectorInstance.get<HttpClient>( HttpClient )
         http.get<IAlert[]>(url).subscribe(alerts => {
-            for(let alert of alerts) {
+            for (let alert of alerts) {
                 this.add(alert.id, alert.message, alert.icon);
-                console.log(alert.id, alert.message, alert.icon);
             }
         });
     }

@@ -1,3 +1,3 @@
-import { Injector } from '@angular/core';
+import {Injector} from '@angular/core';
 
-export var InjectorInstance: Injector;
+export let InjectorInstance: Injector;

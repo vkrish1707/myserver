@@ -1,20 +1,17 @@
-.alertAndImage {
-    background-color: rgb(202, 197, 197);
-    border: 1px solid black;
-    padding: 10px;
-    width: 40%;
-    text-align: center;
-    border-radius: 5px;
-    margin-bottom: 6px;
+.alertAndImage{
+  width: 100%; 
 }
-
-.btn-dismissAlert {
-    float: right;
-    width: 25px;
-    background-color:transparent;
-    border: none;
+.btn-dismissAlert{
+  float: right;
+  width: 25px;
+  background-color:transparent;
+  border: none;
 }
-.btn-addNewAlert {
-    margin-left: 0px;
-    padding: 5px;
+/* image{
+    height: 100px;
+    width: 100px;
+} */
+.alerts{
+  background-color: blueviolet;
+  width: 30%;
 }

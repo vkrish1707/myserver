@@ -10,7 +10,7 @@
       "assets": [
         "assets",
         "favicon.ico",
-        "lib/alerts/assets"
+         "lib/alerts/assets"
       ],
       "index": "index.html",
       "main": "main.ts",

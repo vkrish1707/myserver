@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable }  from 'rxjs/observable';
+import { Observable } from 'rxjs/observable';
 import { of } from 'rxjs/observable/of';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -17,13 +17,13 @@ export class AlertService {
 
   public alerts = this.allAlertsSubject.asObservable();
   public activeAlerts = this.filteredAlertsSubject.asObservable();
-  
+
   constructor() {
     this.alerts.subscribe(data => this.allAlerts = data);
     this.activeAlerts.subscribe(data => this.filteredAlerts = data);
     this.refresh();
   }
-  
+
   public addNew(id: number, message: string, icon: string) {
     let alert: Alert = new Alert();
     alert.id = id;

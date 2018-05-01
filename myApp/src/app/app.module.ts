@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import globals = require('./app.globals')
+import globals = require('./app.globals');
 import { AppComponent } from './app.component';
 import { AlertsModule } from '../lib/alerts/alerts.module';
 import { AlertsComponent } from '../lib/alerts/alerts.component';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AlertsComponent } from '../lib/alerts/alerts.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -30,3 +32,4 @@ export class AppModule {
     globals.InjectorInstance = injector;
   }
 }
+

@@ -1,5 +1,5 @@
-<div [@alerts]= "filteredAlerts">
+<div class="alertsContainer" [@alerts]="filteredAlerts">
     <lib-alerts></lib-alerts>
     <input type="text" [(ngModel)]="message">
-    <button class="btn-addNewAlert" (click)="addNewAlert()">Add New alert</button>
+    <button class="btn-addNewAlert" (click)="addNewAlert()">Add New Alert</button>
 </div>
