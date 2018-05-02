@@ -3,6 +3,7 @@ import { trigger, style, transition, animate, keyframes, query, stagger } from '
 import { AlertService } from '../lib/alerts/alert.service';
 import { AlertCollection } from '../models/alert.model';
 import { HttpClient } from '@angular/common/http';
+import { setInterval } from 'timers';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +40,7 @@ export class AppComponent {
 
   constructor(private alertService: AlertService) {
     this.alerts.newAlert.subscribe(item => this.alertService.addNew(item.id, item.message, item.icon));
+    setInterval(() => this.alerts.load(), 5000);
     this.alerts.load();
   }
 

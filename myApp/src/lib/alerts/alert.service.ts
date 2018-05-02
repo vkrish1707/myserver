@@ -12,14 +12,13 @@ export class AlertService {
   private allAlerts: Alert[] = new Array<Alert>();
   private filteredAlerts: Alert[] = new Array<Alert>();
 
-  private filteredAlertsSubject = new BehaviorSubject<any>([]);
   private allAlertsSubject = new BehaviorSubject<any>([]);
+  private filteredAlertsSubject = new BehaviorSubject<any>([]);
 
   public alerts = this.allAlertsSubject.asObservable();
   public activeAlerts = this.filteredAlertsSubject.asObservable();
 
   constructor() {
-    this.alerts.subscribe(data => this.allAlerts = data);
     this.activeAlerts.subscribe(data => this.filteredAlerts = data);
     this.refresh();
   }

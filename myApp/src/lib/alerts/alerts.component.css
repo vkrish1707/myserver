@@ -1,17 +1,9 @@
-.alertAndImage{
-  width: 100%; 
+.btn-dismissAlert {
+    float: right;
+    background-color:transparent;
+    border: none;
 }
-.btn-dismissAlert{
-  float: right;
-  width: 25px;
-  background-color:transparent;
-  border: none;
-}
-/* image{
-    height: 100px;
-    width: 100px;
-} */
-.alerts{
-  background-color: blueviolet;
-  width: 30%;
+
+.alertAndImage {
+    width: 100%; 
 }

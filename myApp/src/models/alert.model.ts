@@ -5,14 +5,18 @@ import { HttpClient } from '@angular/common/http';
 import globals = require('../app/app.globals');
 
 export class AlertCollection {
+    private localAlertId: number = -100;
     private alerts: IAlert[] = new Array<IAlert>();
     private newAlertSubject = new Subject<IAlert>();
 
     public newAlert = this.newAlertSubject.asObservable();
 
     add(id: number, message: string, icon: string) {
+        if (id == -1) {
+            id = this.localAlertId--;
+        }
+
         if (this.find(id) == -1) {
-            // tslint:disable-next-line:prefer-const
             let alert = <IAlert>{};
             alert.id = id;
             alert.message = message;
@@ -23,7 +27,7 @@ export class AlertCollection {
     }
 
     remove(id: number) {
-        const index = this.find(id);
+        let index = this.find(id);
         if (index != -1) {
             this.alerts.splice(index, 1);
         } else {
