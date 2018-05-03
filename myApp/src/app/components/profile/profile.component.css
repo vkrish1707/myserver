@@ -1,0 +1,19 @@
+.row {
+    position: absolute;
+        left: -20px;
+        bottom: -15px;
+    width: 5000px;
+}
+
+#profile {
+    width: 200px;
+    position: absolute;
+        left: 355px;
+        bottom: -15px;
+}
+
+#dropdown {
+    margin-left: 70%;
+    width: 25px;
+    height: 25px;
+}

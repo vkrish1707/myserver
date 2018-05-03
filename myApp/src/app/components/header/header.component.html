@@ -1,3 +1,30 @@
-<p>
-  header works!
-</p>
+<div class="navbar">
+
+  <div *ngIf=showMenu>
+    <button type="button" class="btn btn-outline-primary" (click)="getShowMenuContent()">
+      <img src="assets/menuicon.png" *ngIf="menuicon">
+      <img src="assets/closeicon.png" *ngIf="closeicon"> Menu
+    </button>
+  </div>
+
+  <a [routerLink]="['/']" id="appName">TELGRO</a>
+
+  <div *ngIf="showHelp">
+    <a [routerLink]="['/help']" id="help">Help?</a>
+  </div>
+
+  <div class="profile" *ngIf="showProfile">
+    <app-profile></app-profile>
+  </div>
+
+  <div id="signUp" *ngIf="showLoginRegister">
+    <a [routerLink]="['/register']">Register</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a [routerLink]="['/login']">Login</a>
+  </div>
+
+</div>
+
+<div class="menu" *ngIf="showMenuContent">
+  <app-menu></app-menu>
+</div>

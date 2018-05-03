@@ -1,0 +1,41 @@
+.navbar {
+    height: 100px;
+    width: 100%;
+    background-color: rgb(85, 85, 85);
+    color: #fff;
+}
+
+.menu {
+    margin-left: 10%;
+    margin-right: 5%;
+}
+
+#appName {
+    position: absolute;
+        left: 40%;
+        top:  26px;
+    color: honeydew; 
+    font-size: 35px;
+    text-decoration: none;   
+}
+
+#signUp {
+    position: absolute;
+        left: 80%;    
+}
+
+#help {
+    position: absolute;
+        left:55%;
+        top:40px;
+}
+
+.profile {
+    position: absolute;
+        left: 500px;
+}
+
+.btn-outline-primary img {
+    padding: 5px;    
+    margin-bottom: 3px;
+}

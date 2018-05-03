@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { AlertService } from '../lib/alerts/alert.service';
-import { AlertCollection } from '../models/alert.model';
 import { HttpClient } from '@angular/common/http';
-import { setInterval } from 'timers';
+import { AlertCollection } from './models/alert.model';
 
 @Component({
   selector: 'app-root',

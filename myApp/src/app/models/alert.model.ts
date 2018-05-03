@@ -1,8 +1,8 @@
-import { showError } from '../lib/utilities/globalfunctions';
+import { showError } from '../../lib/utilities/globalfunctions';
 import { Subject } from 'rxjs/Subject';
 import { of } from 'rxjs/Observable/of';
 import { HttpClient } from '@angular/common/http';
-import globals = require('../app/app.globals');
+import globals = require('../app.globals');
 
 export class AlertCollection {
     private localAlertId: number = -100;

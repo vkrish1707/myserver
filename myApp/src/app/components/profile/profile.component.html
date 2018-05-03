@@ -1,3 +1,15 @@
-<p>
-  profile works!
-</p>
+<div id="profile">
+  <div ngbDropdown class="d-inline-block">
+    <img src="assets/profile.png" class="dropdown" data-toggle="tooltip" title="Vamsi krishna" ngbDropdownToggle>    <div ngbDropdownMenu aria-labelledby="dropdown">
+      <a [routerLink]="['/account']">
+        <button class="dropdown-item">My Account</button>
+      </a>
+      <a href="#">
+        <button class="dropdown-item">Settings</button>
+      </a>
+      <a href="#">
+        <button class="dropdown-item">Logout</button>
+      </a>
+    </div>
+  </div>
+</div>

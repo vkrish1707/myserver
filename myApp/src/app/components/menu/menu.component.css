@@ -1,0 +1,11 @@
+.center{
+    width: 80%;
+    background-color: #444444;
+    position: fixed;
+    opacity: 0.8;
+}
+
+.center h1 {
+    color: #fff;
+    text-align: center;
+}

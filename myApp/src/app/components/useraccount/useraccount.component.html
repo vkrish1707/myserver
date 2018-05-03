@@ -1,0 +1,8 @@
+<app-header menu="show" profile="show" loginRegister="hide"></app-header>
+<div *ngFor='let userDetail of userDetails'>
+  <h5>First Name: {{userDetail.firstName}}</h5>
+  <h5>Last Name: {{userDetail.lastName}}</h5>
+  <h5>Email: {{userDetail.email}}</h5>
+  <h5>Contact: {{userDetail.contact}}</h5>
+  <img src="{{userDetail.image}}">
+</div>
