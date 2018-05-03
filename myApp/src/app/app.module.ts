@@ -7,20 +7,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import globals = require('./app.globals');
 import { AppComponent } from './app.component';
 import { AlertsModule } from '../lib/alerts/alerts.module';
-import { AlertsComponent } from '../lib/alerts/alerts.component';
-
+import { AppHeaderModule } from './modules/app-header.module';
+import { AppHomeModule } from './modules/app-home.module';
+import { AppRegisterModule } from './modules/app-register.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    AlertsModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
-
+    BrowserAnimationsModule,
+    AlertsModule,
+    AppHeaderModule,
+    AppHomeModule,
+    AppRegisterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
