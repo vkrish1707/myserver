@@ -10,7 +10,6 @@ import { UseraccountComponent } from '../components/useraccount/useraccount.comp
 import { HelpComponent } from '../components/help/help.component';
 import { UserinfoComponent } from '../components/userinfo/userinfo.component';
 import { EulaComponent } from '../components/eula/eula.component';
-import { ProgressComponent } from '../components/progress/progress.component';
 
 
 @NgModule({
@@ -27,7 +26,6 @@ import { ProgressComponent } from '../components/progress/progress.component';
     HelpComponent,
     UserinfoComponent,
     EulaComponent,
-    ProgressComponent
   ],
   exports: [
     HeaderComponent

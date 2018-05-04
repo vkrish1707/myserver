@@ -6,6 +6,7 @@ import { RegisterComponent } from '../components/register/register.component';
 import { LoginComponent } from '../../lib/login/login.component';
 import { LoginDirective } from '../../lib/login/base/login.directive';
 import { GoogleComponent } from '../../lib/login/google/google.component';
+import { ProgressComponent } from '../../lib/progress/progress.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { GoogleComponent } from '../../lib/login/google/google.component';
 
   declarations: [
     RegisterComponent,
+    ProgressComponent,
     LoginComponent,
     LoginDirective,
     GoogleComponent

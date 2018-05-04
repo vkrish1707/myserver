@@ -6,9 +6,9 @@ import { HomeComponent } from './components/home/home.component';
 import { UseraccountComponent } from './components/useraccount/useraccount.component';
 import { UserinfoComponent } from './components/userinfo/userinfo.component';
 import { EulaComponent } from './components/eula/eula.component';
-import { ProgressComponent } from './components/progress/progress.component';
 import { HomewithsessionComponent } from './components/homewithsession/homewithsession.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ProgressComponent } from '../lib/progress/progress.component';
 
 const routes: Routes = [
     { path: '', component: RegisterComponent },
