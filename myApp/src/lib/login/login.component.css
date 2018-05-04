@@ -1,0 +1,29 @@
+.login li {
+    margin: 75px;
+    margin-left: 140px;
+    list-style-type: none;
+    display: inline;
+}
+
+.login li button {
+    width: 240px;
+    height: 50px;
+}
+
+.login a {
+    float: right;
+    margin-right: 10px;
+}
+
+.login h3 {
+    text-align: center;
+}
+
+.login {
+    width: 70%;
+    background-color: rgb(206, 233, 221);
+    height: 370px;
+    margin-left: 200px;
+    margin-top: 75px;
+    box-shadow: 5px 5px 5px 5px #888888;
+}

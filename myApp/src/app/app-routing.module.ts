@@ -11,10 +11,11 @@ import { HomewithsessionComponent } from './components/homewithsession/homewiths
 import { HeaderComponent } from './components/header/header.component';
 
 const routes: Routes = [
-    { path: '', component: HeaderComponent },
+    { path: '', component: RegisterComponent },
     { path: "help", component: HelpComponent },
     { path: "home", component: HomeComponent },
     { path: "account", component: UseraccountComponent },
+    { path: "register", component: RegisterComponent },
     { path: "userinfo", component: UserinfoComponent },
     { path: "eula", component: EulaComponent },
     { path: "progress", component: ProgressComponent },
