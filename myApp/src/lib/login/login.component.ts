@@ -8,19 +8,20 @@ import { BaseLoginProvider } from './base/provider.base';
 import { GoogleComponent } from './google/google.component';
 
 @Component({
-  selector: 'app-login',
+  selector: 'lib-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements AfterViewInit, OnDestroy {
 
   @Input() google = 'yes';
-  @Output() oncancel = new EventEmitter();
-  @Output() oncomplete = new EventEmitter();
+  @Output() oncancel: EventEmitter<void>;
+  @Output() oncomplete: EventEmitter<BaseLoginProvider> = new EventEmitter();
   @ViewChild(LoginDirective) host: LoginDirective; 
 
   title = 'social network login';
 
+  private selectedProvider: BaseLoginProvider = null;
   private providers: BaseLoginProvider[] = [];
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
@@ -32,6 +33,14 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
   }
 
+  public get provider(): string {
+    return ((this.selectedProvider != null) ? this.selectedProvider.Name : null); 
+  }
+
+  public get token(): string {
+    return ((this.selectedProvider != null) ? this.selectedProvider.Token : null);
+  }
+
   private loadComponents() {
     const components: any[] = [];
 
@@ -40,6 +49,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     }
 
     this.providers = [];
+    this.selectedProvider = null;
     this.host.viewContainerRef.clear();
     for (const cmp of components) {
       const factory = this.componentFactoryResolver.resolveComponentFactory(cmp);
@@ -51,13 +61,27 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   }
 
   private completed(provider: BaseLoginProvider) {
-    console.log('LoginComponent: Operation Completed. Provider = ' + provider.Name);
-    console.log('token = ' + provider.Token);
-    // this.oncomplete.emit();
+    // console.log('LoginComponent: Operation Completed. Provider = ' + provider.Name);
+    // console.log('token = ' + provider.Token);
+    this.selectedProvider = provider;
+    console.log(this.oncomplete);
+    if (this.oncomplete == null) {
+      console.log('Trigerring oncomplete event');
+      this.oncomplete.emit(null);
+    }
+    else {
+      console.error('oncomplete event is undefined');
+    }
   }
 
   private cancelled(provider: BaseLoginProvider) {
     console.log('LoginComponent: Operation Cancelled. Provider = ' + provider.Name);
-    // this.oncancel.emit();
+    if (this.oncancel == null) {
+      console.log('Trigering oncancel event');
+      this.oncancel.emit();
+    }
+    else {
+      console.error('oncancel event is undefined');
+    }
   }
 }

@@ -15,7 +15,7 @@ declare const gapi: any;
 
 export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterViewInit {
 
-  Name: 'Google';
+  Name: string = 'Google';
   EMail: string;
   PhotoUrl: string;
 
@@ -44,14 +44,15 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
   onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     var id_token = googleUser.getAuthResponse().id_token;
-    console.log("token for the googlr Authentication: ", id_token);
-    console.log(googleUser.getBasicProfile());
+    // console.log("token for the google Authentication: ", id_token);
+    // console.log(googleUser.getBasicProfile());
 
     // var xhr = new XMLHttpRequest();
     // xhr.open('POST', 'http://localhost:3000/api/auth/google');
     // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     // xhr.setRequestHeader('googleToken', id_token);
     // xhr.send();
+    this.success(id_token);
   };
 
   onFailure(googleUser) {

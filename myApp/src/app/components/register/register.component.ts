@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LoginComponent } from '../../../lib/login/login.component';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  @ViewChild(LoginComponent) login: LoginComponent;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  loginSuccess($event) {
+    console.log(this.login.provider);
+    console.log(this.login.token);
+  }
 }
