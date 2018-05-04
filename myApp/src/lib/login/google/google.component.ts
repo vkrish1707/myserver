@@ -47,11 +47,11 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
     // console.log("token for the google Authentication: ", id_token);
     // console.log(googleUser.getBasicProfile());
 
-    // var xhr = new XMLHttpRequest();
-    // xhr.open('POST', 'http://localhost:3000/api/auth/google');
-    // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    // xhr.setRequestHeader('googleToken', id_token);
-    // xhr.send();
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:3000/api/auth/google');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('token', id_token);
+    xhr.send();
     this.success(id_token);
   };
 
