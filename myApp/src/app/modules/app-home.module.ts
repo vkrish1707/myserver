@@ -11,7 +11,7 @@ import { HomewithsessionComponent } from '../components/homewithsession/homewith
   ],
   declarations: [
     HomeComponent,
-    HomewithsessionComponent
+    HomewithsessionComponent,
   ]
 })
 

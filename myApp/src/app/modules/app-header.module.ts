@@ -8,7 +8,6 @@ import { MenuComponent } from '../components/menu/menu.component';
 import { ProfileComponent } from '../components/profile/profile.component';
 import { UseraccountComponent } from '../components/useraccount/useraccount.component';
 import { HelpComponent } from '../components/help/help.component';
-import { EulaComponent } from '../components/eula/eula.component';
 
 
 @NgModule({
@@ -23,7 +22,6 @@ import { EulaComponent } from '../components/eula/eula.component';
     ProfileComponent,
     UseraccountComponent,
     HelpComponent,
-    EulaComponent,
   ],
   exports: [
     HeaderComponent

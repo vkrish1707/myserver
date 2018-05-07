@@ -13,7 +13,9 @@
     "express": "*",
     "google-auth-library": "^1.4.0",
     "jsonwebtoken": "^8.2.1",
-    "mongoose": "*"
+    "jwt-decode": "^2.2.0",
+    "mongoose": "*",
+    "request": "^2.85.0"
   },
   "author": "vZen Team",
   "license": "ISC"

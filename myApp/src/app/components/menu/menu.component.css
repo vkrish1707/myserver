@@ -1,11 +1,34 @@
-.center{
-    width: 80%;
+.center {
+    width: 90%;
     background-color: #444444;
     position: fixed;
+    top: 100px;
     opacity: 0.8;
+    height: 70%;
+    left: 59px;
 }
-
 .center h1 {
     color: #fff;
     text-align: center;
+}
+     
+.left {
+    float: left;
+    width: 40%
+}
+     
+.right {
+    float: right;
+    width: 50%;
+}
+     
+.center li {
+    margin: 30px;
+    padding: 10px;
+    list-style: none;
+}
+     
+.center li a {
+    margin: 30px;
+    color: aliceblue;
 }

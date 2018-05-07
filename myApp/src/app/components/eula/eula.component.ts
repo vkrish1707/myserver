@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,13 @@ import { Router } from '@angular/router';
   templateUrl: './eula.component.html',
   styleUrls: ['./eula.component.css']
 })
+
 export class EulaComponent implements OnInit {
+
+  @Output() onaccept: EventEmitter<any> = new EventEmitter();
+  @Output() oncancel: EventEmitter<any> = new EventEmitter();
+
+  buttonStatus = true;
 
   constructor(private router: Router) { }
 
@@ -14,10 +20,15 @@ export class EulaComponent implements OnInit {
   }
 
   onAccept() {
-    this.router.navigate(['/progress']);
+    this.onaccept.emit(null);
   }
 
   onDecline() {
-    this.router.navigate(['/register']);
+    this.oncancel.emit(null);
+  }
+
+  enableAccept() {
+    this.buttonStatus = ((this.buttonStatus === true) ? false : true);
   }
 }
+

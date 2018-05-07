@@ -1,3 +1,24 @@
-<p>
-  registeruserconfirm works!
-</p>
+<div *ngFor='let userDetail of userDetails' class="userinfo">
+    <ul>
+    <li>
+    <h6>First Name: {{userDetail.firstName}}</h6>
+    </li>
+    <li>
+    <h6>Last Name: {{userDetail.lastName}}</h6>
+    </li>
+    <li>
+    <h6>email: {{userDetail.email}}</h6>
+    </li>
+    <li>
+    <h6>Contact: {{userDetail.contact}}</h6>
+    </li>
+    </ul>
+     
+    <img src="{{userDetail.image}}">
+     
+    <div>
+    <button class="btn btn-success" (click)="onContinue()">Continue</button>
+    <button class="btn btn-danger" (click)="onCancel()">Cancel</button>
+    </div>
+     
+    </div>

@@ -13,7 +13,7 @@ export abstract class BaseLoginProvider {
     abstract get EMail(): string;
     abstract get PhotoUrl() : string;
 
-    public get Token() {
+    public get Token(): string {
         return this._token;
     }
 
@@ -24,8 +24,6 @@ export abstract class BaseLoginProvider {
 
     protected success(token: any) {
         this._token = token;
-        console.log('in base provider - success');
-        console.log(this.eventSuccess);
         this.eventSuccess.emit(this);
     }
 

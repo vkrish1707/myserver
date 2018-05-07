@@ -16,7 +16,7 @@ export class Alert {
 
     get iconType(): string {
         let result: string = 'error';
-        if (this.icon == 'success' || this.icon == 'info' || this.icon == 'error' || this.icon == 'warning') {
+        if (this.icon == 'flag' || this.icon == 'info' || this.icon == 'error' || this.icon == 'warning') {
             result = this.icon;
         }
 

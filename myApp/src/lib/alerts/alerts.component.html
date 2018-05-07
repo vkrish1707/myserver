@@ -1,6 +1,6 @@
 <div class="alerts" *ngFor="let alert of alerts" [@alerts]="filteredALerts">
   <div class="alertAndImage" [@alerts]="filteredAlerts">
-    <img src="lib/alerts/assets/{{ alert.iconType }}.png" *ngIf="alert.canDismiss == true"> {{alert.elipsisMessage}}
+    <i class="material-icons" *ngIf="alert.canDismiss == true">{{alert.icon}}</i> {{alert.elipsisMessage}}
     <button class="btn-dismissAlert" *ngIf="alert.canDismiss == true" (click)="dismissAlert(alert)">X</button>
   </div>
 </div>

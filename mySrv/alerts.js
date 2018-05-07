@@ -3,11 +3,14 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var cors = require('cors');
 var jwt = require('jsonwebtoken');
+var request = require('request');
+var jwt_decode = require('jwt-decode');
 
 var Alert = require('./models/alerts');
 
 var app = express();
 var Port = 3000;
+var decoded = '';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -59,11 +62,46 @@ router.route('/auth/google')
             console.log('Email: ', payload.email);
             console.log('ImageUrl:', payload.picture);
 
-            var jtoken = jwt.sign({ username: payload.name, email: payload.email, image: payload.picture}, 'twinesoft', {expiresIn: '3h'});
-            res.json(jtoken);
+            var jtoken = jwt.sign({ username: payload.name, email: payload.email, image: payload.picture }, 'twinesoft', { expiresIn: '3h' });
+
+            decoded = jwt_decode(jtoken);
+                res.json(decoded);
         }
-        verify().catch(console.error);        
+        verify().catch(console.error);
     });
+
+// Facebook
+router.route('/auth/facebook')
+    .post(function verifyFacebookUserAccessToken(req, res, token2) {
+        var token2 = req.headers['token2'];
+
+        var path = 'https://graph.facebook.com/me?access_token=' + token2;
+        request(path, function (error, response, body) {
+            var data = JSON.parse(body);
+            
+            if (!error && response && response.statusCode && response.statusCode == 200) {
+                var user = {
+                    facebookUserId: data.id,
+                    username: data.profile,
+                    firstName: data.displayName,
+                    lastName: data.name,
+                    email: data.email
+                };
+                var jtoken = jwt.sign({ facebookUserId: data.id, name:data.name }, 'twinesoft', { expiresIn: '3h' });
+
+                decoded = jwt_decode(jtoken);
+                res.json(decoded);
+            }
+            else {
+                console.log(data.error);
+            }
+        });
+    });
+
+app.get('/api/jwt', function(req, res) {
+    res.json(decoded);
+    console.log(' The Decoded JWT is ',decoded);
+});
 
 app.use('/api', router);
 

@@ -13,10 +13,11 @@ import { AppHeaderModule } from './modules/app-header.module';
 import { AppHomeModule } from './modules/app-home.module';
 import { AppRegisterModule } from './modules/app-register.module';
 import { UserSessionService } from './services/user-session.service';
+import { LoginModule } from '../lib/login/login.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,8 +28,9 @@ import { UserSessionService } from './services/user-session.service';
     AlertsModule,
     AppHeaderModule,
     AppHomeModule,
+    LoginModule,
     AppRegisterModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot() 
   ],
   providers: [UserSessionService],
   bootstrap: [AppComponent]

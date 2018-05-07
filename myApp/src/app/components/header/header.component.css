@@ -5,6 +5,14 @@
     color: #fff;
 }
 
+.navbar button {
+    width: 100px;
+}
+
+.btn i {
+    font-size: 15px;
+}
+
 .menu {
     margin-left: 10%;
     margin-right: 5%;
@@ -24,10 +32,19 @@
         left: 80%;    
 }
 
+#signUp a {
+    padding: 20px;
+}
+
 #help {
     position: absolute;
-        left:55%;
-        top:40px;
+        right:1%;
+        top:34px;
+}
+
+#help i {
+    color:white;
+    font-size: 25px; 
 }
 
 .profile {

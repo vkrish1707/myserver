@@ -6,6 +6,7 @@ import { Component,
 import { LoginDirective } from './base/login.directive';
 import { BaseLoginProvider } from './base/provider.base';
 import { GoogleComponent } from './google/google.component';
+import { FacebookComponent } from './facebook/facebook.component';
 
 @Component({
   selector: 'lib-login',
@@ -15,8 +16,9 @@ import { GoogleComponent } from './google/google.component';
 export class LoginComponent implements AfterViewInit, OnDestroy {
 
   @Input() google = 'yes';
-  @Output() oncancel: EventEmitter<void>;
-  @Output() oncomplete: EventEmitter<BaseLoginProvider> = new EventEmitter();
+  @Input() facebook = 'yes';
+  @Output() oncancel: EventEmitter<any> = new EventEmitter();
+  @Output() oncomplete: EventEmitter<any> = new EventEmitter();
   @ViewChild(LoginDirective) host: LoginDirective; 
 
   title = 'social network login';
@@ -42,11 +44,27 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   }
 
   private loadComponents() {
+    let that = this;
     const components: any[] = [];
 
     if (this.google === 'yes') {
       components.push(GoogleComponent);
     }
+
+    if (this.facebook === 'yes') {
+      components.push(FacebookComponent);
+    }
+
+    let completed = (provider) => {
+      that.selectedProvider = provider;
+      that.oncomplete.emit(null)
+    };
+
+    let cancelled = (provider) => {
+      console.log('trigerring cancelled event');
+      console.log('LoginComponent: Operation cancelled. Provider = ' + provider.Name);
+      that.oncancel.emit(null)
+    };
 
     this.providers = [];
     this.selectedProvider = null;
@@ -54,34 +72,9 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     for (const cmp of components) {
       const factory = this.componentFactoryResolver.resolveComponentFactory(cmp);
       const item = this.host.viewContainerRef.createComponent(factory);
-      (<BaseLoginProvider>item.instance).onsuccess.subscribe(this.completed);
-      (<BaseLoginProvider>item.instance).oncancel.subscribe(this.cancelled);
+      (<BaseLoginProvider>item.instance).onsuccess.subscribe(completed);
+      (<BaseLoginProvider>item.instance).oncancel.subscribe(cancelled);
       this.providers.push((<BaseLoginProvider>item.instance));
-    }
-  }
-
-  private completed(provider: BaseLoginProvider) {
-    // console.log('LoginComponent: Operation Completed. Provider = ' + provider.Name);
-    // console.log('token = ' + provider.Token);
-    this.selectedProvider = provider;
-    console.log(this.oncomplete);
-    if (this.oncomplete == null) {
-      console.log('Trigerring oncomplete event');
-      this.oncomplete.emit(null);
-    }
-    else {
-      console.error('oncomplete event is undefined');
-    }
-  }
-
-  private cancelled(provider: BaseLoginProvider) {
-    console.log('LoginComponent: Operation Cancelled. Provider = ' + provider.Name);
-    if (this.oncancel == null) {
-      console.log('Trigering oncancel event');
-      this.oncancel.emit();
-    }
-    else {
-      console.error('oncancel event is undefined');
     }
   }
 }

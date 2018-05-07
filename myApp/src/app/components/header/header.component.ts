@@ -5,6 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';;
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit {
 
   @Input() menu: string = "show";
@@ -47,5 +48,4 @@ export class HeaderComponent implements OnInit {
     this.menuicon = ((this.menuicon == true) ? false : true);
     this.closeicon = ((this.closeicon == true) ? false : true);
   }
-
 }

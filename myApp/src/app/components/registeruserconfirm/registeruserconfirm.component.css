@@ -1,0 +1,29 @@
+.userinfo {
+    width: 70%;
+    background-color: rgb(206, 233, 221);
+    height: 370px;
+    margin-left: 200px;
+    margin-top: 75px;
+    box-shadow: 5px 5px 5px 5px #888888;
+}
+     
+.userinfo li {
+    list-style-type: none;
+    margin-left: 10px;
+    padding: 20px;
+    /* background-color: black; */
+}
+     
+.userinfo img {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 900px;
+    top: 200px;
+}
+     
+.userinfo button {
+    float: right;
+    margin-right: 30px;
+    margin-top: 30px;
+}

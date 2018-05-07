@@ -1,30 +1,37 @@
 <div class="navbar">
 
+  <!-- The Menu button with the icons -->
   <div *ngIf=showMenu>
-    <button type="button" class="btn btn-outline-primary" (click)="getShowMenuContent()">
-      <img src="assets/menuicon.png" *ngIf="menuicon">
-      <img src="assets/closeicon.png" *ngIf="closeicon"> Menu
+    <button type="button" class="btn btn-outline-primary nav-item active" (click)="getShowMenuContent()">
+      <i class="material-icons" *ngIf="menuicon">menu</i>
+      <i class="material-icons" *ngIf="closeicon">clear</i>Menu
     </button>
   </div>
 
+  <!-- The application Name -->
   <a [routerLink]="['/']" id="appName">TELGRO</a>
 
+  <!-- The Help icon  -->
   <div *ngIf="showHelp">
-    <a [routerLink]="['/help']" id="help">Help?</a>
+    <a [routerLink]="['/help']" id="help">
+      <i class="material-icons" data-toggle="tooltip" title="Help">help</i>
+    </a>
   </div>
 
+  <!-- The profile -->
   <div class="profile" *ngIf="showProfile">
     <app-profile></app-profile>
   </div>
 
+  <!-- The Signin with login and register -->
   <div id="signUp" *ngIf="showLoginRegister">
     <a [routerLink]="['/register']">Register</a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a [routerLink]="['/login']">Login</a>
   </div>
 
 </div>
 
+<!-- To show the menu content -->
 <div class="menu" *ngIf="showMenuContent">
   <app-menu></app-menu>
 </div>
