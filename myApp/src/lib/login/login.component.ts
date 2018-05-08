@@ -13,6 +13,7 @@ import { FacebookComponent } from './facebook/facebook.component';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements AfterViewInit, OnDestroy {
 
   @Input() google = 'yes';

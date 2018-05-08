@@ -18,6 +18,7 @@ import { RegisteruserconfirmComponent } from '../components/registeruserconfirm/
   imports: [
     CommonModule,
     AppHeaderModule,
+    AppHomeModule,
     LoginModule,
     HttpModule,
   ],
@@ -29,4 +30,5 @@ import { RegisteruserconfirmComponent } from '../components/registeruserconfirm/
     EulaComponent
   ]
 })
+
 export class AppRegisterModule { }

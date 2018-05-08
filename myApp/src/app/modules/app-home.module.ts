@@ -9,10 +9,17 @@ import { HomewithsessionComponent } from '../components/homewithsession/homewith
     CommonModule,
     AppHeaderModule
   ],
+  
   declarations: [
     HomeComponent,
     HomewithsessionComponent,
+  ],
+
+  exports: [
+    HomeComponent,
+    HomewithsessionComponent
   ]
+
 })
 
 export class AppHomeModule { }

@@ -31,4 +31,3 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
     throw new Error('Method not implemented.');
   }
 }
-

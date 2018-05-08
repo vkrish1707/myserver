@@ -11,6 +11,7 @@ import { LoginDirective } from './base/login.directive';
   imports: [
     CommonModule
   ],
+  
   declarations: [
     LoginComponent,
     GoogleComponent,
@@ -34,4 +35,5 @@ import { LoginDirective } from './base/login.directive';
   ],
 
 })
+
 export class LoginModule { }

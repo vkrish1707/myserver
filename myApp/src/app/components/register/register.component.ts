@@ -36,10 +36,15 @@ export class RegisterComponent implements OnInit {
   }
 
   infoCancel() {
-    this.state = 'signin';
+    this.state = 'home';
   }
 
   eulaAceept() {
     this.state = 'progress';
   }
+
+  eulaCancel() {
+    this.state = 'home';
+  }
+
 }

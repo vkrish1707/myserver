@@ -27,4 +27,5 @@ import { HelpComponent } from '../components/help/help.component';
     HeaderComponent
   ]
 })
+
 export class AppHeaderModule { }

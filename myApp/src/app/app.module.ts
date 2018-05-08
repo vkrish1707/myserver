@@ -42,4 +42,3 @@ export class AppModule {
     globals.InjectorInstance = injector;
   }
 }
-
