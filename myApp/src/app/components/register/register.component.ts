@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LoginComponent } from '../../../lib/login/login.component';
 import { Http } from '@angular/http';
 import { IUser } from '../../models/user.model';
+
+import { LoginComponent } from '../../../lib/login/login.component';
 import { RegisteruserconfirmComponent } from '../registeruserconfirm/registeruserconfirm.component';
 
 @Component({
@@ -15,7 +16,6 @@ export class RegisterComponent implements OnInit {
   @ViewChild(LoginComponent) login: LoginComponent;
   @ViewChild(RegisteruserconfirmComponent) info: RegisteruserconfirmComponent;
 
-  public jwt;
   private state: string = 'signin';
 
   constructor(private http: Http) { }

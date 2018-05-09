@@ -3,16 +3,17 @@ import { FacebookService } from './facebook.service';
 import { BaseLoginProvider } from '../base/provider.base';
 
 @Component({
-  selector: 'app-facebook',
+  selector: 'lib-facebook',
   templateUrl: './facebook.component.html',
   styleUrls: ['./facebook.component.css']
 })
 
 export class FacebookComponent extends BaseLoginProvider implements OnInit {
 
-  Name = 'facebook';
-  EMail: string;
-  PhotoUrl: string;
+  providerName = 'facebook';
+  userName: string
+  email: string;
+  photoUrl: string;
 
   constructor(private loginService: FacebookService) {
     super();
@@ -23,7 +24,11 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
 
   login() {
     this.loginService.launch()
-      .then(token => { this.success(token); })
+      .then(token => {
+        this.userName = this.loginService.userName;
+        this.email = this.loginService.email;
+        this.photoUrl = this.loginService.photoUrl;
+        this.success(token); })
       .catch(()=> this.cancelled());
   }
 

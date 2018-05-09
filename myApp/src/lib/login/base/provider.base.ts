@@ -9,9 +9,10 @@ export abstract class BaseLoginProvider {
 
     private _token: any;
 
-    abstract get Name(): string;
-    abstract get EMail(): string;
-    abstract get PhotoUrl() : string;
+    abstract get providerName(): string;
+    abstract get userName(): string;
+    abstract get email(): string;
+    abstract get photoUrl() : string;
 
     public get Token(): string {
         return this._token;

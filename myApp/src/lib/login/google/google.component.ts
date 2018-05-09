@@ -1,14 +1,12 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
-import { error } from 'util';
+import { Component, AfterViewInit, OnInit, Output } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
-import { tokenName } from '@angular/compiler';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 declare const gapi: any;
 
 @Component({
-  selector: 'app-google',
+  selector: 'lib-google',
   templateUrl: './google.component.html',
   styleUrls: ['./google.component.css']
 })
@@ -18,9 +16,6 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
   Name: string = 'Google';
   EMail: string;
   PhotoUrl: string;
-
-  public token: any;
-  public user: any;
 
   constructor(private http: Http) {
     super();
@@ -42,10 +37,10 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
   }
 
   onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
+     var profile = googleUser.getBasicProfile();
     var id_token = googleUser.getAuthResponse().id_token;
-    // console.log("token for the google Authentication: ", id_token);
-    // console.log(googleUser.getBasicProfile());
+    console.log(profile);
+  
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:3000/api/auth/google');

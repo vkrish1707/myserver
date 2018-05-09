@@ -63,8 +63,10 @@ router.route('/auth/google')
             console.log('ImageUrl:', payload.picture);
 
             var jtoken = jwt.sign({ username: payload.name, email: payload.email, image: payload.picture }, 'twinesoft', { expiresIn: '3h' });
+            console.log(jtoken);
 
             decoded = jwt_decode(jtoken);
+            // console.log(decoded);
                 res.json(decoded);
         }
         verify().catch(console.error);

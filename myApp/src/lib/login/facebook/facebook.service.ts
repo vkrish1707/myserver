@@ -1,11 +1,17 @@
 import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { IUser } from '../../../app/models/user.model';
 
 declare const FB: any;
 
 @Injectable()
 export class FacebookService {
+
+  public email: string;
+  public firstName: string;
+  public lastName: string;
+  public photoUrl: string;
 
   constructor(private http: Http) {
     FB.init({
@@ -17,25 +23,26 @@ export class FacebookService {
     });
   }
 
+  public get userName(): string {
+    return this.firstName + ' ' + this.lastName;
+  }
+
   launch() {
     return new Promise(this.run);
   }
 
-  private run(resolve, reject) {
+  public run(resolve, reject) {
+    let that = this;
     FB.login(
       response => {
         if (response.authResponse) {
-          var fbToken  = response.authResponse.accessToken;
-          var userID = response.authResponse.userID;
-          console.log('the token is ', fbToken);
-          console.log(response);
+          FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function(result) {
+            that.firstName = result.first_name;
+            that.lastName = result.last_name;
+            that.email = result.email;
+            that.photoUrl = result.picture;
+          });
 
-          // send token to server
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', 'http://localhost:3000/api/auth/facebook');
-          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-          xhr.setRequestHeader('token2', fbToken);
-          xhr.send();
           // authentication was successful
           // return (via resolve) the access token to the caller
           resolve(response.authResponse.accessToken);

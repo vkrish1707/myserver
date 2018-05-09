@@ -22,8 +22,6 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   @Output() oncomplete: EventEmitter<any> = new EventEmitter();
   @ViewChild(LoginDirective) host: LoginDirective; 
 
-  title = 'social network login';
-
   private selectedProvider: BaseLoginProvider = null;
   private providers: BaseLoginProvider[] = [];
 
@@ -37,11 +35,23 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   }
 
   public get provider(): string {
-    return ((this.selectedProvider != null) ? this.selectedProvider.Name : null); 
+    return ((this.selectedProvider != null) ? this.selectedProvider.providerName : null); 
   }
 
   public get token(): string {
     return ((this.selectedProvider != null) ? this.selectedProvider.Token : null);
+  }
+
+  public get userName(): string {
+    return ((this.selectedProvider != null) ? this.selectedProvider.userName : null);
+  }
+
+  public get email(): string {
+    return ((this.selectedProvider != null) ? this.selectedProvider.email : null);
+  }
+
+  public get photoUrl(): string {
+    return ((this.selectedProvider != null) ? this.selectedProvider.photoUrl : null);
   }
 
   private loadComponents() {

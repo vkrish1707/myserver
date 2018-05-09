@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { IUser } from '../models/user.model';
+import { FacebookService } from '../../lib/login/facebook/facebook.service';
 
 @Injectable()
 export class UserSessionService {
@@ -13,13 +14,13 @@ export class UserSessionService {
       'lastName': 'Mylavarapu',
       'email': 'mvamsikrishna2012@gmail.com',
       'contact': 7674837573,
-      'image': 'https://scontent.fhyd2-1.fna.fbcdn.net/v/t1.0-9/16508300_857298014410599_6760406434650421939_n.jpg?_nc_cat=0&oh=ac55055bcf0c1c4a8b13b446826a422c&oe=5B94EB89',
+      'image': "https://lookaside.facebook.com/platform/profilepic/?asid=1088405634633168&height=500&width=500&ext=1526038904&hash=AeS3Evkou-R4lyyh",
     }
     ]);
 
   public user = this.userDataSubject.asObservable();
 
-  constructor() {
+  constructor(private facebook: FacebookService) {
     this.user.subscribe(data => this.userData = data);
   }
 

@@ -29,9 +29,7 @@ import { LoginDirective } from './base/login.directive';
   ],
 
   exports:[
-    LoginComponent,
-    GoogleComponent,
-    FacebookComponent
+    LoginComponent
   ],
 
 })
