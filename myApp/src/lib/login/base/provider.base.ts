@@ -1,30 +1,27 @@
 import { EventEmitter } from '@angular/core';
 
-export abstract class BaseLoginProvider {
+import { ILoginInfo } from '../login';
 
+export abstract class BaseLoginProvider implements ILoginInfo {
+    
     private eventCancel = new EventEmitter<BaseLoginProvider>();
     private eventSuccess = new EventEmitter<BaseLoginProvider>();
 
     constructor() {}
 
-    private _token: any;
-
     abstract get providerName(): string;
-    abstract get userName(): string;
+    abstract get firstName(): string;
+    abstract get lastName(): string;
     abstract get email(): string;
-    abstract get photoUrl() : string;
-
-    public get Token(): string {
-        return this._token;
-    }
+    abstract get photoUrl(): string;
+    abstract get token(): any;
 
     oncancel = this.eventCancel.asObservable();
     onsuccess = this.eventSuccess.asObservable();
 
     protected abstract logoff(): void;
 
-    protected success(token: any) {
-        this._token = token;
+    protected success() {
         this.eventSuccess.emit(this);
     }
 

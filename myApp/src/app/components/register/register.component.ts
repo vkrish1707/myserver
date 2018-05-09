@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
-import { IUser } from '../../models/user.model';
 
-import { LoginComponent } from '../../../lib/login/login.component';
 import { RegisteruserconfirmComponent } from '../registeruserconfirm/registeruserconfirm.component';
 
 @Component({
@@ -13,7 +11,6 @@ import { RegisteruserconfirmComponent } from '../registeruserconfirm/registeruse
 
 export class RegisterComponent implements OnInit {
 
-  @ViewChild(LoginComponent) login: LoginComponent;
   @ViewChild(RegisteruserconfirmComponent) info: RegisteruserconfirmComponent;
 
   private state: string = 'signin';
@@ -23,11 +20,11 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  loginSuccess() {
-    // this.http.get('http://localhost:3000/api/jwt')
-    // .subscribe(data => console.log('jwt: ' + JSON.stringify(data)));
-    console.log(this.login.provider);
-    console.log(this.login.token);
+  loginSuccess(data: any) {
+    let info = <ILoginInfo> data; 
+    console.log(info.providerName);
+    console.log(info.token);
+    console.log(info.lastName);
     this.state = 'info';
   }
 
@@ -46,5 +43,13 @@ export class RegisterComponent implements OnInit {
   eulaCancel() {
     this.state = 'home';
   }
+}
 
+interface ILoginInfo {
+  token: string;
+  providerName: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  photoUrl: string;
 }

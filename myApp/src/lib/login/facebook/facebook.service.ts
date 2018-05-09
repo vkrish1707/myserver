@@ -1,7 +1,6 @@
 import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { IUser } from '../../../app/models/user.model';
 
 declare const FB: any;
 
@@ -35,12 +34,15 @@ export class FacebookService {
     let that = this;
     FB.login(
       response => {
+        let that2 = that;
         if (response.authResponse) {
           FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function(result) {
-            that.firstName = result.first_name;
-            that.lastName = result.last_name;
-            that.email = result.email;
-            that.photoUrl = result.picture;
+            console.log(result);
+            that2.firstName = result.first_name;
+            that2.lastName = result.last_name;
+            that2.email = result.email;
+            that2.photoUrl = result.picture;
+            console.log(that.lastName);
           });
 
           // authentication was successful

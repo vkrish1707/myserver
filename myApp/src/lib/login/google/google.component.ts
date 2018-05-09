@@ -47,7 +47,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('token', id_token);
     xhr.send();
-    this.success(id_token);
+    this.success();
   };
 
   onFailure(googleUser) {

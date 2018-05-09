@@ -7,6 +7,7 @@ import { LoginDirective } from './base/login.directive';
 import { BaseLoginProvider } from './base/provider.base';
 import { GoogleComponent } from './google/google.component';
 import { FacebookComponent } from './facebook/facebook.component';
+import { ILoginInfo } from './login';
 
 @Component({
   selector: 'lib-login',
@@ -19,10 +20,9 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   @Input() google = 'yes';
   @Input() facebook = 'yes';
   @Output() oncancel: EventEmitter<any> = new EventEmitter();
-  @Output() oncomplete: EventEmitter<any> = new EventEmitter();
+  @Output() oncomplete: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(LoginDirective) host: LoginDirective; 
 
-  private selectedProvider: BaseLoginProvider = null;
   private providers: BaseLoginProvider[] = [];
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
@@ -32,26 +32,6 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-  }
-
-  public get provider(): string {
-    return ((this.selectedProvider != null) ? this.selectedProvider.providerName : null); 
-  }
-
-  public get token(): string {
-    return ((this.selectedProvider != null) ? this.selectedProvider.Token : null);
-  }
-
-  public get userName(): string {
-    return ((this.selectedProvider != null) ? this.selectedProvider.userName : null);
-  }
-
-  public get email(): string {
-    return ((this.selectedProvider != null) ? this.selectedProvider.email : null);
-  }
-
-  public get photoUrl(): string {
-    return ((this.selectedProvider != null) ? this.selectedProvider.photoUrl : null);
   }
 
   private loadComponents() {
@@ -67,8 +47,14 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     }
 
     let completed = (provider) => {
-      that.selectedProvider = provider;
-      that.oncomplete.emit(null)
+      let info = <ILoginInfo>{};
+      info.providerName = provider.Name;
+      info.email = provider.email;
+      info.firstName = provider.firstName;
+      info.lastName = provider.lastName;
+      info.photoUrl = provider.photoUrl;
+      info.token = provider.token;
+      that.oncomplete.emit(<ILoginInfo> provider);
     };
 
     let cancelled = (provider) => {
@@ -78,7 +64,6 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     };
 
     this.providers = [];
-    this.selectedProvider = null;
     this.host.viewContainerRef.clear();
     for (const cmp of components) {
       const factory = this.componentFactoryResolver.resolveComponentFactory(cmp);
