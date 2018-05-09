@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { UserSessionService } from '../../services/user-session.service';
-import { IUser } from '../../models/user.model';
+import { UserSessionService } from '../../services/usersession.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,10 +13,8 @@ export class RegisteruserconfirmComponent implements OnInit {
   @Output() oncontinue: EventEmitter<any> = new EventEmitter;
   @Output() oncancel: EventEmitter<any> = new EventEmitter;
 
-  private userDetails: IUser[];
 
   constructor(private userSessionService: UserSessionService, private router: Router) {
-    this.userSessionService.user.subscribe(data => this.userDetails = data);
   }
 
   ngOnInit() {

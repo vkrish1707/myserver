@@ -10,7 +10,7 @@ var Alert = require('./models/alerts');
 
 var app = express();
 var Port = 3000;
-var decoded = '';
+var gjtoken = '';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,7 +46,7 @@ app.post('/api/alerts', function (req, res) {
 router.route('/auth/google')
     .post(function (req, res, next) {
         var token = req.headers['token'];
-        console.log('token from the Google ====', token);
+        // console.log('token from the Google ====', token);
 
         const { OAuth2Client } = require('google-auth-library');
         const client = new OAuth2Client(CLIENT_ID = '284779082637-o4uhhhiirkb7j89r8qd0jfkfmddnmq94.apps.googleusercontent.com');
@@ -62,12 +62,8 @@ router.route('/auth/google')
             console.log('Email: ', payload.email);
             console.log('ImageUrl:', payload.picture);
 
-            var jtoken = jwt.sign({ username: payload.name, email: payload.email, image: payload.picture }, 'twinesoft', { expiresIn: '3h' });
-            console.log(jtoken);
-
-            decoded = jwt_decode(jtoken);
-            // console.log(decoded);
-                res.json(decoded);
+            gjtoken = jwt.sign({ userid: payload.userid }, 'twinesoft', { expiresIn: '3h' });
+            console.log(gjtoken);
         }
         verify().catch(console.error);
     });
@@ -100,9 +96,9 @@ router.route('/auth/facebook')
         });
     });
 
-app.get('/api/jwt', function(req, res) {
-    res.json(decoded);
-    console.log(' The Decoded JWT is ',decoded);
+app.get('/gjwt', function(req, res) {
+    res.json(gjtoken);
+    console.log(' The google JWT is ',gjtoken);
 });
 
 app.use('/api', router);

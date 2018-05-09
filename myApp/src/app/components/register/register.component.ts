@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 
 import { RegisteruserconfirmComponent } from '../registeruserconfirm/registeruserconfirm.component';
 import { Router } from '@angular/router';
+import { ISessionInfo, UserSessionService, IUserInfo } from '../../services/usersession.service';
 
 @Component({
   selector: 'app-register',
@@ -15,17 +16,18 @@ export class RegisterComponent implements OnInit {
   @ViewChild(RegisteruserconfirmComponent) info: RegisteruserconfirmComponent;
 
   private state: string = 'signin';
+  private sessiondata: ISessionInfo;
 
-  constructor(private http: Http,private router: Router) { }
+  constructor(private http: Http, private router: Router, private sessionService: UserSessionService) { }
 
   ngOnInit() {
   }
 
   loginSuccess(data: any) {
-    let info = <ILoginInfo> data; 
-    console.log(info.providerName);
-    console.log(info.token);
-    console.log(info.firstName);
+    this.sessiondata = <ISessionInfo> data; 
+    console.log(this.sessiondata.providerName);
+    console.log(this.sessiondata.token);
+    console.log(this.sessiondata.firstName);
     this.state = 'info';
   }
 
@@ -33,24 +35,12 @@ export class RegisterComponent implements OnInit {
     this.state = 'eula';
   }
 
-  infoCancel() {
-    this.router.navigate['/home'];
-  }
-
   eulaAceept() {
+    this.sessionService.establish(this.sessiondata);
     this.state = 'progress';
   }
 
   eulaCancel() {
     this.state = 'home';
   }
-}
-
-interface ILoginInfo {
-  token: string;
-  providerName: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  photoUrl: string;
 }

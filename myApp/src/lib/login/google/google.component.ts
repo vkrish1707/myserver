@@ -13,7 +13,7 @@ declare const gapi: any;
 
 export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterViewInit {
 
-  providerName = 'Google';
+  providerName = 'google';
   email: string;
   photoUrl: string;
   firstName: string;

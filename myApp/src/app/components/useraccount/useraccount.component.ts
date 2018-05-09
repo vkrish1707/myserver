@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from '../../models/user.model';
-import { UserSessionService } from '../../services/user-session.service';
+import { UserSessionService } from '../../services/usersession.service';
 
 @Component({
   selector: 'app-useraccount',
@@ -9,10 +8,7 @@ import { UserSessionService } from '../../services/user-session.service';
 })
 export class UseraccountComponent implements OnInit {
 
-  private userDetails: IUser[];
-
   constructor(private userSessionService: UserSessionService) {
-    this.userSessionService.user.subscribe(data => this.userDetails = data);
   }
 
   ngOnInit() {
