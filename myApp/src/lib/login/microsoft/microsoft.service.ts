@@ -5,6 +5,12 @@ import { IdToken } from "msal/lib-commonjs/IdToken";
 @Injectable()
 export class MicrosoftService {
 
+    public email: string;
+    public firstName: string;
+    public lastName: string;
+    public photoUrl: string;
+    public token: string;  
+
     //Private members
     private access_token: any = null;
     private app: any;
@@ -32,7 +38,10 @@ export class MicrosoftService {
         return this.app.loginPopup(this.config.graphScopes)
             .then(idToken => {
                 const user = this.app.getUser();
-                console.log(user);
+                // console.log(user);
+                this.email = user.displayableId;
+                this.firstName = user.name;
+                this.token = idToken;
                 if (user) {
                     return this.getToken().then(token => token);
                 } else {

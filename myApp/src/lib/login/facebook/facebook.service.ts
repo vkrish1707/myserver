@@ -1,16 +1,12 @@
 import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { ILoginInfo } from '../login';
 
 declare const FB: any;
 
 @Injectable()
 export class FacebookService {
-
-  public email: string;
-  public firstName: string;
-  public lastName: string;
-  public photoUrl: string;
 
   constructor(private http: Http) {
     FB.init({
@@ -22,32 +18,27 @@ export class FacebookService {
     });
   }
 
-  public get userName(): string {
-    return this.firstName + ' ' + this.lastName;
-  }
-
-  launch() {
-    return new Promise(this.run);
+  launch(): Promise<ILoginInfo> {
+    return new Promise<ILoginInfo>(this.run);
   }
 
   public run(resolve, reject) {
-    let that = this;
     FB.login(
       response => {
-        let that2 = that;
+        let info = <ILoginInfo>{};
         if (response.authResponse) {
+          info.providerName = 'facebook';
+          info.token = response.authResponse.accessToken;
           FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function(result) {
-            console.log(result);
-            that2.firstName = result.first_name;
-            that2.lastName = result.last_name;
-            that2.email = result.email;
-            that2.photoUrl = result.picture;
-            console.log(that.lastName);
+            info.firstName = result.first_name;
+            info.lastName = result.last_name;
+            info.email = result.email;
+            info.photoUrl = result.picture;
+            resolve(info);
           });
 
-          // authentication was successful
-          // return (via resolve) the access token to the caller
-          resolve(response.authResponse.accessToken);
+          console.log('still in run');
+          console.log(info.lastName);  
         } else {
 
           // authetication is failed or cancelled

@@ -19,7 +19,7 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
   photoUrl: string;
   firstName: string;
   lastName: string;
-  token: any;  
+  token: any;
 
   private access_token: any = null;
   private app: any;
@@ -38,12 +38,18 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-  onLogin(){
+  onLogin() {
     this.microsoftService.login()
-      .then(token => this.success())
+      .then(mstoken => {
+        this.token = mstoken;
+        this.firstName = this.microsoftService.firstName;
+        this.lastName = this.microsoftService.lastName;
+        this.email = this.microsoftService.email;
+        this.photoUrl = this.microsoftService.photoUrl;
+        this.success();
+      })
       .catch(() => this.cancelled());
   }
   ngOnInit() {
-
   }
 }

@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
     let info = <ILoginInfo> data; 
     console.log(info.providerName);
     console.log(info.token);
-    console.log(info.lastName);
+    console.log(info.firstName);
     this.state = 'info';
   }
 
