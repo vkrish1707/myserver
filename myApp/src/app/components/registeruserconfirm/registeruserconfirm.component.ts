@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserSessionService } from '../../services/user-session.service';
 import { IUser } from '../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registeruserconfirm',
@@ -15,7 +16,7 @@ export class RegisteruserconfirmComponent implements OnInit {
 
   private userDetails: IUser[];
 
-  constructor(private userSessionService: UserSessionService) {
+  constructor(private userSessionService: UserSessionService, private router: Router) {
     this.userSessionService.user.subscribe(data => this.userDetails = data);
   }
 
@@ -27,7 +28,7 @@ export class RegisteruserconfirmComponent implements OnInit {
   }
 
   onCancel() {
-    this.oncancel.emit(null);
+    this.router.navigate(['/home']);
   }
 
 }

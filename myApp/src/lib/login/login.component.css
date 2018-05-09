@@ -20,6 +20,42 @@
     background-color: #3b5998;
     color: #fff;
     float: right;
-    margin-right: 14%;
-    margin-top:-7%        
+    margin-right: 19%;
+    margin-top: -5%;
+    font-size: 17px;
 } 
+
+::ng-deep .fa {
+    padding: 0px;
+    font-size: 27px;
+}
+::ng-deep .fa-facebook {
+    margin-right: 20px;
+    margin-left: 5px;
+    margin-bottom: -7px;
+    margin-top: -1px;
+    float: left;
+}
+
+::ng-deep #microsoftBtn {
+    background-color: #2672EC;
+    color: #fff;
+    float: left;
+    margin-left: 14%;
+    margin-top: 6%;
+    font-size: 17px;
+}
+     
+::ng-deep .fa {
+    padding: 0px;
+    font-size: 27px;
+    margin-right: 18px;
+}
+     
+::ng-deep .fa-microsoft {
+    margin-right: 20px;
+    margin-left: 5px;
+    margin-bottom: -5px;
+    margin-top: -1px;
+    float: left;
+}

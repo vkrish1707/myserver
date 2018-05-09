@@ -8,6 +8,7 @@ import { BaseLoginProvider } from './base/provider.base';
 import { GoogleComponent } from './google/google.component';
 import { FacebookComponent } from './facebook/facebook.component';
 import { ILoginInfo } from './login';
+import { MicrosoftComponent } from './microsoft/microsoft.component';
 
 @Component({
   selector: 'lib-login',
@@ -19,6 +20,8 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 
   @Input() google = 'yes';
   @Input() facebook = 'yes';
+  @Input() microsoft = 'yes';
+
   @Output() oncancel: EventEmitter<any> = new EventEmitter();
   @Output() oncomplete: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(LoginDirective) host: LoginDirective; 
@@ -46,14 +49,12 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       components.push(FacebookComponent);
     }
 
+    if (this.microsoft === 'yes') {
+      components.push(MicrosoftComponent);
+    }
+
+
     let completed = (provider) => {
-      let info = <ILoginInfo>{};
-      info.providerName = provider.Name;
-      info.email = provider.email;
-      info.firstName = provider.firstName;
-      info.lastName = provider.lastName;
-      info.photoUrl = provider.photoUrl;
-      info.token = provider.token;
       that.oncomplete.emit(<ILoginInfo> provider);
     };
 

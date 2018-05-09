@@ -13,9 +13,12 @@ declare const gapi: any;
 
 export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterViewInit {
 
-  Name: string = 'Google';
-  EMail: string;
-  PhotoUrl: string;
+  providerName = 'Google';
+  email: string;
+  photoUrl: string;
+  firstName: string;
+  lastName: string;
+  token: any;
 
   constructor(private http: Http) {
     super();
@@ -36,17 +39,18 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
     });
   }
 
-  onSignIn(googleUser) {
-     var profile = googleUser.getBasicProfile();
-    var id_token = googleUser.getAuthResponse().id_token;
-    console.log(profile);
-  
+  public get userName(): string {
+    return this.firstName + ' ' + this.lastName;
+  }
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3000/api/auth/google');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.setRequestHeader('token', id_token);
-    xhr.send();
+  onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    var id_token = googleUser.getAuthResponse().id_token;
+    this.token = id_token;
+    this.firstName = profile.ofa;
+    this.lastName = profile.wea;
+    this.email = profile.U3;
+    this.photoUrl = profile.paa;
     this.success();
   };
 
@@ -55,6 +59,6 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
   };
 
   logoff(): void {
-    throw new Error('Method not Implemented.');    
+    throw new Error('Method not Implemented.');
   };
 }

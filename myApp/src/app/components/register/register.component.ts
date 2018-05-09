@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { RegisteruserconfirmComponent } from '../registeruserconfirm/registeruserconfirm.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
   private state: string = 'signin';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,private router: Router) { }
 
   ngOnInit() {
   }
@@ -33,7 +34,7 @@ export class RegisterComponent implements OnInit {
   }
 
   infoCancel() {
-    this.state = 'home';
+    this.router.navigate['/home'];
   }
 
   eulaAceept() {

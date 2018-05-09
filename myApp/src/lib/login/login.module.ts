@@ -6,6 +6,8 @@ import { FacebookComponent } from './facebook/facebook.component';
 import { BaseLoginProvider } from './base/provider.base';
 import { FacebookService } from './facebook/facebook.service';
 import { LoginDirective } from './base/login.directive';
+import { MicrosoftComponent } from './microsoft/microsoft.component';
+import { MicrosoftService } from './microsoft/microsoft.service';
 
 @NgModule({
   imports: [
@@ -16,16 +18,19 @@ import { LoginDirective } from './base/login.directive';
     LoginComponent,
     GoogleComponent,
     FacebookComponent,
+    MicrosoftComponent,
     LoginDirective
   ],
 
   entryComponents: [
     GoogleComponent,
-    FacebookComponent
+    FacebookComponent,
+    MicrosoftComponent
   ],
 
   providers:[
-    FacebookService
+    FacebookService,
+    MicrosoftService
   ],
 
   exports:[
