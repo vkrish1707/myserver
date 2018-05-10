@@ -39,10 +39,6 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
     });
   }
 
-  public get userName(): string {
-    return this.firstName + ' ' + this.lastName;
-  }
-
   onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     var id_token = googleUser.getAuthResponse().id_token;

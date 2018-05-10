@@ -14,12 +14,12 @@ export class MicrosoftService {
     //Private members
     private access_token: any = null;
     private app: any;
+
     private config = {
         clientId: "be8c0de3-39bb-4c97-91ed-b59dcfd0d031",
         redirectUrl: "http://localhost:4200/",
         graphEndpoint: "https://graph.microsoft.com/v1.0/me",
         graphScopes: ["user.read", "email"],
-
     };
 
     //constructor

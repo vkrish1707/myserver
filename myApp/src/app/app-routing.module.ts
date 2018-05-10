@@ -10,15 +10,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { ProgressComponent } from '../lib/progress/progress.component';
 
 const routes: Routes = [
-    { path: '', component: RegisterComponent },
-    { path: "help", component: HelpComponent },
-    { path: "home", component: HomeComponent },
-    { path: "account", component: UseraccountComponent },
-    { path: "register", component: RegisterComponent },
-    { path: "eula", component: EulaComponent },
-    { path: "progress", component: ProgressComponent },
-    { path: "session", component: HomewithsessionComponent}
-  
+  { path: "", component: HomeComponent },
+  { path: "home", component: HomeComponent },
+  { path: "help", component: HelpComponent },
+  { path: "register", component: RegisterComponent },
+  { path: "homewithsession", component: HomewithsessionComponent }
 ];
 
 @NgModule({

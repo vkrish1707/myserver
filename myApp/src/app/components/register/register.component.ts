@@ -21,10 +21,14 @@ export class RegisterComponent implements OnInit {
   constructor(private http: Http, private router: Router, private sessionService: UserSessionService) { }
 
   ngOnInit() {
+    this.sessionService.data.subscribe((info) => {
+      console.log('from subscribe');
+      console.log(info.firstName + ' ' + info.lastName );
+    })
   }
 
   loginSuccess(data: any) {
-    this.sessiondata = <ISessionInfo> data; 
+    this.sessiondata = <ISessionInfo>data;
     console.log(this.sessiondata.providerName);
     console.log(this.sessiondata.token);
     console.log(this.sessiondata.firstName);
@@ -36,8 +40,11 @@ export class RegisterComponent implements OnInit {
   }
 
   eulaAceept() {
-    this.sessionService.establish(this.sessiondata);
     this.state = 'progress';
+    this.sessionService.establish(this.sessiondata).then(() => {
+      this.state = 'complete';
+      this.router.navigate(['/homewithsession']);
+    });
   }
 
   eulaCancel() {

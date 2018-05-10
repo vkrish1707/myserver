@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/observable';
 import { Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class UserSessionService {
 
+  private state: string = 'signin';
   private jwt: any;
   private sessionInfo: ISessionInfo = <ISessionInfo>{};
   private userInfoSubject: BehaviorSubject<IUserInfo> = new BehaviorSubject<IUserInfo>(this.sessionInfo);
@@ -17,61 +19,51 @@ export class UserSessionService {
     return this.userInfoSubject.asObservable();
   }
 
-  public establish(info: ISessionInfo): void {
+  public establish(info: ISessionInfo): Promise<void> {
     this.sessionInfo = info;
-
-    if (info.providerName === 'google') {
-      var gtoken = info.token;
+    this.userInfoSubject.next(this.sessionInfo);
+    
+    // promise method that fetchs the jwt
+    let establishPromise = (resolve, reject) => {
+      setTimeout(() => console.log('timer done'), 3000);
+      let url: string = null;
+      if (this.sessionInfo.providerName === 'google') {
+        url = 'api/auth/google';
+      }
+      else if (this.sessionInfo.providerName === 'facebook') {
+        url = 'api/auth/facebook';
+      }
+      else if (this.sessionInfo.providerName === 'microsoft') {
+        url = 'api/auth/microsoft';
+      }
+      else if (this.sessionInfo.providerName === 'linkedin') {
+        url = 'api/auth/linkedin';
+      }
+      else {
+        throw new Error('Unsupported provider');
+      }
 
       // sending access_token to server to validate and create jwt
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'http://localhost:3000/api/auth/google');
+      let xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://localhost:3000/' + url);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.setRequestHeader('tokeng', gtoken);
-      xhr.send();
-
-      // get JWT from server
-      this.http.get('http://localhost:3000/gjwt').subscribe(res => {
-        (this.jwt = JSON.stringify(res));
+      xhr.setRequestHeader('token', this.sessionInfo.token);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) this.jwt = JSON.stringify(xhr.response);
         console.log(this.jwt);
-      });
+      };
+      xhr.send()
+
+      if (xhr.response != null) {
+        resolve();
+      }
+      else {
+        reject();
+      }
     }
 
-    else if (info.providerName === 'facebook') {
-      var fbtoken = info.token;
-      console.log('facebook-token from service ====== ', fbtoken);
-
-      // sending access_token to server to validate and create jwt
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'http://localhost:3000/api/auth/facebook');
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.setRequestHeader('tokenf', fbtoken);
-      xhr.send();
-
-      // get JWT from server
-      this.http.get('http://localhost:3000/fbjwt').subscribe(res => {
-        (this.jwt = JSON.stringify(res));
-        console.log(this.jwt);
-      });
-    }
-
-    else if (info.providerName === 'microsoft') {
-      var mstoken = info.token;
-      console.log('microsoft-token from service ====== ', mstoken);
-
-      // sending access_token to server to validate and create jwt
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'http://localhost:3000/api/auth/microsoft');
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.setRequestHeader('tokenm', mstoken);
-      xhr.send();
-
-      // get JWT from server
-      // this.http.get('http://localhost:3000/msjwt').subscribe(res => {
-      //   (this.jwt = JSON.stringify(res));
-      //   console.log(this.jwt);
-      // });
-    }
+    // invoke the promise
+    return new Promise(establishPromise);
   }
 }
 

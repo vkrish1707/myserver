@@ -45,7 +45,7 @@ app.post('/api/alerts', function (req, res) {
 
 router.route('/auth/google')
     .post(function (req, res, next) {
-        var token = req.headers['token'];
+        let token = req.headers['token'];
         // console.log('token from the Google ====', token);
 
         const { OAuth2Client } = require('google-auth-library');
@@ -62,8 +62,9 @@ router.route('/auth/google')
             console.log('Email: ', payload.email);
             console.log('ImageUrl:', payload.picture);
 
-            gjtoken = jwt.sign({ userid: payload.userid }, 'twinesoft', { expiresIn: '3h' });
-            console.log(gjtoken);
+            jtoken = jwt.sign({ userid: payload.userid }, 'twinesoft', { expiresIn: '3h' });
+            console.log(jtoken);
+            res.json(jtoken);
         }
         verify().catch(console.error);
     });
@@ -71,7 +72,7 @@ router.route('/auth/google')
 // Facebook
 router.route('/auth/facebook')
     .post(function verifyFacebookUserAccessToken(req, res, token2) {
-        var token2 = req.headers['token2'];
+        var token2 = req.headers['token'];
 
         var path = 'https://graph.facebook.com/me?access_token=' + token2;
         request(path, function (error, response, body) {
@@ -86,20 +87,14 @@ router.route('/auth/facebook')
                     email: data.email
                 };
                 var jtoken = jwt.sign({ facebookUserId: data.id, name:data.name }, 'twinesoft', { expiresIn: '3h' });
-
-                decoded = jwt_decode(jtoken);
-                res.json(decoded);
+                console.log(jtoken);
+                res.json(jtoken);  
             }
             else {
                 console.log(data.error);
             }
         });
     });
-
-app.get('/gjwt', function(req, res) {
-    res.json(gjtoken);
-    console.log(' The google JWT is ',gjtoken);
-});
 
 app.use('/api', router);
 
