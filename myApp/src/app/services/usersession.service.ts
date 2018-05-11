@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/observable';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class UserSessionService {
 
-  private state: string = 'signin';
   private jwt: any;
   private sessionInfo: ISessionInfo = <ISessionInfo>{};
   private userInfoSubject: BehaviorSubject<IUserInfo> = new BehaviorSubject<IUserInfo>(this.sessionInfo);
+
+  private userDetails: IUserInfo = <IUserInfo>{};
 
   constructor(private http: Http) {
   }
@@ -22,11 +22,11 @@ export class UserSessionService {
   public establish(info: ISessionInfo): Promise<void> {
     this.sessionInfo = info;
     this.userInfoSubject.next(this.sessionInfo);
-    
-    // promise method that fetchs the jwt
+
     let establishPromise = (resolve, reject) => {
       setTimeout(() => console.log('timer done'), 3000);
       let url: string = null;
+      
       if (this.sessionInfo.providerName === 'google') {
         url = 'api/auth/google';
       }

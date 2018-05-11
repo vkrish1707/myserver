@@ -1,10 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+
 import { BaseLoginProvider } from '../base/provider.base';
-//import { ClientConfig } from './client.config';
 import * as Msal from 'msal';
 import { MicrosoftService } from './microsoft.service';
-//import '../../../node_modules/msal/dist/msal.js';
-
 
 @Component({
   selector: 'lib-microsoft',
@@ -28,15 +26,11 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
     clientId: "be8c0de3-39bb-4c97-91ed-b59dcfd0d031",
     redirectUrl: "http://localhost:4200/",
     graphEndpoint: "https://graph.microsoft.com/v1.0/me",
-    graphScopes: ["user.read", "mail.send"],
-  };
+    graphScopes: ["user.read", "mail.send"]
+  }
 
   constructor(private microsoftService: MicrosoftService) {
     super();
-  }
-
-  logoff(): void {
-    throw new Error('Method not implemented.');
   }
 
   onLogin() {
@@ -51,7 +45,11 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
       })
       .catch(() => this.cancelled());
   }
-  
+
   ngOnInit() {
+  }
+
+  logoff(): void {
+    throw new Error('Method not implemented.');
   }
 }

@@ -33,12 +33,10 @@ export class FacebookService {
             info.firstName = result.first_name;
             info.lastName = result.last_name;
             info.email = result.email;
-            info.photoUrl = result.picture;
+            info.photoUrl = result.picture.data.url;
             resolve(info);
           });
 
-          console.log('still in run');
-          console.log(info.lastName);  
         } else {
 
           // authetication is failed or cancelled

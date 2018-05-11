@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { UserSessionService, IUserInfo } from '../../services/usersession.service';
+import { Component, OnInit, Output, Input, EventEmitter, AfterViewInit } from '@angular/core';
+import { IUserInfo } from '../../services/usersession.service';
 import { Router } from '@angular/router';
+import { AppRegisterService } from '../../services/app-register.service';
 
 @Component({
   selector: 'app-registeruserconfirm',
@@ -8,22 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./registeruserconfirm.component.css']
 })
 
-export class RegisteruserconfirmComponent implements OnInit {
+export class RegisteruserconfirmComponent implements OnInit, AfterViewInit {
 
   @Output() oncontinue: EventEmitter<any> = new EventEmitter;
   @Output() oncancel: EventEmitter<any> = new EventEmitter;
 
-  private user: IUserInfo;
+  constructor(private router: Router, private registerService: AppRegisterService) {}
 
-
-  constructor(private userSessionService: UserSessionService, private router: Router) {
+  ngAfterViewInit() {
   }
 
   ngOnInit() {
-    this.userSessionService.data.subscribe((info) => {
-      console.log('from subscribe');
-      console.log(info.firstName + ' ' + info.lastName );
-    })
   }
 
   onContinue() {
@@ -33,5 +29,4 @@ export class RegisteruserconfirmComponent implements OnInit {
   onCancel() {
     this.router.navigate(['/home']);
   }
-
 }

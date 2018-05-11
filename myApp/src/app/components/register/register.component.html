@@ -3,6 +3,6 @@
 <div [ngSwitch]="state">
     <lib-login *ngSwitchCase="'signin'" (oncomplete)="loginSuccess($event)"></lib-login>
     <app-registeruserconfirm *ngSwitchCase="'info'" (oncontinue)="infoContinue($event)"></app-registeruserconfirm>
-    <app-eula *ngSwitchCase="'eula'" (onaccept)="eulaAceept($event)" (oncancel)="eulaCancel($event)"></app-eula>
+    <app-eula *ngSwitchCase="'eula'" (onaccept)="eulaAccept($event)" (oncancel)="eulaCancel($event)"></app-eula>
     <lib-progress *ngSwitchCase="'progress'"></lib-progress>
 </div>

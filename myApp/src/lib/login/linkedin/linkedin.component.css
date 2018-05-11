@@ -1,0 +1,19 @@
+#linkedinBtn {
+    width: 240px;
+    height: 50px;
+    background-color: #007BB6;
+    color: #fff;
+    margin-left: 535px;
+    margin-top: -85px;
+    font-size: 17px;
+}
+
+.fa {
+    padding: 0px;
+    font-size: 27px;
+}
+
+.fa-linkedin {
+    margin: -1px 20px -5px 5px;
+    float: left;
+}

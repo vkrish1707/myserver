@@ -1,7 +1,5 @@
-import { Component, AfterViewInit, OnInit, Output } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
-import { Http, Headers } from '@angular/http';
-import 'rxjs/add/operator/map';
 
 declare const gapi: any;
 
@@ -20,7 +18,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
   lastName: string;
   token: any;
 
-  constructor(private http: Http) {
+  constructor() {
     super();
   }
 
@@ -46,7 +44,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
     this.firstName = profile.ofa;
     this.lastName = profile.wea;
     this.email = profile.U3;
-    this.photoUrl = profile.paa;
+    this.photoUrl = profile.Paa;
     this.success();
   };
 
@@ -56,5 +54,5 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
 
   logoff(): void {
     throw new Error('Method not Implemented.');
-  };
+  }
 }

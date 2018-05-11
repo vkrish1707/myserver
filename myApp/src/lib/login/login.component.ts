@@ -5,10 +5,11 @@ import { Component,
 
 import { LoginDirective } from './base/login.directive';
 import { BaseLoginProvider } from './base/provider.base';
+import { ILoginInfo } from './login';
 import { GoogleComponent } from './google/google.component';
 import { FacebookComponent } from './facebook/facebook.component';
-import { ILoginInfo } from './login';
 import { MicrosoftComponent } from './microsoft/microsoft.component';
+import { LinkedinComponent } from './linkedin/linkedin.component';
 
 @Component({
   selector: 'lib-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   @Input() google = 'yes';
   @Input() facebook = 'yes';
   @Input() microsoft = 'yes';
+  @Input() linkedin = 'yes';
 
   @Output() oncancel: EventEmitter<any> = new EventEmitter();
   @Output() oncomplete: EventEmitter<any> = new EventEmitter<any>();
@@ -53,6 +55,9 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       components.push(MicrosoftComponent);
     }
 
+    if (this.linkedin === 'yes') {
+      components.push(LinkedinComponent);
+    }
 
     let completed = (provider) => {
       that.oncomplete.emit(<ILoginInfo> provider);

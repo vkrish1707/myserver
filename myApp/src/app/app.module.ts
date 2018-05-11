@@ -12,12 +12,12 @@ import { AlertsModule } from '../lib/alerts/alerts.module';
 import { AppHeaderModule } from './modules/app-header.module';
 import { AppHomeModule } from './modules/app-home.module';
 import { AppRegisterModule } from './modules/app-register.module';
-import { UserSessionService } from './services/usersession.service';
 import { LoginModule } from '../lib/login/login.module';
+import { UserSessionService } from './services/usersession.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

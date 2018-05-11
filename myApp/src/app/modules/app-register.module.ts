@@ -10,6 +10,7 @@ import { RegisterComponent } from '../components/register/register.component';
 import { ProgressComponent } from '../../lib/progress/progress.component';
 import { EulaComponent } from '../components/eula/eula.component';
 import { RegisteruserconfirmComponent } from '../components/registeruserconfirm/registeruserconfirm.component';
+import { AppRegisterService } from '../services/app-register.service';
 
 @NgModule({
   imports: [
@@ -19,13 +20,15 @@ import { RegisteruserconfirmComponent } from '../components/registeruserconfirm/
     LoginModule,
     HttpModule,
   ],
-  
+
   declarations: [
     RegisterComponent,
     ProgressComponent,
     RegisteruserconfirmComponent,
     EulaComponent
-  ]
+  ],
+  
+  providers: [AppRegisterService]
 })
 
 export class AppRegisterModule { }

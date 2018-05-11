@@ -1,42 +1,37 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { AppRoutingModule } from '../../app/app-routing.module';
 import { LoginComponent } from './login.component';
+import { LoginDirective } from './base/login.directive';
 import { GoogleComponent } from './google/google.component';
 import { FacebookComponent } from './facebook/facebook.component';
-import { BaseLoginProvider } from './base/provider.base';
-import { FacebookService } from './facebook/facebook.service';
-import { LoginDirective } from './base/login.directive';
 import { MicrosoftComponent } from './microsoft/microsoft.component';
+import { LinkedinComponent } from './linkedin/linkedin.component';
+import { FacebookService } from './facebook/facebook.service';
 import { MicrosoftService } from './microsoft/microsoft.service';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    AppRoutingModule
   ],
-  
-  declarations: [
-    LoginComponent,
-    GoogleComponent,
-    FacebookComponent,
-    MicrosoftComponent,
-    LoginDirective
-  ],
-
   entryComponents: [
     GoogleComponent,
     FacebookComponent,
-    MicrosoftComponent
+    MicrosoftComponent,
+    LinkedinComponent
   ],
-
-  providers:[
-    FacebookService,
-    MicrosoftService
+  declarations: [
+    LoginComponent,
+    LoginDirective,
+    GoogleComponent,
+    FacebookComponent,
+    MicrosoftComponent,
+    LinkedinComponent
   ],
-
-  exports:[
-    LoginComponent
-  ],
-
+  providers: [FacebookService, MicrosoftService],
+  exports: [LoginComponent]
 })
 
 export class LoginModule { }

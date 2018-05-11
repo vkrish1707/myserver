@@ -19,7 +19,7 @@ export class MicrosoftService {
         clientId: "be8c0de3-39bb-4c97-91ed-b59dcfd0d031",
         redirectUrl: "http://localhost:4200/",
         graphEndpoint: "https://graph.microsoft.com/v1.0/me",
-        graphScopes: ["user.read", "email"],
+        graphScopes: ["user.read", "email"]
     };
 
     //constructor
@@ -38,7 +38,6 @@ export class MicrosoftService {
         return this.app.loginPopup(this.config.graphScopes)
             .then(idToken => {
                 const user = this.app.getUser();
-                // console.log(user);
                 this.email = user.displayableId;
                 this.firstName = user.name;
                 this.token = idToken;
@@ -68,9 +67,5 @@ export class MicrosoftService {
                         console.error(err);
                     });
             });
-    }
-
-    getUser() {
-        
     }
 }

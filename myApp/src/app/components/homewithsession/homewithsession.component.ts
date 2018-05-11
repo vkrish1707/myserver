@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserSessionService } from '../../services/usersession.service';
+import { UserSessionService, IUserInfo } from '../../services/usersession.service';
 
 @Component({
   selector: 'app-homewithsession',
@@ -9,9 +9,11 @@ import { UserSessionService } from '../../services/usersession.service';
 
 export class HomewithsessionComponent implements OnInit {
 
+  private info: IUserInfo;
+
   constructor(private session: UserSessionService) { }
 
   ngOnInit() {
-  }
+    this.session.data.subscribe(info => this.info = info);  }
 
 }
