@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/observable';
 import { Http } from '@angular/http';
+import { LoginService } from '../../lib/login/login.service';
 
 @Injectable()
 export class UserSessionService {
@@ -10,7 +11,7 @@ export class UserSessionService {
   private sessionInfo: ISessionInfo = <ISessionInfo>{};
   private userInfoSubject: BehaviorSubject<IUserInfo> = new BehaviorSubject<IUserInfo>(this.sessionInfo);
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private loginService: LoginService) {
   }
 
   public get data(): Observable<IUserInfo> {
@@ -64,18 +65,15 @@ export class UserSessionService {
     return new Promise(establishPromise);
   }
 
-  signOut() {
-    this.sessionInfo = null;
-    this.jwt = null;
-    console.log(this.sessionInfo);
-    console.log(this.jwt);
-
-    let xhr = new XMLHttpRequest();
-    xhr.open('DELETE','http://localhost:3000/api/jwt');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('token2', this.jwt);
-    xhr.send();
+  logOff() {
+    if (this.sessionInfo.providerName != 'microsoft') {
+      this.loginService.logoff();
+    }
+    else {
+      this.loginService.logout();
+    }
   }
+
 }
 
 export class IUserInfo {

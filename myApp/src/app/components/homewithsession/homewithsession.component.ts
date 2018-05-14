@@ -20,6 +20,7 @@ export class HomewithsessionComponent implements OnInit {
   }
 
   logOff() {
+    this.session.logOff();
     this.router.navigate(['/home']);
   }
 }

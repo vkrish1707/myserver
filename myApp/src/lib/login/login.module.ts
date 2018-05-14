@@ -10,6 +10,9 @@ import { MicrosoftComponent } from './microsoft/microsoft.component';
 import { LinkedinComponent } from './linkedin/linkedin.component';
 import { FacebookService } from './facebook/facebook.service';
 import { MicrosoftService } from './microsoft/microsoft.service';
+import { LoginService } from './login.service';
+import { GoogleService } from './google/google.service';
+import { LinkedinService } from './linkedin/linkedin.service';
 
 @NgModule({
   imports: [
@@ -30,7 +33,7 @@ import { MicrosoftService } from './microsoft/microsoft.service';
     MicrosoftComponent,
     LinkedinComponent
   ],
-  providers: [FacebookService, MicrosoftService],
+  providers: [FacebookService, MicrosoftService, LoginService, GoogleService, LinkedinService],
   exports: [LoginComponent]
 })
 

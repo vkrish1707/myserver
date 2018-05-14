@@ -51,7 +51,7 @@ export class MicrosoftService {
             });
     }
 
-    private logout() {
+    logout() {
         this.app.logout();
     }
 

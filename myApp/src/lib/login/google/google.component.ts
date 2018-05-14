@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
+import { GoogleService } from './google.service';
 
 declare const gapi: any;
 
@@ -18,7 +19,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
   lastName: string;
   token: any;
 
-  constructor() {
+  constructor(private googleService: GoogleService) {
     super();
   }
 
@@ -26,16 +27,16 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
   }
 
   ngOnInit() {
-    gapi.signin2.render('my-signin2', {
-      'onsuccess': param => this.onSignIn(param),
-      'onfailure': param => this.onFailure(param),
-      'scope': 'profile email',
-      'width': 240,
-      'height': 50,
-      'longtitle': true,
-      'theme': 'dark'
-    });
-  }
+      gapi.signin2.render('my-signin2', {
+        'onsuccess': param => this.onSignIn(param),
+        'onfailure': param => this.onFailure(param),
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark'
+      });  
+    }
 
   onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
@@ -50,9 +51,5 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
 
   onFailure(googleUser) {
     this.cancelled();
-  };
-
-  logoff(): void {
-    throw new Error('Method not Implemented.');
-  }
+  };  
 }
