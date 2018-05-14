@@ -2,6 +2,7 @@ import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { ILoginInfo } from '../login';
+import { resolve } from 'url';
 
 declare const FB: any;
 
@@ -48,5 +49,23 @@ export class FacebookService {
         scope: 'public_profile, email', return_scopes:true
       }
     );
+  }
+
+  fbLogout(): Promise<ILoginInfo> {
+    console.log('fbLogout from facebook-service is called');
+
+    return new Promise<ILoginInfo>((resolve,reject) => {
+      FB.getLoginStatus(function (response) {
+        if (response && response.status === 'connected') {
+          FB.logout(function (response) {
+            window.location.reload();
+          });
+          resolve();
+        }
+        else {
+          reject();
+        }
+      })
+    })
   }
 }

@@ -7,7 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HomewithsessionComponent } from './components/homewithsession/homewithsession.component';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: '', component: RegisterComponent },
     { path: "help", component: HelpComponent },
     { path: "home", component: HomeComponent },
     { path: "register", component: RegisterComponent },

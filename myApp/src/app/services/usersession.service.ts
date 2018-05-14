@@ -10,8 +10,6 @@ export class UserSessionService {
   private sessionInfo: ISessionInfo = <ISessionInfo>{};
   private userInfoSubject: BehaviorSubject<IUserInfo> = new BehaviorSubject<IUserInfo>(this.sessionInfo);
 
-  private userDetails: IUserInfo = <IUserInfo>{};
-
   constructor(private http: Http) {
   }
 
@@ -52,7 +50,7 @@ export class UserSessionService {
         if (xhr.readyState == 4 && xhr.status == 200) this.jwt = JSON.stringify(xhr.response);
         console.log(this.jwt);
       };
-      xhr.send()
+      xhr.send();
 
       if (xhr.response != null) {
         resolve();
@@ -64,6 +62,19 @@ export class UserSessionService {
 
     // invoke the promise
     return new Promise(establishPromise);
+  }
+
+  signOut() {
+    this.sessionInfo = null;
+    this.jwt = null;
+    console.log(this.sessionInfo);
+    console.log(this.jwt);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('DELETE','http://localhost:3000/api/jwt');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('token2', this.jwt);
+    xhr.send();
   }
 }
 

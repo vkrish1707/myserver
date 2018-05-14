@@ -26,7 +26,8 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 
   @Output() oncancel: EventEmitter<any> = new EventEmitter();
   @Output() oncomplete: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild(LoginDirective) host: LoginDirective; 
+  @Output() onlogout: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild(LoginDirective) host: LoginDirective;
 
   private providers: BaseLoginProvider[] = [];
 
@@ -63,11 +64,17 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       that.oncomplete.emit(<ILoginInfo> provider);
     };
 
-    let cancelled = (provider) => {
+    let cancelled = (provider: ILoginInfo) => {
       console.log('trigerring cancelled event');
-      console.log('LoginComponent: Operation cancelled. Provider = ' + provider.Name);
-      that.oncancel.emit(null)
+      console.log('LoginComponent: Operation cancelled. Provider = ' + provider.providerName);
+      that.oncancel.emit(null);
     };
+
+    let loggedoff = (provider: ILoginInfo) => {
+      console.log('trigerring loggedoff event');
+      console.log('LoginComponent: Operation cancelled. Provider = ' + provider.providerName);
+      that.onlogout.emit(provider);
+    }
 
     this.providers = [];
     this.host.viewContainerRef.clear();
@@ -76,6 +83,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       const item = this.host.viewContainerRef.createComponent(factory);
       (<BaseLoginProvider>item.instance).onsuccess.subscribe(completed);
       (<BaseLoginProvider>item.instance).oncancel.subscribe(cancelled);
+      (<BaseLoginProvider>item.instance).onlogoff.subscribe(loggedoff);
       this.providers.push((<BaseLoginProvider>item.instance));
     }
   }

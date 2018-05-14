@@ -6,6 +6,7 @@ export abstract class BaseLoginProvider implements ILoginInfo {
     
     private eventCancel = new EventEmitter<BaseLoginProvider>();
     private eventSuccess = new EventEmitter<BaseLoginProvider>();
+    private eventLogoff= new EventEmitter<BaseLoginProvider>();
 
     constructor() {}
 
@@ -18,8 +19,7 @@ export abstract class BaseLoginProvider implements ILoginInfo {
 
     oncancel = this.eventCancel.asObservable();
     onsuccess = this.eventSuccess.asObservable();
-
-    protected abstract logoff(): void;
+    onlogoff = this.eventLogoff.asObservable();
 
     protected success() {
         this.eventSuccess.emit(this);
@@ -28,4 +28,9 @@ export abstract class BaseLoginProvider implements ILoginInfo {
     protected cancelled() {
         this.eventCancel.emit(this);
     }
+
+    protected signout() {
+        console.log('logout implemented');
+        this.eventLogoff.emit(this);
+    };
 }

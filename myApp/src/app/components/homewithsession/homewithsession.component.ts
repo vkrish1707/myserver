@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Compiler, Output, EventEmitter } from '@angular/core';
 import { UserSessionService, IUserInfo } from '../../services/usersession.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homewithsession',
@@ -11,9 +13,13 @@ export class HomewithsessionComponent implements OnInit {
 
   private info: IUserInfo;
 
-  constructor(private session: UserSessionService) { }
+  constructor(private session: UserSessionService, private router: Router, private complier: Compiler) { }
 
   ngOnInit() {
-    this.session.data.subscribe(info => this.info = info);  }
+    this.session.data.subscribe(info => this.info = info);
+  }
 
+  logOff() {
+    this.router.navigate(['/home']);
+  }
 }

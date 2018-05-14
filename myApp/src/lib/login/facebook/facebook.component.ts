@@ -36,7 +36,12 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
       .catch(()=> this.cancelled());
   }
 
-  logoff(): void {
-    throw new Error('Method not implemented.');
+  logoff() {
+    this.loginService.fbLogout()
+      .then(() => {
+        this.signout();
+        console.log('logoff from facebook implemented');
+      });
+    // throw new Error('Method not implemented.');
   }
 }
