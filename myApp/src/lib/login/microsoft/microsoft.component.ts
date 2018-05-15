@@ -41,7 +41,7 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
         this.lastName = this.microsoftService.lastName;
         this.email = this.microsoftService.email;
         this.photoUrl = this.microsoftService.photoUrl;
-        this.success();
+        this.success(this.microsoftService);
       })
       .catch(() => this.cancelled());
   }
@@ -49,7 +49,4 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
   ngOnInit() {
   }
 
-  logOff(): void {
-    this.microsoftService.logout();
-  }
 }

@@ -5,39 +5,43 @@ import { ISessionInfo } from '../../../app/services/usersession.service';
 declare const IN: any;
 
 @Injectable()
-export class LinkedinService {
+export class LinkedinService implements ILogin {
 
   public email: string;
   public firstName: string;
   public lastName: string;
   public photoUrl: string;
   public token: string;
+  public get providerName(): string {
+    return 'linkedin';
+  }
+
 
   constructor() { }
 
-  onLinkedInLoad() {
+  public onLinkedInLoad() {
     IN.Event.on(IN, "auth", this.launch);
   }
 
-  launch(): Promise<ILogin> {
+  public launch(): Promise<ILogin> {
     return new Promise<ILogin>(this.run);
   }
 
   public run(resolve, reject) {
+    let that = this;
     IN.User.authorize(function () {
       IN.API.Raw('/people/~:(id,first-name,last-name,email-address,picture-url)').result(function (res: any) {
-        let info = <ISessionInfo>{};
-        info.email = res.emailAddress;
-        info.photoUrl = res.pictureUrl;
-        info.firstName = res.firstName;
-        info.lastName = res.lastName;
-        info.token = IN.ENV.auth.oauth_token;
-        resolve(info);
+        that.email = res.emailAddress;
+        that.photoUrl = res.pictureUrl;
+        that.firstName = res.firstName;
+        that.lastName = res.lastName;
+        that.token = IN.ENV.auth.oauth_token;
+        resolve(that);
       });
     });
   }
 
-  linkedinLogoff(): Promise<any> {
+  public logout(): Promise<void> {
     return new Promise((resolve, reject) => {
       IN.User.logout(function () {
         resolve();

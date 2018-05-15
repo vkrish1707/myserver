@@ -7,7 +7,17 @@ import { resolve } from 'url';
 declare const FB: any;
 
 @Injectable()
-export class FacebookService {
+export class FacebookService implements ILogin {
+
+  // interface members
+  public firstName: string;
+  public lastName: string;
+  public email: string;
+  public photoUrl: string;
+  public token: any;
+  public get providerName(): string {
+    return 'facebook';
+  }
 
   constructor(private http: Http) {
     FB.init({
@@ -19,23 +29,22 @@ export class FacebookService {
     });
   }
 
-  launch(): Promise<ILogin> {
+  public launch(): Promise<ILogin> {
     return new Promise<ILogin>(this.run);
   }
 
-  public run(resolve, reject) {
+  private run(resolve, reject) {
     FB.login(
       response => {
-        let info = <ILogin>{};
+        let that = this;
         if (response.authResponse) {
-          info.providerName = 'facebook';
-          info.token = response.authResponse.accessToken;
-          FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function(result) {
-            info.firstName = result.first_name;
-            info.lastName = result.last_name;
-            info.email = result.email;
-            info.photoUrl = result.picture.data.url;
-            resolve(info);
+          that.token = response.authResponse.accessToken;
+          FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function (result) {
+            that.firstName = result.first_name;
+            that.lastName = result.last_name;
+            that.email = result.email;
+            that.photoUrl = result.picture.data.url;
+            resolve(that);
           });
 
         } else {
@@ -46,15 +55,15 @@ export class FacebookService {
         }
       },
       {
-        scope: 'public_profile, email', return_scopes:true
+        scope: 'public_profile, email', return_scopes: true
       }
     );
   }
 
-  fbLogout(): Promise<ILogin> {
+  public logout(): Promise<void> {
     console.log('fbLogout from facebook-service is called');
 
-    return new Promise<ILogin>((resolve,reject) => {
+    return new Promise<void>((resolve, reject) => {
       FB.getLoginStatus(function (response) {
         if (response && response.status === 'connected') {
           FB.logout(function (response) {
@@ -65,7 +74,7 @@ export class FacebookService {
         else {
           reject();
         }
-      })
-    })
+      });
+    });
   }
 }

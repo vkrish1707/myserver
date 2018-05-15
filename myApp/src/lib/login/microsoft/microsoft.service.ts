@@ -1,15 +1,20 @@
 import { Injectable } from "@angular/core";
 import * as Msal from 'msal';
 import { IdToken } from "msal/lib-commonjs/IdToken";
+import { ILogin } from "../login";
 
 @Injectable()
-export class MicrosoftService {
+export class MicrosoftService implements ILogin {
 
     public email: string;
     public firstName: string;
     public lastName: string;
     public photoUrl: string;
-    public token: string;  
+    public token: string;
+    public get providerName(): string {
+        return 'microsoft';
+    }
+
 
     //Private members
     private access_token: any = null;
@@ -34,7 +39,7 @@ export class MicrosoftService {
     //logIn method 
     // on success - returns a Promise with valid user token - which is retrieved from getToken method
     // on failure - returns a promoise with null user token
-    login() {
+    public login() {
         return this.app.loginPopup(this.config.graphScopes)
             .then(idToken => {
                 const user = this.app.getUser();
@@ -51,11 +56,13 @@ export class MicrosoftService {
             });
     }
 
-    logout() {
-        this.app.logout();
+    public logout(): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.app.logout();
+        });
     }
 
-    getToken() {
+    private getToken() {
         return this.app.acquireTokenSilent(this.config.graphScopes)
             .then(accessToken => {
                 return accessToken;

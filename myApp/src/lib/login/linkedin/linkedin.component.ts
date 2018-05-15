@@ -33,11 +33,7 @@ export class LinkedinComponent extends BaseLoginProvider implements OnInit {
         this.lastName = data.lastName;
         this.email = data.email;
         this.photoUrl = data.photoUrl;
-        this.success();
+        this.success(this.linkedinService);
       });
-  }
-
-  logOff(): void {
-    this.linkedinService.linkedinLogoff();
   }
 }

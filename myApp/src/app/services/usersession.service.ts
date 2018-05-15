@@ -65,7 +65,7 @@ export class UserSessionService {
   }
 
   logOut() {
-    this.sessionInfo.logOff();
+    this.sessionInfo.logout();
   }
 }
 
@@ -79,5 +79,5 @@ export class IUserInfo {
 export interface ISessionInfo extends IUserInfo {
   token: string;
   providerName: string;
-  logOff(): void;
+  logout(): void;
 }
