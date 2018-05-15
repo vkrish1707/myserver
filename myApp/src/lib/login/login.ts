@@ -1,4 +1,4 @@
-export interface ILoginInfo {
+export interface ILogin {
     token: string;
     providerName: string;
     firstName: string;

@@ -1,8 +1,8 @@
 import { EventEmitter } from '@angular/core';
 
-import { ILoginInfo } from '../login';
+import { ILogin } from '../login';
 
-export abstract class BaseLoginProvider implements ILoginInfo {
+export abstract class BaseLoginProvider implements ILogin {
     
     private eventCancel = new EventEmitter<BaseLoginProvider>();
     private eventSuccess = new EventEmitter<BaseLoginProvider>();

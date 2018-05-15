@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ILoginInfo } from '../login';
+import { ILogin } from '../login';
 import { ISessionInfo } from '../../../app/services/usersession.service';
 
 declare const IN: any;
@@ -19,8 +19,8 @@ export class LinkedinService {
     IN.Event.on(IN, "auth", this.launch);
   }
 
-  launch(): Promise<ILoginInfo> {
-    return new Promise<ILoginInfo>(this.run);
+  launch(): Promise<ILogin> {
+    return new Promise<ILogin>(this.run);
   }
 
   public run(resolve, reject) {

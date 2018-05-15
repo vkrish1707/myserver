@@ -5,7 +5,7 @@ import { Component,
 
 import { LoginDirective } from './base/login.directive';
 import { BaseLoginProvider } from './base/provider.base';
-import { ILoginInfo } from './login';
+import { ILogin } from './login';
 import { GoogleComponent } from './google/google.component';
 import { FacebookComponent } from './facebook/facebook.component';
 import { MicrosoftComponent } from './microsoft/microsoft.component';
@@ -61,16 +61,16 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     }
 
     let completed = (provider) => {
-      that.oncomplete.emit(<ILoginInfo> provider);
+      that.oncomplete.emit(<ILogin> provider);
     };
 
-    let cancelled = (provider: ILoginInfo) => {
+    let cancelled = (provider: ILogin) => {
       console.log('trigerring cancelled event');
       console.log('LoginComponent: Operation cancelled. Provider = ' + provider.providerName);
       that.oncancel.emit(null);
     };
 
-    let loggedoff = (provider: ILoginInfo) => {
+    let loggedoff = (provider: ILogin) => {
       console.log('trigerring loggedoff event');
       console.log('LoginComponent: Operation cancelled. Provider = ' + provider.providerName);
       that.onlogout.emit(provider);

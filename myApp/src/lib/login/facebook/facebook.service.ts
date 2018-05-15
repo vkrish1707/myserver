@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { ILoginInfo } from '../login';
+import { ILogin } from '../login';
 import { resolve } from 'url';
 
 declare const FB: any;
@@ -19,14 +19,14 @@ export class FacebookService {
     });
   }
 
-  launch(): Promise<ILoginInfo> {
-    return new Promise<ILoginInfo>(this.run);
+  launch(): Promise<ILogin> {
+    return new Promise<ILogin>(this.run);
   }
 
   public run(resolve, reject) {
     FB.login(
       response => {
-        let info = <ILoginInfo>{};
+        let info = <ILogin>{};
         if (response.authResponse) {
           info.providerName = 'facebook';
           info.token = response.authResponse.accessToken;
@@ -51,10 +51,10 @@ export class FacebookService {
     );
   }
 
-  fbLogout(): Promise<ILoginInfo> {
+  fbLogout(): Promise<ILogin> {
     console.log('fbLogout from facebook-service is called');
 
-    return new Promise<ILoginInfo>((resolve,reject) => {
+    return new Promise<ILogin>((resolve,reject) => {
       FB.getLoginStatus(function (response) {
         if (response && response.status === 'connected') {
           FB.logout(function (response) {
