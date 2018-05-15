@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FacebookService } from './facebook.service';
 import { BaseLoginProvider } from '../base/provider.base';
-import { LoginService } from '../login.service';
 
 @Component({
   selector: 'lib-facebook',
@@ -18,7 +17,7 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
   lastName: string;
   token: any;
 
-  constructor(private facebookService: FacebookService, private loginService: LoginService) {
+  constructor(private facebookService: FacebookService) {
     super();
   }
 
@@ -37,8 +36,8 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
       .catch(()=> this.cancelled());
   }
 
-  logoff() {
-    this.loginService.logoff()
+  logOff() {
+    this.facebookService.fbLogout()
       .then(() => {
         this.signout();
         console.log('logoff from facebook implemented');

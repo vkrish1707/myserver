@@ -49,7 +49,7 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
   ngOnInit() {
   }
 
-  logoff(): void {
-    throw new Error('Method not implemented.');
+  logOff(): void {
+    this.microsoftService.logout();
   }
 }

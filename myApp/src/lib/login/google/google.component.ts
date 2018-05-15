@@ -52,4 +52,8 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, AfterV
   onFailure(googleUser) {
     this.cancelled();
   };  
+
+  logOff(): void {
+    this.googleService.signOut();
+  }
 }

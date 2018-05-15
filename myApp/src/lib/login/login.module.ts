@@ -10,7 +10,6 @@ import { MicrosoftComponent } from './microsoft/microsoft.component';
 import { LinkedinComponent } from './linkedin/linkedin.component';
 import { FacebookService } from './facebook/facebook.service';
 import { MicrosoftService } from './microsoft/microsoft.service';
-import { LoginService } from './login.service';
 import { GoogleService } from './google/google.service';
 import { LinkedinService } from './linkedin/linkedin.service';
 
@@ -33,7 +32,7 @@ import { LinkedinService } from './linkedin/linkedin.service';
     MicrosoftComponent,
     LinkedinComponent
   ],
-  providers: [FacebookService, MicrosoftService, LoginService, GoogleService, LinkedinService],
+  providers: [FacebookService, MicrosoftService, GoogleService, LinkedinService],
   exports: [LoginComponent]
 })
 

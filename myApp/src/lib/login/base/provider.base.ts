@@ -16,6 +16,7 @@ export abstract class BaseLoginProvider implements ILoginInfo {
     abstract get email(): string;
     abstract get photoUrl(): string;
     abstract get token(): any;
+    abstract logOff(): void;
 
     oncancel = this.eventCancel.asObservable();
     onsuccess = this.eventSuccess.asObservable();

@@ -37,7 +37,7 @@ export class LinkedinComponent extends BaseLoginProvider implements OnInit {
       });
   }
 
-  logoff(): void {
-    throw new Error('Method not implemented.');
+  logOff(): void {
+    this.linkedinService.linkedinLogoff();
   }
 }

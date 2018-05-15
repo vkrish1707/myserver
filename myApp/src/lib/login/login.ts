@@ -5,4 +5,5 @@ export interface ILoginInfo {
     lastName: string;
     email: string;
     photoUrl: string;
+    logOff(): void;
 }
