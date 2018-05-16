@@ -7,17 +7,17 @@ import { Http } from '@angular/http';
 export class UserSessionService {
 
   private jwt: any;
-  private sessionInfo: ISessionInfo = <ISessionInfo>{};
-  private userInfoSubject: BehaviorSubject<IUserInfo> = new BehaviorSubject<IUserInfo>(this.sessionInfo);
+  private sessionInfo: ILogin = <ILogin>{};
+  private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
   constructor(private http: Http) {
   }
 
-  public get data(): Observable<IUserInfo> {
+  public get data(): Observable<IUser> {
     return this.userInfoSubject.asObservable();
   }
 
-  public establish(info: ISessionInfo): Promise<void> {
+  public establish(info: ILogin): Promise<void> {
     this.sessionInfo = info;
     this.userInfoSubject.next(this.sessionInfo);
 
@@ -69,14 +69,14 @@ export class UserSessionService {
   }
 }
 
-export class IUserInfo {
+export class IUser {
   firstName: string;
   lastName: string;
   email: string;
   photoUrl: string;
 }
 
-export interface ISessionInfo extends IUserInfo {
+export interface ILogin extends IUser {
   token: string;
   providerName: string;
   logout(): void;

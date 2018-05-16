@@ -15,9 +15,7 @@ export class FacebookService implements ILogin {
   public email: string;
   public photoUrl: string;
   public token: any;
-  public get providerName(): string {
-    return 'facebook';
-  }
+  public providerName: string = 'facebook';
 
   constructor(private http: Http) {
     FB.init({

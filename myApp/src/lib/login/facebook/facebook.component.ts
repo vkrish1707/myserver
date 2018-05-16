@@ -10,13 +10,6 @@ import { BaseLoginProvider } from '../base/provider.base';
 
 export class FacebookComponent extends BaseLoginProvider implements OnInit {
 
-  providerName = 'facebook';
-  email: string;
-  photoUrl: string;
-  firstName: string;
-  lastName: string;
-  token: any;
-
   constructor(private facebookService: FacebookService) {
     super();
   }
@@ -29,7 +22,7 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
       .then(data => this.success(data))
       .catch(() => this.cancelled());
   }
-  
+
   logOff() {
     this.facebookService.logout();
   }
