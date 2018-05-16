@@ -8,14 +8,17 @@ import { MenuComponent } from '../components/menu/menu.component';
 import { ProfileComponent } from '../components/profile/profile.component';
 import { UseraccountComponent } from '../components/useraccount/useraccount.component';
 import { HelpComponent } from '../components/help/help.component';
+import { MaterialModule } from './material.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    MaterialModule,
     NgbModule.forRoot()
   ],
+
   declarations: [
     HeaderComponent,
     MenuComponent,
@@ -23,6 +26,7 @@ import { HelpComponent } from '../components/help/help.component';
     UseraccountComponent,
     HelpComponent,
   ],
+
   exports: [
     HeaderComponent
   ]

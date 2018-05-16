@@ -4,5 +4,8 @@
     <h3>last Name: {{ info.lastName }}</h3>
     <h3>email: {{ info.email }}</h3>
 </div>
-<button class="btn btn-danger" (click)="signOut()">Log-off</button>
+<button class="btn btn-danger" (click)="logOff()">Log-off</button>
 
+<div [ngSwitch]="state">
+    <app-home *ngSwitchCase="'home'" (onlogout)="logOff()"></app-home>
+</div>

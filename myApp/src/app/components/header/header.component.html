@@ -2,7 +2,7 @@
 
   <!-- The Menu button with the icons -->
   <div *ngIf=showMenu>
-    <button type="button" class="btn btn-outline-primary nav-item active" (click)="getShowMenuContent()">
+    <button mat-raised-button color="primary" class="btnMenu" (click)="getShowMenuContent()">
       <i class="material-icons" *ngIf="menuicon">menu</i>
       <i class="material-icons" *ngIf="closeicon">clear</i>Menu
     </button>

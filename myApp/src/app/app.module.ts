@@ -14,6 +14,7 @@ import { AppHomeModule } from './modules/app-home.module';
 import { AppRegisterModule } from './modules/app-register.module';
 import { LoginModule } from '../lib/login/login.module';
 import { UserSessionService } from './services/usersession.service';
+import { AppRegisterService } from './services/app-register.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { UserSessionService } from './services/usersession.service';
     AppRegisterModule,
     NgbModule.forRoot() 
   ],
-  providers: [UserSessionService],
+  providers: [UserSessionService, AppRegisterService],
   bootstrap: [AppComponent]
 })
 

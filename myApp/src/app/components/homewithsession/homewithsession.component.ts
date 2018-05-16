@@ -19,7 +19,7 @@ export class HomewithsessionComponent implements OnInit {
     this.session.data.subscribe(info => this.info = info);
   }
 
-  signOut() {
+  logOff() {
     this.session.logOut();
     this.router.navigate(['/home']);
   }

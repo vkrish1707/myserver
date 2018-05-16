@@ -26,50 +26,63 @@ export class FacebookService implements ILogin {
     });
   }
 
-  public launch(): ILogin {
-    let info: ILogin = <ILogin> this;
-    let loginPromise = new Promise<ILogin>(this.run);
-    loginPromise
-      .then(
-        data => {
-          info.email = data.email;
-          info.token = data.token;
-          info.firstName = info.firstName;
+  public launch(): Promise<ILogin> {
+    return new Promise<ILogin>((resolve, reject) => {
+      let info: ILogin = <ILogin>this;
+      this.run().then(
+        val => {
+          info.email = val.email;
+          info.firstName = val.firstName;
+          info.lastName = val.lastName;
+          info.token = val.token;
+          resolve(info);
         })
-      .catch(reason => console.log(reason));
 
-      // return
-      return info;
+      reject(null);
+
+    })
+
+    //   .then(
+    //     data => {
+    //       info.email = data.email;
+    //       info.token = data.token;
+    //       info.firstName = data.firstName;
+    //     })
+    //   .catch(reason => console.log(reason));
+
+    // // return
+    // return info;
   }
 
-  private run(resolve, reject) {
+  private run() {
     // attempt logging into facebook
     let info: ILogin = <ILogin>{};
-    FB.login(
-      response => {
-        info.token = ((response.authResponse != null) ? response.authResponse.accessToken : null);
-      },
-      {
-        scope: 'public_profile, email', return_scopes: true
+    return new Promise<ILogin>((resolve, reject) => {
+      FB.login(
+        response => {
+          info.token = ((response.authResponse != null) ? response.authResponse.accessToken : null);
+        },
+        {
+          scope: 'public_profile, email', return_scopes: true
+        }
+      );
+
+      // if the login is successful,
+      if (info.token != null) {
+        FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function (result) {
+          info.firstName = result.first_name;
+          info.lastName = result.last_name;
+          info.email = result.email;
+          info.photoUrl = result.picture.data.url;
+        });
+
+        // all went well hence resolving the promise
+        resolve(info);
+      } else {
+        // inform operation failure by invoking the reject
+        reject();
       }
-    );
-
-    // if the login is successful,
-    if (info.token != null) {
-      FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function (result) {
-        info.firstName = result.first_name;
-        info.lastName = result.last_name;
-        info.email = result.email;
-        info.photoUrl = result.picture.data.url;
-      });
-
-      // all went well hence resolving the promise
-      resolve(info);
-    } else {
-
-      // inform operation failure by invoking the reject
-      reject();
-    }
+    })
   }
 
   public logout(): Promise<void> {

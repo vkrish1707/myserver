@@ -19,8 +19,10 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
   }
 
   login() {
-    let info: ILogin = this.facebookService.launch();
-    this.success(info);
+    this.facebookService.launch()
+    .then((data) => {
+      this.success(data);
+    })
   }
 
   logOff() {

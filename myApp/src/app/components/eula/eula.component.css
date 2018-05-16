@@ -11,18 +11,18 @@
 
 .eula button { 
     float: right;
-    margin-right: 20px;
+    margin-right: 5px;
 }
 
-.eula button:disabled, button[disabled] {
+/* .eula button:disabled, button[disabled] {
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
-}
+} */
 
 .chkAccept {
     float: left;
-    margin-left: 696px;
+    margin-left: 670px;
     margin-top: 5px;
     size: 22px;
     font-size: 15px;

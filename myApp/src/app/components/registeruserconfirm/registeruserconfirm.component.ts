@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, AfterViewInit } from '@angular/core';
-import { IUser } from '../../services/usersession.service';
+import { IUser, UserSessionService } from '../../services/usersession.service';
 import { Router } from '@angular/router';
 import { AppRegisterService } from '../../services/app-register.service';
 
@@ -14,7 +14,9 @@ export class RegisteruserconfirmComponent implements OnInit, AfterViewInit {
   @Output() oncontinue: EventEmitter<any> = new EventEmitter;
   @Output() oncancel: EventEmitter<any> = new EventEmitter;
 
-  constructor(private router: Router, private registerService: AppRegisterService) {}
+  constructor(private router: Router,
+              private registerService: AppRegisterService,
+              private session: UserSessionService) {}
 
   ngAfterViewInit() {
   }
@@ -27,6 +29,8 @@ export class RegisteruserconfirmComponent implements OnInit, AfterViewInit {
   }
 
   onCancel() {
+    this.registerService.data = null;
+    this.session.logOut();
     this.router.navigate(['/home']);
   }
 }
