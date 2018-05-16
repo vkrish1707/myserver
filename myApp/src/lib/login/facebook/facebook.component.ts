@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FacebookService } from './facebook.service';
 import { BaseLoginProvider } from '../base/provider.base';
+import { ILogin } from '../login';
 
 @Component({
   selector: 'lib-facebook',
@@ -18,9 +19,8 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
   }
 
   login() {
-    this.facebookService.launch()
-      .then(data => this.success(data))
-      .catch(() => this.cancelled());
+    let info: ILogin = this.facebookService.launch();
+    this.success(info);
   }
 
   logOff() {

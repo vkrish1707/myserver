@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ISessionInfo } from './usersession.service';
+import { ILogin } from './usersession.service';
 
 @Injectable()
 export class AppRegisterService {
 
-  public data: ISessionInfo;
+  public data: ILogin;
 
   constructor() { }
 

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ILogin } from '../login';
-import { ISessionInfo } from '../../../app/services/usersession.service';
 
 declare const IN: any;
 

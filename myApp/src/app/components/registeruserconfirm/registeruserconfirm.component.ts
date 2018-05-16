@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, AfterViewInit } from '@angular/core';
-import { IUserInfo } from '../../services/usersession.service';
+import { IUser } from '../../services/usersession.service';
 import { Router } from '@angular/router';
 import { AppRegisterService } from '../../services/app-register.service';
 

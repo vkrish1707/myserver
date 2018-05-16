@@ -1,5 +1,5 @@
 import { Component, OnInit, Compiler, Output, EventEmitter } from '@angular/core';
-import { UserSessionService, IUserInfo } from '../../services/usersession.service';
+import { UserSessionService, IUser } from '../../services/usersession.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 export class HomewithsessionComponent implements OnInit {
 
-  private info: IUserInfo;
+  private info: IUser;
 
   constructor(private session: UserSessionService, private router: Router, private complier: Compiler) { }
 

@@ -2,7 +2,6 @@ import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { ILogin } from '../login';
-import { resolve } from 'url';
 
 declare const FB: any;
 
@@ -27,35 +26,45 @@ export class FacebookService implements ILogin {
     });
   }
 
-  public launch(): Promise<ILogin> {
-    this.token = null;
+  public launch(): ILogin {
+    let info: ILogin = <ILogin> this;
+    let loginPromise = new Promise<ILogin>(this.run);
+    loginPromise
+      .then(
+        data => {
+          info.email = data.email;
+          info.token = data.token;
+          info.firstName = info.firstName;
+        })
+      .catch(reason => console.log(reason));
 
-    return new Promise<ILogin>(this.run);
+      // return
+      return info;
   }
 
   private run(resolve, reject) {
     // attempt logging into facebook
+    let info: ILogin = <ILogin>{};
     FB.login(
-        response => { 
-          this.token = ((response.authResponse != null) ? response.authResponse.accessToken : null); 
-        },
-        {
-          scope: 'public_profile, email', return_scopes: true
-        }
+      response => {
+        info.token = ((response.authResponse != null) ? response.authResponse.accessToken : null);
+      },
+      {
+        scope: 'public_profile, email', return_scopes: true
+      }
     );
 
     // if the login is successful,
-    if (this.token != null) {
-      let that = this;
+    if (info.token != null) {
       FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function (result) {
-        that.firstName = result.first_name;
-        that.lastName = result.last_name;
-        that.email = result.email;
-        that.photoUrl = result.picture.data.url;
+        info.firstName = result.first_name;
+        info.lastName = result.last_name;
+        info.email = result.email;
+        info.photoUrl = result.picture.data.url;
       });
 
-      // all set -- resolve the promise
-      resolve(<ILogin> this);
+      // all went well hence resolving the promise
+      resolve(info);
     } else {
 
       // inform operation failure by invoking the reject

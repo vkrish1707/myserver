@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { Router } from '@angular/router';
-import { ISessionInfo, UserSessionService, IUserInfo } from '../../services/usersession.service';
+import { ILogin, UserSessionService, IUser } from '../../services/usersession.service';
 import { AppRegisterService } from '../../services/app-register.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
   }
 
   public loginSuccess(data: any) {
-    this.registerService.data = <ISessionInfo> data;
+    this.registerService.data = <ILogin> data;
     this.state = 'info';
   }
 
