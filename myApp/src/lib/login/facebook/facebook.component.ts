@@ -26,16 +26,10 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
 
   login() {
     this.facebookService.launch()
-      .then(data => {
-        this.token = data.token;
-        this.firstName = data.firstName;
-        this.lastName = data.lastName;
-        this.email = data.email;
-        this.photoUrl = data.photoUrl;
-        this.success(this.facebookService); })
-      .catch(()=> this.cancelled());
+      .then(data => this.success(data))
+      .catch(() => this.cancelled());
   }
-
+  
   logOff() {
     this.facebookService.logout();
   }

@@ -30,34 +30,39 @@ export class FacebookService implements ILogin {
   }
 
   public launch(): Promise<ILogin> {
+    this.token = null;
+
     return new Promise<ILogin>(this.run);
   }
 
   private run(resolve, reject) {
+    // attempt logging into facebook
     FB.login(
-      response => {
-        let that = this;
-        if (response.authResponse) {
-          that.token = response.authResponse.accessToken;
-          FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function (result) {
-            that.firstName = result.first_name;
-            that.lastName = result.last_name;
-            that.email = result.email;
-            that.photoUrl = result.picture.data.url;
-            resolve(that);
-          });
-
-        } else {
-
-          // authetication is failed or cancelled
-          // let caller handle it via reject
-          reject();
+        response => { 
+          this.token = ((response.authResponse != null) ? response.authResponse.accessToken : null); 
+        },
+        {
+          scope: 'public_profile, email', return_scopes: true
         }
-      },
-      {
-        scope: 'public_profile, email', return_scopes: true
-      }
     );
+
+    // if the login is successful,
+    if (this.token != null) {
+      let that = this;
+      FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function (result) {
+        that.firstName = result.first_name;
+        that.lastName = result.last_name;
+        that.email = result.email;
+        that.photoUrl = result.picture.data.url;
+      });
+
+      // all set -- resolve the promise
+      resolve(<ILogin> this);
+    } else {
+
+      // inform operation failure by invoking the reject
+      reject();
+    }
   }
 
   public logout(): Promise<void> {
