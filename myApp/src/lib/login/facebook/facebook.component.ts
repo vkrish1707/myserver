@@ -18,11 +18,15 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
   ngOnInit() {
   }
 
-  login() {
-    this.facebookService.launch()
-    .then((data) => {
-      this.success(data);
-    })
+  private login() {
+    this.facebookService.login()
+      .subscribe((result) => {
+        if (result == true) {
+          this.success(<ILogin> this.facebookService);
+        } else {
+          this.cancelled();
+        }
+      });
   }
 
   logOff() {

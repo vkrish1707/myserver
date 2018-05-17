@@ -38,9 +38,9 @@ export class AppComponent {
   private alerts: AlertCollection = new AlertCollection();
 
   constructor(private alertService: AlertService) {
-    this.alerts.newAlert.subscribe(item => this.alertService.addNew(item.id, item.message, item.icon));
-    setInterval(() => this.alerts.load(), 5000);
-    this.alerts.load();
+    // this.alerts.newAlert.subscribe(item => this.alertService.addNew(item.id, item.message, item.icon));
+    // setInterval(() => this.alerts.load(), 5000);
+    // this.alerts.load();
   }
 
   private addNewAlert() {

@@ -1,7 +1,10 @@
-import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/observable';
+
 import { ILogin } from '../login';
+import { tokenKey } from '@angular/core/src/view';
 
 declare const FB: any;
 
@@ -26,63 +29,44 @@ export class FacebookService implements ILogin {
     });
   }
 
-  public launch(): Promise<ILogin> {
-    return new Promise<ILogin>((resolve, reject) => {
-      let info: ILogin = <ILogin>this;
-      this.run().then(
-        val => {
-          info.email = val.email;
-          info.firstName = val.firstName;
-          info.lastName = val.lastName;
-          info.token = val.token;
-          resolve(info);
-        })
+  public login(): Observable<boolean> {
 
-      reject(null);
+    this.token = new Observable(result => {
+    });
 
-    })
+    // create subjects - one to track login completion and another to track data fetching
+    let resultLogin = new Subject<string>();
+    let resultFetchData = new Subject<boolean>();
 
-    //   .then(
-    //     data => {
-    //       info.email = data.email;
-    //       info.token = data.token;
-    //       info.firstName = data.firstName;
-    //     })
-    //   .catch(reason => console.log(reason));
+    // call back for FB.login
+    let oncomplete = (response) => {
+      resultLogin.next((response.authResponse != null) ? response.authResponse.accessToken : null);
+    };
 
-    // // return
-    // return info;
-  }
+    // invoke facebook login
+    FB.login(oncomplete, { scope: 'public_profile, email', return_scopes: true });
+ 
+    // call back for FB.api
+    let saveData = (response) => {
+      this.firstName = response.first_name;
+      this.lastName = response.last_name;
+      this.email = response.email;
+      this.photoUrl = response.picture.data.url;
+      console.log('got the data successfully');
+      resultFetchData.next(true);
+    };
 
-  private run() {
-    // attempt logging into facebook
-    let info: ILogin = <ILogin>{};
-    return new Promise<ILogin>((resolve, reject) => {
-      FB.login(
-        response => {
-          info.token = ((response.authResponse != null) ? response.authResponse.accessToken : null);
-        },
-        {
-          scope: 'public_profile, email', return_scopes: true
-        }
-      );
-
-      // if the login is successful,
-      if (info.token != null) {
-        FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', function (result) {
-          info.firstName = result.first_name;
-          info.lastName = result.last_name;
-          info.email = result.email;
-          info.photoUrl = result.picture.data.url;
-        });
-
-        // all went well hence resolving the promise
-        resolve(info);
+    // add an action response to login completion
+    resultLogin.subscribe((token) => {
+      if (token == null) {
+        resultFetchData.next(false);
       } else {
-        // inform operation failure by invoking the reject
-        reject();
+        FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', saveData);
       }
-    })
+    });
+
+    // return
+    return resultFetchData.asObservable();
   }
 
   public logout(): Promise<void> {
