@@ -4,7 +4,6 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/observable';
 
 import { ILogin } from '../login';
-import { tokenKey } from '@angular/core/src/view';
 
 declare const FB: any;
 
@@ -58,8 +57,7 @@ export class FacebookService implements ILogin {
         this.updateProfile(task);
       }
     }
-    catch(error)
-    {
+    catch (error) {
       console.log(error);
     }
 
@@ -82,9 +80,9 @@ export class FacebookService implements ILogin {
           task.error('login operation failed/cancelled');
         }
       },
-      { 
-        scope: 'public_profile, email', 
-        return_scopes: true 
+      {
+        scope: 'public_profile, email',
+        return_scopes: true
       }
     );
 
@@ -93,8 +91,8 @@ export class FacebookService implements ILogin {
   }
 
   private updateProfile(task: Subject<void>): void {
- 
-    FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', 
+
+    FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}',
       (response) => {
         this.firstName = response.first_name;
         this.lastName = response.last_name;
@@ -107,15 +105,14 @@ export class FacebookService implements ILogin {
   }
 
   public logout(): Promise<void> {
-    console.log('fbLogout from facebook-service is called');
+    console.log('logout from facebook-service is called');
 
     return new Promise<void>((resolve, reject) => {
       FB.getLoginStatus(function (response) {
         if (response && response.status === 'connected') {
           FB.logout(function (response) {
-            window.location.reload();
+            resolve();
           });
-          resolve();
         }
         else {
           reject();
