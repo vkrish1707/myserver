@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import * as Msal from 'msal';
-import { IdToken } from "msal/lib-commonjs/IdToken";
 import { ILogin } from "../login";
 
 @Injectable()

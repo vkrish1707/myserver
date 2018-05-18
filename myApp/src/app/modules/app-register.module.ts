@@ -15,10 +15,10 @@ import { RegisteruserconfirmComponent } from '../components/registeruserconfirm/
 @NgModule({
   imports: [
     CommonModule,
+    HttpModule,
     AppHeaderModule,
     AppHomeModule,
     LoginModule,
-    HttpModule,
     MaterialModule
   ],
 
@@ -28,6 +28,7 @@ import { RegisteruserconfirmComponent } from '../components/registeruserconfirm/
     RegisteruserconfirmComponent,
     EulaComponent
   ]
+  
 })
 
 export class AppRegisterModule { }

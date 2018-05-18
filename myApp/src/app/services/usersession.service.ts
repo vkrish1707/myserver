@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/observable';
-import { Http } from '@angular/http';
 
 @Injectable()
 export class UserSessionService {
@@ -10,7 +9,7 @@ export class UserSessionService {
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
-  constructor(private http: Http) {
+  constructor() {
   }
 
   public get data(): Observable<IUser> {
@@ -20,6 +19,15 @@ export class UserSessionService {
   public establish(info: ILogin): Promise<void> {
     this.sessionInfo = info;
     this.userInfoSubject.next(this.sessionInfo);
+
+    // defining 'data' object to send the userDetails to
+    // the server and save them to the database
+    let data: IUser = {
+      'firstName': this.sessionInfo.firstName,
+      'lastName': this.sessionInfo.lastName,
+      'email': this.sessionInfo.email,
+      'photoUrl': this.sessionInfo.photoUrl
+    }
 
     let establishPromise = (resolve, reject) => {
       setTimeout(() => console.log('timer done'), 3000);
@@ -41,16 +49,18 @@ export class UserSessionService {
         throw new Error('Unsupported provider');
       }
 
-      // sending access_token to server to validate and create jwt
+      // sending access_token and 'data' object to server
+      // to validate access-token, create jwt and
+      // create user in the database
       let xhr = new XMLHttpRequest();
       xhr.open('POST', 'http://localhost:3000/' + url);
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('token', this.sessionInfo.token);
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) this.jwt = JSON.stringify(xhr.response);
         console.log(this.jwt);
       };
-      xhr.send();
+      xhr.send(JSON.stringify(data));
 
       if (xhr.response != null) {
         resolve();

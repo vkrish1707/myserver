@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { BaseLoginProvider } from '../base/provider.base';
 import * as Msal from 'msal';

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/observable';
 
@@ -18,7 +17,7 @@ export class FacebookService implements ILogin {
   public token: any;
   public providerName: string = 'facebook';
 
-  constructor(private http: Http) {
+  constructor() {
     FB.init({
       appId: '1820292001598094',
       status: false,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IUser, UserSessionService } from '../../services/usersession.service';
 import { Router } from '@angular/router';
 import { AppRegisterService } from '../../services/app-register.service';
@@ -9,7 +9,7 @@ import { AppRegisterService } from '../../services/app-register.service';
   styleUrls: ['./registeruserconfirm.component.css']
 })
 
-export class RegisteruserconfirmComponent implements OnInit, AfterViewInit {
+export class RegisteruserconfirmComponent implements OnInit {
 
   @Output() oncontinue: EventEmitter<any> = new EventEmitter;
   @Output() oncancel: EventEmitter<any> = new EventEmitter;
@@ -17,9 +17,6 @@ export class RegisteruserconfirmComponent implements OnInit, AfterViewInit {
   constructor(private router: Router,
               private registerService: AppRegisterService,
               private session: UserSessionService) {}
-
-  ngAfterViewInit() {
-  }
 
   ngOnInit() {
   }

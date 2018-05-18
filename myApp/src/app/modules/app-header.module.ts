@@ -24,7 +24,7 @@ import { MaterialModule } from './material.module';
     MenuComponent,
     ProfileComponent,
     UseraccountComponent,
-    HelpComponent,
+    HelpComponent
   ],
 
   exports: [

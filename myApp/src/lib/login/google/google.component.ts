@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
 import { GoogleService } from './google.service';
 import { ILogin } from '../login';
@@ -68,5 +68,4 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
       });
     });
   }
-
 }
