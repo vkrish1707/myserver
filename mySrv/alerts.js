@@ -102,7 +102,7 @@ router.route('/auth/facebook')
 router.route('/auth/microsoft')
     .post(function (req, res, next) {
         let Mtoken = req.headers['token'];
-        console.log('microsoft token from client ==== ', Mtoken);
+        // console.log('microsoft token from client ==== ', Mtoken);
 
         // creating user object and saving the user to database
         var user = {};

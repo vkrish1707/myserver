@@ -7,16 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon alerts.js"
   },
+
   "dependencies": {
     "body-parser": "*",
     "cors": "^2.8.4",
     "express": "*",
     "google-auth-library": "^1.4.0",
     "jsonwebtoken": "^8.2.1",
-    "jwt-decode": "^2.2.0",
     "mongoose": "*",
     "request": "^2.85.0"
   },
+  
   "author": "vZen Team",
   "license": "ISC"
 }

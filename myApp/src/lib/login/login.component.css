@@ -1,13 +1,15 @@
 .login a {
     float: right;
+    margin-top: 150px;
     margin-right: 50px;
     text-decoration-line: underline;
 }
 
-h3 {
+h1 {
     position: absolute;
     margin-top: 30px;
-    margin-left: 375px;
+    margin-left: 360px;
+    margin-bottom: 100px;
 }
 
 .login {
@@ -36,7 +38,7 @@ h3 {
     margin-right: 20px;
     margin-left: 5px;
     margin-bottom: -7px;
-    margin-top: -1px;
+    margin-top: 2px;
     float: left;
 }
 
@@ -61,4 +63,13 @@ h3 {
     margin-bottom: -5px;
     margin-top: -1px;
     float: left;
+}
+
+::ng-deep #linkedinBtn {    
+    background-color: #007BB6;
+    color: #fff;
+    position: absolute;
+    margin-left: 145px;
+    margin-top: 55px;
+    font-size: 17px;
 }
