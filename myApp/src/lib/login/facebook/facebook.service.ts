@@ -29,44 +29,81 @@ export class FacebookService implements ILogin {
     });
   }
 
-  public login(): Observable<boolean> {
-
-    this.token = new Observable(result => {
-    });
-
-    // create subjects - one to track login completion and another to track data fetching
-    let resultLogin = new Subject<string>();
-    let resultFetchData = new Subject<boolean>();
-
-    // call back for FB.login
-    let oncomplete = (response) => {
-      resultLogin.next((response.authResponse != null) ? response.authResponse.accessToken : null);
-    };
-
-    // invoke facebook login
-    FB.login(oncomplete, { scope: 'public_profile, email', return_scopes: true });
- 
-    // call back for FB.api
-    let saveData = (response) => {
-      this.firstName = response.first_name;
-      this.lastName = response.last_name;
-      this.email = response.email;
-      this.photoUrl = response.picture.data.url;
-      console.log('got the data successfully');
-      resultFetchData.next(true);
-    };
-
-    // add an action response to login completion
-    resultLogin.subscribe((token) => {
-      if (token == null) {
-        resultFetchData.next(false);
-      } else {
-        FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', saveData);
-      }
+  public getStatus(): Promise<string> {
+    let result = new Subject<string>();
+    FB.getLoginStatus((response) => {
+      console.log(response);
+      result.next(response.status);
+      result.complete();
     });
 
     // return
-    return resultFetchData.asObservable();
+    return result.asObservable().toPromise();
+  }
+
+  public async run(): Promise<void> {
+
+    // create subject - this acts a medium to track login completion
+    let task = new Subject<void>();
+
+    try {
+
+      // attempt to login
+      await this.login();
+
+      // if everyting is ok, attempt to get the profile data
+      if (this.token == null) {
+        task.error('unexpected error -- oauth token missing -- cannot get profile data from facebook');
+      } else {
+        this.updateProfile(task);
+      }
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
+
+    // return
+    return task.asObservable().toPromise();
+  }
+
+  private login(): Promise<void> {
+
+    // create subject - this acts a medium to track login completion
+    let task = new Subject<void>();
+
+    // invoke facebook login
+    FB.login(
+      (response) => {
+        if (response.authResponse != null) {
+          this.token = response.authResponse.accessToken;
+          task.complete();
+        } else {
+          task.error('login operation failed/cancelled');
+        }
+      },
+      { 
+        scope: 'public_profile, email', 
+        return_scopes: true 
+      }
+    );
+
+    // return
+    return task.asObservable().toPromise();
+  }
+
+  private updateProfile(task: Subject<void>): void {
+ 
+    FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}', 
+      (response) => {
+        this.firstName = response.first_name;
+        this.lastName = response.last_name;
+        this.email = response.email;
+        this.photoUrl = response.picture.data.url;
+        console.log('got the data successfully');
+        task.complete();
+      }
+    );
   }
 
   public logout(): Promise<void> {
