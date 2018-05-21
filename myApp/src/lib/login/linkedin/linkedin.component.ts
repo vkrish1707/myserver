@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
 import { LinkedinService } from './linkedin.service';
+import { ILogin } from '../login';
 
 @Component({
   selector: 'lib-linkedin',
@@ -10,13 +11,6 @@ import { LinkedinService } from './linkedin.service';
 
 export class LinkedinComponent extends BaseLoginProvider implements OnInit {
 
-  providerName = 'linkedin';
-  email: string;
-  photoUrl: string;
-  firstName: string;
-  lastName: string;
-  token: any;
-
   constructor(private linkedinService: LinkedinService) {
     super();
   }
@@ -24,16 +18,13 @@ export class LinkedinComponent extends BaseLoginProvider implements OnInit {
   ngOnInit() {
   }
 
-  login() {
-    this.linkedinService.launch()
-      .then(data => {
-        this.token = data.token;
-        console.log(this.token);
-        this.firstName = data.firstName;
-        this.lastName = data.lastName;
-        this.email = data.email;
-        this.photoUrl = data.photoUrl;
-        this.success(this.linkedinService);
-      });
+  private async login() {
+    await this.linkedinService.launch();
+    console.log('email', this.linkedinService.email);
+    this.success(<ILogin>this.linkedinService);
+  }
+
+  logOff() {
+    this.linkedinService.logout();
   }
 }

@@ -53,7 +53,8 @@ export class FacebookService implements ILogin {
       if (this.token == null) {
         task.error('unexpected error -- oauth token missing -- cannot get profile data from facebook');
       } else {
-        this.updateProfile(task);
+        await this.updateProfile(task);
+        console.log('update profile is called', this.firstName);
       }
     }
     catch (error) {

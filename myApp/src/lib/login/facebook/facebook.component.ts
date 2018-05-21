@@ -25,6 +25,7 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
 
     // attempt login
     await this.facebookService.run();
+    console.log('email', this.facebookService.email);
     this.success(<ILogin>this.facebookService);
   }
 
