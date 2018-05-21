@@ -119,6 +119,26 @@ router.route('/auth/microsoft')
         });
     });
 
+router.route('/auth/linkedin')
+    .post(function (req, res, next) {
+        let Ltoken = req.headers['token'];
+        console.log('LinkedIn token from client ==== ', Ltoken);
+
+        // creating user object and saving the user to database
+        var user = {};
+
+        User.findOne(function (error, user) {
+            var user = new User;
+
+            user.firstName = req.body.firstName;
+            user.lastName = req.body.lastName;
+            user.email = req.body.email;
+            user.photoUrl = req.body.photoUrl;
+
+            user.save();
+        });
+    });
+
 app.use('/api', router);
 
 app.listen(Port, function () {
