@@ -140,7 +140,7 @@ router.route('/auth/linkedin')
     });
 
 app.post('/api/restricted', function (req, res) {
-    let jwt = req.headers['jwt'];
+    let jwt = req.body;
     console.log('jwt from restricted ===', jwt);
     if (jwt != null) {
         res.send('Authentication done');

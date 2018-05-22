@@ -1,28 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { UserSessionService } from '../../services/usersession.service';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers } from '@angular/http';
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css']
+  selector: 'app-tryme',
+  templateUrl: './tryme.component.html',
+  styleUrls: ['./tryme.component.css']
 })
-export class TestComponent implements OnInit, HttpInterceptor {
+export class TryMeComponent implements OnInit {
 
-  private response1: any;
-  private response2: any;
+  private restrictedResponse: any;
+  private genericResponse: any;
 
   constructor(private session: UserSessionService, private http: HttpClient) { }
 
-  intercept(req: HttpRequest<any>,
-    next: HttpHandler): Observable<HttpEvent<any>> {
-    return null
+  ngOnInit() {
+  }
+
+  tryme(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.http.post('http://localhost:3000/api/restricted', '')
+        .subscribe(
+          data => console.log(data),
+          err => console.log(err)
+        );
+      resolve();
+    });    
+  }
+
+  tryRestricted() {
 
   }
 
-  ngOnInit() {
+  tryGeneric() {
+    
   }
 
   // testSession1() {
@@ -43,8 +56,8 @@ export class TestComponent implements OnInit, HttpInterceptor {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('jwt', this.session.jwt);
       xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) this.response1 = xhr.response;
-        console.log('response from api/restricted', this.response1);
+        if (xhr.readyState == 4 && xhr.status == 200) this.restrictedResponse = xhr.response;
+        console.log('response from api/restricted', this.restrictedResponse);
       };
       xhr.send();
       resolve();
@@ -59,8 +72,8 @@ export class TestComponent implements OnInit, HttpInterceptor {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('jwt', this.session.jwt);
       xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) this.response2 = xhr.response;
-        console.log('response from api/generic', this.response2);
+        if (xhr.readyState == 4 && xhr.status == 200) this.genericResponse = xhr.response;
+        console.log('response from api/generic', this.genericResponse);
       };
       xhr.send();
       resolve();
