@@ -64,14 +64,14 @@ router.route('/auth/google')
         var user = {};
 
         User.findOne(function (error, user) {
-                var user = new User;
+            var user = new User;
 
-                user.firstName = req.body.firstName;
-                user.lastName = req.body.lastName;
-                user.email = req.body.email;
-                user.photoUrl = req.body.photoUrl;
+            user.firstName = req.body.firstName;
+            user.lastName = req.body.lastName;
+            user.email = req.body.email;
+            user.photoUrl = req.body.photoUrl;
 
-                user.save();
+            user.save();
         });
     });
 
@@ -83,14 +83,14 @@ router.route('/auth/facebook')
         var path = 'https://graph.facebook.com/me?access_token=' + FBtoken;
         request(path, function (error, response, body) {
             var data = JSON.parse(body);
-            
+
             if (!error && response && response.statusCode && response.statusCode == 200) {
                 var user = {
                     facebookUserId: data.id,
                     fullName: data.name
                 };
                 var jtoken = jwt.sign({ facebookUserId: data.id }, 'twinesoft', { expiresIn: '3h' });
-                res.json(jtoken);  
+                res.json(jtoken);
             }
             else {
                 console.log(data.error);
@@ -138,6 +138,28 @@ router.route('/auth/linkedin')
             user.save();
         });
     });
+
+app.post('/api/restricted', function (req, res) {
+    let jwt = req.headers['jwt'];
+    console.log('jwt from restricted ===', jwt);
+    if (jwt != null) {
+        res.send('Authentication done');
+    }
+    else {
+        res.send('something broke from restricted');
+    }
+});
+
+app.post('/api/generic', function (req, res) {
+    let jwt = req.headers['jwt'];
+    console.log('jwt from generic ===', jwt);
+    if (jwt === null) {
+        res.send('Authentication Required');
+    }
+    else {
+        res.send('something broke from genric');
+    }
+});
 
 app.use('/api', router);
 

@@ -6,7 +6,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 @Injectable()
 export class UserSessionService implements HttpInterceptor {
 
-  private jwt: any;
+  public jwt: any = null;
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
@@ -39,7 +39,7 @@ export class UserSessionService implements HttpInterceptor {
     let establishPromise = (resolve, reject) => {
       setTimeout(() => console.log('timer done'), 3000);
       let url: string = null;
-      
+
       if (this.sessionInfo.providerName === 'google') {
         url = 'api/auth/google';
       }
@@ -79,6 +79,10 @@ export class UserSessionService implements HttpInterceptor {
 
     // invoke the promise
     return new Promise(establishPromise);
+  }
+
+  public checkSession(res) {
+    res.send(this.jwt);
   }
 
   logOut() {
