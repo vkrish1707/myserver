@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/observable';
 @Injectable()
 export class UserSessionService {
 
-  private jwt: any;
+  public jwt: any = null;
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
@@ -32,7 +32,7 @@ export class UserSessionService {
     let establishPromise = (resolve, reject) => {
       setTimeout(() => console.log('timer done'), 3000);
       let url: string = null;
-      
+
       if (this.sessionInfo.providerName === 'google') {
         url = 'api/auth/google';
       }
@@ -72,6 +72,10 @@ export class UserSessionService {
 
     // invoke the promise
     return new Promise(establishPromise);
+  }
+
+  public checkSession(res) {
+    res.send(this.jwt);
   }
 
   logOut() {

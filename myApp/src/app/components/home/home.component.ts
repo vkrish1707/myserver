@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,5 +17,8 @@ export class HomeComponent implements OnInit {
   navigate() {
     this.router.navigate(['/register']);
   }
+
+
+
 
 }

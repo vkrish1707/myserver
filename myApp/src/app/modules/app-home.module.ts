@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AppHeaderModule } from './app-header.module';
 import { HomeComponent } from '../components/home/home.component';
 import { HomewithsessionComponent } from '../components/homewithsession/homewithsession.component';
+import { TestComponent } from '../components/test/test.component';
 
 @NgModule({
   imports: [
@@ -12,12 +13,14 @@ import { HomewithsessionComponent } from '../components/homewithsession/homewith
   
   declarations: [
     HomeComponent,
-    HomewithsessionComponent
+    HomewithsessionComponent,
+    TestComponent
   ],
 
   exports: [
     HomeComponent,
-    HomewithsessionComponent
+    HomewithsessionComponent,
+    TestComponent
   ]
 
 })
