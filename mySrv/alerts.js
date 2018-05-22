@@ -139,26 +139,26 @@ router.route('/auth/linkedin')
         });
     });
 
-app.post('/api/restricted', function (req, res) {
-    let jwt = req.headers['jwt'];
-    console.log('jwt from restricted ===', jwt);
-    if (jwt != null) {
-        res.send('Authentication done');
-    }
-    else {
-        res.send('something broke from restricted');
-    }
+app.get('/api/restricted', res => {
+    console.log(res);
+    // console.log('jwt from restricted ===', jwt);
+    // if (jwt != null) {
+    //     res.send('Authentication done');
+    // }
+    // else {
+    //     res.send('something broke from restricted');
+    // }
 });
 
-app.post('/api/generic', function (req, res) {
-    let jwt = req.headers['jwt'];
-    console.log('jwt from generic ===', jwt);
-    if (jwt === null) {
-        res.send('Authentication Required');
-    }
-    else {
-        res.send('something broke from genric');
-    }
+app.get('/api/generic', res => {
+    console.log(res);
+    // console.log('jwt from generic ===', jwt);
+    // if (jwt === null) {
+    //     res.send('Authentication Required');
+    // }
+    // else {
+    //     res.send('something broke from genric');
+    // }
 });
 
 app.use('/api', router);

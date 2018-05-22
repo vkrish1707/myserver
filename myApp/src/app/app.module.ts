@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -33,7 +33,14 @@ import { AppRegisterService } from './services/app-register.service';
     AppRegisterModule,
     NgbModule.forRoot() 
   ],
-  providers: [UserSessionService, AppRegisterService],
+  providers: [UserSessionService, AppRegisterService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserSessionService,
+      multi: true
+    }
+
+  ],
   bootstrap: [AppComponent]
 })
 

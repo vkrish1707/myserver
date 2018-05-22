@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { AppHeaderModule } from './app-header.module';
 import { HomeComponent } from '../components/home/home.component';
 import { HomewithsessionComponent } from '../components/homewithsession/homewithsession.component';
-import { TestComponent } from '../components/test/test.component';
+import { TryMeComponent } from '../components/tryme/tryme.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserSessionService } from '../services/usersession.service';
 
 @NgModule({
   imports: [
@@ -14,14 +16,16 @@ import { TestComponent } from '../components/test/test.component';
   declarations: [
     HomeComponent,
     HomewithsessionComponent,
-    TestComponent
+    TryMeComponent
   ],
 
   exports: [
     HomeComponent,
     HomewithsessionComponent,
-    TestComponent
-  ]
+    TryMeComponent
+  ],
+
+  providers: [ ]
 
 })
 
