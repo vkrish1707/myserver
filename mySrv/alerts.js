@@ -139,6 +139,7 @@ router.route('/auth/linkedin')
         });
     });
 
+<<<<<<< HEAD
 app.get('/api/restricted', res => {
     console.log(res);
     // console.log('jwt from restricted ===', jwt);
@@ -148,6 +149,17 @@ app.get('/api/restricted', res => {
     // else {
     //     res.send('something broke from restricted');
     // }
+=======
+app.post('/api/restricted', function (req, res) {
+    let jwt = req.body;
+    console.log('jwt from restricted ===', jwt);
+    if (jwt != null) {
+        res.send('Authentication done');
+    }
+    else {
+        res.send('something broke from restricted');
+    }
+>>>>>>> fc37d39866fa6606092d269db0ce7115c7ef946c
 });
 
 app.get('/api/generic', res => {
