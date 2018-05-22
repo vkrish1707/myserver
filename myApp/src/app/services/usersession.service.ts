@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/observable';
-<<<<<<< HEAD
 import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from '@angular/common/http';
-=======
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
->>>>>>> fc37d39866fa6606092d269db0ce7115c7ef946c
 
 @Injectable()
 export class UserSessionService implements HttpInterceptor {
@@ -22,7 +18,6 @@ export class UserSessionService implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>,
-<<<<<<< HEAD
     next: HttpHandler): Observable<HttpEvent<any>> {
       req = req.clone({
         setHeaders: {
@@ -34,13 +29,6 @@ export class UserSessionService implements HttpInterceptor {
   }
 
 
-=======
-  next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("in interceptor");
-    return next.handle(req);
-  }
-
->>>>>>> fc37d39866fa6606092d269db0ce7115c7ef946c
   public establish(info: ILogin): Promise<void> {
     this.sessionInfo = info;
     this.userInfoSubject.next(this.sessionInfo);
