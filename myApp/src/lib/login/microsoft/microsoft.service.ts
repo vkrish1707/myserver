@@ -14,7 +14,6 @@ export class MicrosoftService implements ILogin {
         return 'microsoft';
     }
 
-
     //Private members
     private access_token: any = null;
     private app: any;
