@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/observable';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 
 @Injectable()
-export class UserSessionService {
+export class UserSessionService implements HttpInterceptor {
 
   public jwt: any = null;
   private sessionInfo: ILogin = <ILogin>{};
@@ -14,6 +15,12 @@ export class UserSessionService {
 
   public get data(): Observable<IUser> {
     return this.userInfoSubject.asObservable();
+  }
+
+  intercept(req: HttpRequest<any>,
+  next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log("in interceptor");
+    return next.handle(req);
   }
 
   public establish(info: ILogin): Promise<void> {
