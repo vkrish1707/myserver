@@ -13,9 +13,9 @@
 
     <img src="{{registerService.data.photoUrl}}">
 
-    <div>
-        <button mat-raised-button color="primary" (click)="onContinue()">Continue</button>
-        <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    <div class="btnContinueCancel">
+        <button mat-raised-button color="primary" class="btnContinue" (click)="onContinue()">Continue</button>
+        <button mat-raised-button color="warn" class="btnCancel" (click)="onCancel()">Cancel</button>
     </div>
 
 </div>
