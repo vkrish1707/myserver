@@ -2,11 +2,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var router = express.Router();
 var cors = require('cors');
-var jwt = require('jsonwebtoken');
-var request = require('request');
 
 var Alert = require('./models/alerts');
 var User = require('./models/userModel');
+var Routes = require('./routes/routes');
 
 var app = express();
 var Port = 3000;
@@ -19,6 +18,8 @@ var corsOption = {
     optionsSuccessStatus: 200,
 };
 app.use(cors(corsOption));
+
+app.use('/api', Routes);
 
 app.get('/api/alerts', function (req, res, next) {
     Alert.getAlerts(function (err, alerts) {
@@ -41,6 +42,7 @@ app.post('/api/alerts', function (req, res) {
     });
 });
 
+<<<<<<< HEAD
 router.route('/auth/google')
     .post(function (req, res, next) {
         let token = req.headers['token'];
@@ -125,57 +127,25 @@ router.route('/auth/microsoft')
 
         User.findOne(function (error, user) {
             var user = new User;
+=======
+>>>>>>> 6db7fe250a92b96a5d1a0f4e1612b39539cdb392
 
-            user.firstName = req.body.firstName;
-            user.lastName = req.body.lastName;
-            user.email = req.body.email;
-            user.photoUrl = req.body.photoUrl;
+const RSA_PUBLIC_KEY = 'twinesoft';
 
-            user.save();
-        });
-    });
-
-router.route('/auth/linkedin')
-    .post(function (req, res, next) {
-        let Ltoken = req.headers['token'];
-        console.log('LinkedIn token from client ==== ', Ltoken);
-
-        // creating user object and saving the user to database
-        var user = {};
-
-        User.findOne(function (error, user) {
-            var user = new User;
-
-            user.firstName = req.body.firstName;
-            user.lastName = req.body.lastName;
-            user.email = req.body.email;
-            user.photoUrl = req.body.photoUrl;
-
-            user.save();
-        });
-    });
+const checkIfAuthenticated = expressJwt({
+    secret: RSA_PUBLIC_KEY
+});
 
 app.post('/api/restricted', function (req, res) {
-    let jwt = req.body;
-    console.log('jwt from restricted ===', jwt);
-    if (jwt != null) {
-        res.send('Authentication done');
-    }
-    else {
-        res.send('something broke from restricted');
-    }
-});
+    let jwt = req.headers.authorization;
+    console.log('restricted==', jwt);
+})
 
 app.post('/api/generic', function (req, res) {
-    let jwt = req.headers['jwt'];
-    console.log('jwt from generic ===', jwt);
-    if (jwt === null) {
-        res.send('Authentication Required');
-    }
-    else {
-        res.send('something broke from genric');
-    }
-});
+    let jwt = req.headers.authorization;
+    console.log('generic==', jwt);
+})
+
 
 app.use('/api', router);
 

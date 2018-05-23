@@ -16,6 +16,7 @@ import { AppRegisterModule } from './modules/app-register.module';
 import { LoginModule } from '../lib/login/login.module';
 import { UserSessionService } from './services/usersession.service';
 import { AppRegisterService } from './services/app-register.service';
+import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -34,15 +35,14 @@ import { AppRegisterService } from './services/app-register.service';
     AppRegisterModule,
     NgbModule.forRoot() 
   ],
-
-  providers: [UserSessionService, AppRegisterService,
+  providers: [UserSessionService,InterceptorService, AppRegisterService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: UserSessionService,
+      useClass: InterceptorService,
       multi: true
-    }
-  ],
+    },
 
+  ],
   bootstrap: [AppComponent]
 })
 

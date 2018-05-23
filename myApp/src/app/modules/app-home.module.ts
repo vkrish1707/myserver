@@ -5,6 +5,7 @@ import { AppHeaderModule } from './app-header.module';
 import { HomeComponent } from '../components/home/home.component';
 import { HomewithsessionComponent } from '../components/homewithsession/homewithsession.component';
 import { TryMeComponent } from '../components/tryme/tryme.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserSessionService } from '../services/usersession.service';
 
 @NgModule({
@@ -23,7 +24,9 @@ import { UserSessionService } from '../services/usersession.service';
     HomeComponent,
     HomewithsessionComponent,
     TryMeComponent
-  ]
+  ],
+
+  providers: [ ]
 
 })
 

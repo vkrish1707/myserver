@@ -19,7 +19,7 @@ export class MicrosoftService implements ILogin {
     private app: any;
 
     private config = {
-        clientId: "be8c0de3-39bb-4c97-91ed-b59dcfd0d031",
+        clientId: "8a013e7a-4c06-433d-a51c-d50680324d99",
         redirectUrl: "http://localhost:4200/",
         graphEndpoint: "https://graph.microsoft.com/v1.0/me",
         graphScopes: ["user.read", "email"]
