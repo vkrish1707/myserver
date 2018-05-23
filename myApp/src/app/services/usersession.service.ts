@@ -37,6 +37,7 @@ export class UserSessionService {
     let establishPromise = (resolve, reject) => {
       setTimeout(() => console.log('timer done'), 3000);
       let url: string = null;
+      let that = this;
 
       if (this.sessionInfo.providerName === 'google') {
         url = 'api/auth/google';

@@ -2,7 +2,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var router = express.Router();
 var cors = require('cors');
-var expressJwt = require('expressjwt');
 
 var Alert = require('./models/alerts');
 var User = require('./models/userModel');
@@ -41,13 +40,6 @@ app.post('/api/alerts', function (req, res) {
 
         res.json(alert);
     });
-});
-
-
-const RSA_PUBLIC_KEY = 'twinesoft';
-
-const checkIfAuthenticated = expressJwt({
-    secret: RSA_PUBLIC_KEY
 });
 
 app.post('/api/restricted', function (req, res) {

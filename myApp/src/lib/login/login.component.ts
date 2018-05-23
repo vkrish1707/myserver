@@ -64,8 +64,6 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     };
 
     let cancelled = (provider: ILogin) => {
-      console.log('trigerring cancelled event');
-      console.log('LoginComponent: Operation cancelled. Provider = ' + provider.providerName);
       that.oncancel.emit(null);
     };
 
