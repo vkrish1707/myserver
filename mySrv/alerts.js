@@ -4,6 +4,8 @@ var router = express.Router();
 var cors = require('cors');
 var jwt = require('jsonwebtoken');
 var request = require('request');
+var expressJwt = require('express-jwt');
+
 
 var Alert = require('./models/alerts');
 var User = require('./models/userModel');
@@ -139,27 +141,22 @@ router.route('/auth/linkedin')
         });
     });
 
-app.get('/api/restricted', res => {
-    console.log(res);
-    // console.log('jwt from restricted ===', jwt);
-    // if (jwt != null) {
-    //     res.send('Authentication done');
-    // }
-    // else {
-    //     res.send('something broke from restricted');
-    // }
+const RSA_PUBLIC_KEY = 'twinesoft';
+
+const checkIfAuthenticated = expressJwt({
+    secret: RSA_PUBLIC_KEY
 });
 
-app.get('/api/generic', res => {
-    console.log(res);
-    // console.log('jwt from generic ===', jwt);
-    // if (jwt === null) {
-    //     res.send('Authentication Required');
-    // }
-    // else {
-    //     res.send('something broke from genric');
-    // }
-});
+app.post('/api/restricted', function (req, res) {
+    let jwt = req.headers.authorization;
+    console.log('restricted==', jwt);
+})
+
+app.post('/api/generic', function (req, res) {
+    let jwt = req.headers.authorization;
+    console.log('generic==', jwt);
+})
+
 
 app.use('/api', router);
 
