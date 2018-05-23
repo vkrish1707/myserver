@@ -12,12 +12,13 @@ import { MicrosoftService } from './microsoft.service';
 
 export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
 
-  providerName = 'microsoft';
-  email: string;
-  photoUrl: string;
-  firstName: string;
-  lastName: string;
-  token: any;
+  // interface members
+  public firstName: string;
+  public lastName: string;
+  public email: string;
+  public photoUrl: string;
+  public token: any;
+  public providerName: string = 'microsoft';
 
   private access_token: any = null;
   private app: any;
@@ -33,6 +34,10 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
     super();
   }
 
+
+  ngOnInit() {
+  }
+
   onLogin() {
     this.microsoftService.login()
       .then(mstoken => {
@@ -42,11 +47,6 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
         this.email = this.microsoftService.email;
         this.photoUrl = this.microsoftService.photoUrl;
         this.success(this.microsoftService);
-      })
-      .catch(() => this.cancelled());
+      });
   }
-
-  ngOnInit() {
-  }
-
 }

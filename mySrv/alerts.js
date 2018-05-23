@@ -62,17 +62,21 @@ router.route('/auth/google')
 
         // creating user object and saving the user to database
         var user = {};
+        
+        if(!user) {
+            User.findOne(function (error, user) {
+                var user = new User;
 
-        User.findOne(function (error, user) {
-            var user = new User;
+                user.firstName = req.body.firstName;
+                user.lastName = req.body.lastName;
+                user.email = req.body.email;
+                user.photoUrl = req.body.photoUrl;
 
-            user.firstName = req.body.firstName;
-            user.lastName = req.body.lastName;
-            user.email = req.body.email;
-            user.photoUrl = req.body.photoUrl;
-
-            user.save();
-        });
+                user.save();
+            });
+        } else {
+            
+        }
     });
 
 // Facebook
@@ -95,6 +99,18 @@ router.route('/auth/facebook')
             else {
                 console.log(data.error);
             }
+        });
+
+        // creating user object and saving the user to database
+        User.findOne(function (error, user) {
+            var user = new User;
+
+            user.firstName = req.body.firstName;
+            user.lastName = req.body.lastName;
+            user.email = req.body.email;
+            user.photoUrl = req.body.photoUrl;
+
+            user.save();
         });
     });
 

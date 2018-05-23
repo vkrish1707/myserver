@@ -39,6 +39,7 @@ export class UserSessionService implements HttpInterceptor {
     let establishPromise = (resolve, reject) => {
       setTimeout(() => console.log('timer done'), 3000);
       let url: string = null;
+      let that = this;
 
       if (this.sessionInfo.providerName === 'google') {
         url = 'api/auth/google';
@@ -64,8 +65,11 @@ export class UserSessionService implements HttpInterceptor {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('token', this.sessionInfo.token);
       xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) this.jwt = JSON.stringify(xhr.response);
-        console.log(this.jwt);
+        let that2 = that;
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          that.jwt = JSON.stringify(xhr.response);
+          console.log(that2.jwt);
+        }
       };
       xhr.send(JSON.stringify(data));
 
