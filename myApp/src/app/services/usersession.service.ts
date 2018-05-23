@@ -19,11 +19,11 @@ export class UserSessionService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>,
     next: HttpHandler): Observable<HttpEvent<any>> {
-      req = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${this.jwt}`
-        }
-      });
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${this.jwt}`
+      }
+    });
     console.log("in Interceptor");
     return next.handle(req);
   }
@@ -91,7 +91,7 @@ export class UserSessionService implements HttpInterceptor {
     res.send(this.jwt);
   }
 
-  logOut() {
+  public logOut() {
     this.sessionInfo.logout();
   }
 }
