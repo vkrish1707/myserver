@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/observable';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from '@angular/common/http';
 
 @Injectable()
 export class UserSessionService implements HttpInterceptor {
 
-  public jwt: any = null;
+  private jwt: any = null;
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
@@ -18,10 +18,16 @@ export class UserSessionService implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>,
-  next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("in interceptor");
+    next: HttpHandler): Observable<HttpEvent<any>> {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.jwt}`
+        }
+      });
+    console.log("in Interceptor");
     return next.handle(req);
   }
+
 
   public establish(info: ILogin): Promise<void> {
     this.sessionInfo = info;
@@ -64,7 +70,7 @@ export class UserSessionService implements HttpInterceptor {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('token', this.sessionInfo.token);
       xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) this.jwt = JSON.stringify(xhr.response);
+        if (xhr.readyState == 4 && xhr.status == 200) this.jwt = xhr.response;
         console.log(this.jwt);
       };
       xhr.send(JSON.stringify(data));

@@ -34,15 +34,14 @@ import { AppRegisterService } from './services/app-register.service';
     AppRegisterModule,
     NgbModule.forRoot() 
   ],
-
   providers: [UserSessionService, AppRegisterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserSessionService,
       multi: true
     }
-  ],
 
+  ],
   bootstrap: [AppComponent]
 })
 
