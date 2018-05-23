@@ -16,10 +16,12 @@ import { AppRegisterModule } from './modules/app-register.module';
 import { LoginModule } from '../lib/login/login.module';
 import { UserSessionService } from './services/usersession.service';
 import { AppRegisterService } from './services/app-register.service';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -27,7 +27,7 @@ export class TryMeComponent implements OnInit {
           err => console.log(err)
         );
       resolve();
-    });    
+    });
   }
 
   tryRestricted() {
@@ -35,7 +35,7 @@ export class TryMeComponent implements OnInit {
   }
 
   tryGeneric() {
-    
+
   }
 
   // testSession1() {
@@ -43,7 +43,7 @@ export class TryMeComponent implements OnInit {
   //   let body = this.session.jwt;
   //   headers.append('Content-Type', 'application/json');
   //   return this.http.post('http://localhost:3000/api/restricted', body, {
-      
+
   //   })
   //     .subscribe(
   //       data => { console.log(data); },

@@ -12,7 +12,7 @@ import { UserSessionService } from '../services/usersession.service';
     CommonModule,
     AppHeaderModule
   ],
-  
+
   declarations: [
     HomeComponent,
     HomewithsessionComponent,

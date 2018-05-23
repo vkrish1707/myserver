@@ -17,7 +17,7 @@ export class UserSessionService implements HttpInterceptor {
     return this.userInfoSubject.asObservable();
   }
 
-  intercept(req: HttpRequest<any>,
+    intercept(req: HttpRequest<any>,
   next: HttpHandler): Observable<HttpEvent<any>> {
     console.log("in interceptor");
     return next.handle(req);
@@ -75,7 +75,7 @@ export class UserSessionService implements HttpInterceptor {
       else {
         reject();
       }
-    }
+    };
 
     // invoke the promise
     return new Promise(establishPromise);
