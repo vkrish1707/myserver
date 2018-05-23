@@ -11,10 +11,11 @@ import { Headers } from '@angular/http';
 })
 export class TryMeComponent implements OnInit {
 
-  private restrictedResponse: any;
-  private genericResponse: any;
+  public restrictedResponse : any;
+  public genericResponse = 'response from generic';
 
-  constructor(private session: UserSessionService, private http: HttpClient) { }
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -24,13 +25,15 @@ export class TryMeComponent implements OnInit {
     this.tryGeneric();
   }
 
-
   tryRestricted(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this.http.get('http://localhost:3000/api/restricted',)
+      this.http.post('http://localhost:3000/api/restricted', '')
         .subscribe(
-          data => console.log(data),
-          err => console.log(err)
+          res => {
+            this.restrictedResponse = res;
+            console.log(this.restrictedResponse);
+          },
+         err => console.log(err)
         );
       resolve();
     })
@@ -38,10 +41,10 @@ export class TryMeComponent implements OnInit {
 
   tryGeneric(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this.http.get('http://localhost:3000/api/generic',)
+      this.http.post('http://localhost:3000/api/generic', '' )
         .subscribe(
-          data => console.log(data),
-          err => console.log(err)
+          res => console.log(res),
+          // err => console.log(err)
         );
       resolve();
     })

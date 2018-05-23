@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/observable';
 import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from '@angular/common/http';
 
 @Injectable()
-export class UserSessionService implements HttpInterceptor {
+export class UserSessionService {
 
   private jwt: any = null;
   private sessionInfo: ILogin = <ILogin>{};
@@ -17,17 +17,9 @@ export class UserSessionService implements HttpInterceptor {
     return this.userInfoSubject.asObservable();
   }
 
-  intercept(req: HttpRequest<any>,
-    next: HttpHandler): Observable<HttpEvent<any>> {
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.jwt}`
-      }
-    });
-    console.log("in Interceptor");
-    return next.handle(req);
+  public getjwt() {
+    return this.jwt;
   }
-
 
   public establish(info: ILogin): Promise<void> {
     this.sessionInfo = info;
@@ -70,8 +62,10 @@ export class UserSessionService implements HttpInterceptor {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('token', this.sessionInfo.token);
       xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) this.jwt = xhr.response;
-        console.log(this.jwt);
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          this.jwt = xhr.response;
+          console.log(this.jwt);
+        }
       };
       xhr.send(JSON.stringify(data));
 
