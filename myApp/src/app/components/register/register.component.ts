@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
 
   public loginSuccess(data: any) {
     this.registerService.data = <ILogin> data;
+    console.log(this.registerService.data.token);
     this.state = 'info';
   }
 
