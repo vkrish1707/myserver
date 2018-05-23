@@ -16,7 +16,11 @@ import { AppRegisterModule } from './modules/app-register.module';
 import { LoginModule } from '../lib/login/login.module';
 import { UserSessionService } from './services/usersession.service';
 import { AppRegisterService } from './services/app-register.service';
+<<<<<<< HEAD
 import { FooterComponent } from './components/footer/footer.component';
+=======
+import { InterceptorService } from './services/interceptor.service';
+>>>>>>> 7de36830aaf083e6088a2352182ec8d4bae4e763
 
 @NgModule({
   declarations: [
@@ -36,15 +40,14 @@ import { FooterComponent } from './components/footer/footer.component';
     AppRegisterModule,
     NgbModule.forRoot() 
   ],
-
-  providers: [UserSessionService, AppRegisterService,
+  providers: [UserSessionService,InterceptorService, AppRegisterService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: UserSessionService,
+      useClass: InterceptorService,
       multi: true
-    }
-  ],
+    },
 
+  ],
   bootstrap: [AppComponent]
 })
 

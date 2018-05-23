@@ -1,4 +1,3 @@
-var express = require('express');
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/work');
@@ -24,6 +23,6 @@ var UserSchema = mongoose.Schema({
     photoUrl: {
         type: String
     }
-})
+}, { timestamps: true });
 
 var User = module.exports = mongoose.model('User', UserSchema);

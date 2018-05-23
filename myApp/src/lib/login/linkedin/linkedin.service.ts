@@ -18,9 +18,9 @@ export class LinkedinService implements ILogin {
 
   constructor() { }
 
-  public onLinkedInLoad() {
-    IN.Event.on(IN, "auth", this.launch);
-  }
+  // public onLinkedInLoad() {
+  //   IN.Event.on(IN, "auth", this.launch);
+  // }
 
   public launch(): Promise<ILogin> {
     return new Promise((resolve, reject) => {

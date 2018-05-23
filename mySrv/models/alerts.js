@@ -22,14 +22,14 @@ module.exports.addAlert = function (alert, callback) {
     Alert.create(alert, callback);
 }
 
-AlertSchema.methods.generateJWT = function () {
-    var today = new Date();
-    var exp = new Date(today);
-    exp.setDate(today.getDate() + 60);
+// AlertSchema.methods.generateJWT = function () {
+//     var today = new Date();
+//     var exp = new Date(today);
+//     exp.setDate(today.getDate() + 60);
 
-    return jwt.sign({
-        userid: this.userid,
-        email: this.email,
-        exp: parseInt(exp.getTime() / 1000),
-    }, secret);
-};
+//     return jwt.sign({
+//         userid: this.userid,
+//         email: this.email,
+//         exp: parseInt(exp.getTime() / 1000),
+//     }, secret);
+// };

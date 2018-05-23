@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/observable';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from '@angular/common/http';
 
 @Injectable()
-export class UserSessionService implements HttpInterceptor {
+export class UserSessionService {
 
-  public jwt: any = null;
+  private jwt: any = null;
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
@@ -17,10 +17,8 @@ export class UserSessionService implements HttpInterceptor {
     return this.userInfoSubject.asObservable();
   }
 
-    intercept(req: HttpRequest<any>,
-  next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("in interceptor");
-    return next.handle(req);
+  public getjwt() {
+    return this.jwt;
   }
 
   public establish(info: ILogin): Promise<void> {
@@ -39,6 +37,7 @@ export class UserSessionService implements HttpInterceptor {
     let establishPromise = (resolve, reject) => {
       setTimeout(() => console.log('timer done'), 3000);
       let url: string = null;
+      let that = this;
 
       if (this.sessionInfo.providerName === 'google') {
         url = 'api/auth/google';
@@ -64,8 +63,10 @@ export class UserSessionService implements HttpInterceptor {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('token', this.sessionInfo.token);
       xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) this.jwt = JSON.stringify(xhr.response);
-        console.log(this.jwt);
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          this.jwt = xhr.response;
+          console.log(this.jwt);
+        }
       };
       xhr.send(JSON.stringify(data));
 
@@ -85,7 +86,7 @@ export class UserSessionService implements HttpInterceptor {
     res.send(this.jwt);
   }
 
-  logOut() {
+  public logOut() {
     this.sessionInfo.logout();
   }
 }
