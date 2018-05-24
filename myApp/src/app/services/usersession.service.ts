@@ -10,8 +10,7 @@ export class UserSessionService {
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
-  constructor() {
-  }
+  constructor() {}
 
   public get data(): Observable<IUser> {
     return this.userInfoSubject.asObservable();
