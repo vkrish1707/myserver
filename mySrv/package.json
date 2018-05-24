@@ -1,21 +1,21 @@
 {
-    "name": "server",
-    "version": "1.0.0",
-    "description": "main work application",
-    "main": "alerts.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon alerts.js"
-    },
-    "dependencies": {
-        "body-parser": "*",
-        "cors": "^2.8.4",
-        "express": "*",
-        "google-auth-library": "^1.4.0",
-        "jsonwebtoken": "^8.2.1",
-        "mongoose": "*",
-        "request": "^2.85.0"
-    },
-    "author": "vZen Team",
-    "license": "ISC"
+  "name": "server",
+  "version": "1.0.0",
+  "description": "main work application",
+  "main": "servers.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cors": "^2.8.4",
+    "express": "*",
+    "google-auth-library": "^1.4.0",
+    "jsonwebtoken": "^8.2.1",
+    "mongoose": "*",
+    "request": "^2.85.0"
+  },
+  "author": "vZen Team",
+  "license": "ISC"
 }
