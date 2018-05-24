@@ -2,18 +2,19 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var request = require('request');
+var User = require('../models/userModel');
 
 var app = express();
 
 router.route('/auth/google')
     .post(function (req, res, next) {
-        let token = req.headers['token'];
+        let Gtoken = req.headers['token'];
 
         const { OAuth2Client } = require('google-auth-library');
         const client = new OAuth2Client(CLIENT_ID = '284779082637-o4uhhhiirkb7j89r8qd0jfkfmddnmq94.apps.googleusercontent.com');
         async function verify() {
             const ticket = await client.verifyIdToken({
-                idToken: token,
+                idToken: Gtoken,
                 audience: CLIENT_ID
             });
             const payload = ticket.getPayload();
@@ -60,6 +61,21 @@ router.route('/auth/facebook')
                 console.log(data.error);
             }
         });
+
+        // creating user object and saving the user to database
+        var user = {};
+
+        User.findOne(function (error, user) {
+            var user = new User;
+
+            user.firstName = req.body.firstName;
+            user.lastName = req.body.lastName;
+            user.email = req.body.email;
+            user.photoUrl = req.body.photoUrl;
+
+            user.save();
+        });
+
     });
 
 // Microsoft

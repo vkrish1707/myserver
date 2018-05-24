@@ -36,7 +36,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
   ngOnInit() {
   }
 
-  signIn(): Promise<ILogin> {
+  public signIn(): Promise<ILogin> {
     return new Promise((resolve, reject) => {
       let promise = this.auth2.signIn();
 
@@ -59,31 +59,25 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
     });
   }
 
-  // public onSignIn(googleUser: any) {
-  //   var profile = googleUser.getBasicProfile();
-  //   var id_token = googleUser.getAuthResponse().id_token;
-  //   this.token = id_token;
-  //   this.firstName = profile.ofa;
-  //   this.lastName = profile.wea;
-  //   this.email = profile.U3;
-  //   this.photoUrl = profile.Paa;
-  //   this.success(this);
-  // };
-
-  public onFailure(googleUser: any) {};
-
-  public logout(): Promise<void> {
+  public logout(): Promise<any> {
+    console.log('google-logout implemented');
     return new Promise((resolve, reject) => {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then((err: any) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      }).catch((err: any) => {
-        reject(err);
-      });
+      if (!gapi.auth2) {
+        gapi.load('auth2', function () {
+          gapi.auth2.init();
+          var auth2 = gapi.auth2.getAuthInstance();
+          this.auth2.signOut().then((err: any) => {
+            if (err) {
+              reject(err);
+            } else {
+              this.auth2.disconnect();
+              resolve();
+            }
+          }).catch((err: any) => {
+            reject(err);
+          });
+        });
+      }
     });
   }
 }
