@@ -1,6 +1,6 @@
 .login a {
     float: right;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-right: 50px;
     text-decoration-line: underline;
     position: relative;
@@ -10,7 +10,7 @@
 h1 {
     position: absolute;
     margin-top: 30px;
-    margin-left: 360px;
+    margin-left: 240px;
     margin-bottom: 100px;
 }
 
@@ -31,62 +31,96 @@ h1 {
 
 .logins {
     min-height: 50%;
-    min-width: ;width: 70%;
+    min-width: 70%;
     margin: auto;
-    background-color: aqua;
     position: relative;
     display: block;
 }
+
+::ng-deep .fa {
+    padding: 0px;
+    font-size: 27px;
+    margin-right: 18px;
+    margin-right: 20px;
+    margin-left: 18px;
+    margin-bottom: -5px;
+    margin-top: -5px;
+    float: left;
+    cursor: pointer;
+}
+
+::ng-deep #googleBtn {
+    background-color: #DD4B39;
+    color: #fff;
+    float: left;
+    margin-left: 20%;
+    margin-top: 1%;
+    font-size: 17px;
+    border: none;
+    position: relative;
+    cursor: pointer;
+} 
+/* 
+::ng-deep .fa-google {
+    margin-right: 15%;
+    margin-bottom: -7px;
+    margin-top: 2px;
+} */
 
 ::ng-deep #facebookBtn {
     background-color: #3b5998;
     color: #fff;
     float: right;
-    margin-right: 15%;
-    margin-top: -6.5%;
+    margin-right: 22%;
+    margin-top: 1%;
     font-size: 17px;
     border: none;
     position: relative;
+    cursor: pointer;
 } 
 
-::ng-deep .fa {
-    padding: 0px;
-    font-size: 27px;
-}
-::ng-deep .fa-facebook {
+/* ::ng-deep .fa-facebook {
     margin-right: 15%;
     margin-bottom: -7px;
     margin-top: 2px;
-}
+} */
+
 
 ::ng-deep #microsoftBtn {
     background-color: #2672EC;
     color: #fff;
     float: left;
-    margin-left: 14%;
-    margin-top: 6%;
+    margin-left: 20%;
+    margin-top: 3%;
     font-size: 17px;
+    border: none;
+    cursor: pointer;
 }
-     
-::ng-deep .fa {
-    padding: 0px;
-    font-size: 27px;
-    margin-right: 18px;
-}
-     
-::ng-deep .fa-microsoft {
+
+/* ::ng-deep .fa-microsoft {
     margin-right: 20px;
     margin-left: 5px;
     margin-bottom: -5px;
     margin-top: -1px;
     float: left;
-}
+} */
+     
 
 ::ng-deep #linkedinBtn {    
     background-color: #007BB6;
     color: #fff;
-    position: absolute;
-    margin-left: 145px;
-    margin-top: 55px;
+    position: relative;
+    margin-left: 13%;
+    margin-top: 3%;
     font-size: 17px;
+    border: none;
+    cursor: pointer;
 }
+
+/* ::ng-deep .fa-linkedin {
+    margin-right: 20px;
+    margin-left: 5px;
+    margin-bottom: -5px;
+    margin-top: -5px;
+    float: left;
+} */
