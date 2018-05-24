@@ -26,7 +26,7 @@ export class RegisteruserconfirmComponent implements OnInit {
   }
 
   onCancel() {
-    this.registerService.data = null;
+    this.registerService.data.logout();
     this.router.navigate(['/home']);
   }
 }

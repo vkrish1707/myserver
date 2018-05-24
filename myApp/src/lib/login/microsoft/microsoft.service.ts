@@ -10,9 +10,7 @@ export class MicrosoftService implements ILogin {
     public lastName: string;
     public photoUrl: string;
     public token: string;
-    public get providerName(): string {
-        return 'microsoft';
-    }
+    public providerName: string = 'microsoft'; 
 
     //Private members
     private access_token: any = null;
