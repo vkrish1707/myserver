@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "main work application",
-  "main": "alerts.js",
+  "main": "servers.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon alerts.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "*",

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var request = require('request');
+var User = require('../models/userModel');
 
 var app = express();
 
@@ -46,7 +47,7 @@ router.route('/auth/facebook')
 
         var path = 'https://graph.facebook.com/me?access_token=' + FBtoken;
         request(path, function (error, response, body) {
-            var data = JSON.parse(body);
+            var data = JSON.stringify(body);
 
             if (!error && response && response.statusCode && response.statusCode == 200) {
                 var user = {
@@ -66,7 +67,7 @@ router.route('/auth/facebook')
 router.route('/auth/microsoft')
     .post(function (req, res, next) {
         let Mtoken = req.headers['token'];
-        // console.log('microsoft token from client ==== ', Mtoken);
+        console.log('microsoft token from client ==== ', Mtoken);
 
         // creating user object and saving the user to database
         var user = {};
