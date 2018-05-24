@@ -3,8 +3,8 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var cors = require('cors');
 
-var Alert = require('./models/alerts');
 var Routes = require('./routes/routes');
+var alerts = require('./routes/alerts');
 
 var app = express();
 var Port = 3000;
@@ -19,27 +19,8 @@ var corsOption = {
 app.use(cors(corsOption));
 
 app.use('/api', Routes);
+app.use('/api', alerts);
 
-app.get('/api/alerts', function (req, res, next) {
-    Alert.getAlerts(function (err, alerts) {
-        if (err) {
-            res.sendStatus(401);
-        }
-
-        res.json(alerts);
-    });
-});
-
-app.post('/api/alerts', function (req, res) {
-    var alert = new Alert(req.body);
-    Alert.addAlert(alert, function (err, alert) {
-        if (err) {
-            res.sendStatus(401);
-        }
-
-        res.json(alert);
-    });
-});
 
 app.post('/api/restricted', function (req, res) {
     let jwt = req.headers.authorization;
