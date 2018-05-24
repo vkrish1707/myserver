@@ -10,6 +10,7 @@ declare const FB: any;
 export class FacebookService implements ILogin {
 
   // interface members
+  public providerID: string;
   public firstName: string;
   public lastName: string;
   public email: string;
@@ -94,6 +95,7 @@ export class FacebookService implements ILogin {
 
     FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}',
       (response) => {
+        this.providerID = response.id;
         this.firstName = response.first_name;
         this.lastName = response.last_name;
         this.email = response.email;

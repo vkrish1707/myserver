@@ -32,7 +32,6 @@ app.post('/api/generic', function (req, res) {
     console.log('generic==', jwt);
 })
 
-
 app.use('/api', router);
 
 app.listen(Port, function () {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
 import { GoogleService } from './google.service';
 import { ILogin } from '../login';
+import { resolve } from 'q';
 
 declare const gapi: any;
 
@@ -14,6 +15,7 @@ declare const gapi: any;
 export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin {
 
   // interface members
+  public providerID: string;
   public firstName: string;
   public lastName: string;
   public email: string;
@@ -44,9 +46,9 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
         let profile = this.auth2.currentUser.get().getBasicProfile();
         let backendToken = this.auth2.currentUser.get().getAuthResponse(true).id_token;
 
-        // user.id = profile.getId();
+        this.providerID = profile.getId();
         this.email = profile.getEmail();
-        this.photoUrl = profile.getImageUrl();
+        this.photoUrl = profile.Paa;
         this.firstName = profile.getGivenName();
         this.lastName = profile.getFamilyName();
         this.token = backendToken;
@@ -62,22 +64,22 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
   public logout(): Promise<any> {
     console.log('google-logout implemented');
     return new Promise((resolve, reject) => {
-      if (!gapi.auth2) {
-        gapi.load('auth2', function () {
-          gapi.auth2.init();
-          var auth2 = gapi.auth2.getAuthInstance();
-          this.auth2.signOut().then((err: any) => {
-            if (err) {
-              reject(err);
-            } else {
-              this.auth2.disconnect();
-              resolve();
-            }
-          }).catch((err: any) => {
-            reject(err);
-          });
-        });
-      }
+      console.log('auth2 ====', this.auth2);
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then((err: any) => {
+        if (err) {
+          console.log('reached error');
+          reject(err);
+        } else {
+          console.log('reached disconnect');
+          document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:4200";
+          auth2.disconnect();
+          resolve();
+        }
+      }).catch((err: any) => {
+        console.log('catch error');
+        reject(err);
+      });
     });
   }
 }

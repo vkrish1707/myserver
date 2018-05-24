@@ -27,6 +27,7 @@ export class UserSessionService {
     // defining 'data' object to send the userDetails to
     // the server and save them to the database
     let data: IUser = {
+      'providerID': this.sessionInfo.providerID,
       'firstName': this.sessionInfo.firstName,
       'lastName': this.sessionInfo.lastName,
       'email': this.sessionInfo.email,
@@ -85,12 +86,13 @@ export class UserSessionService {
     res.send(this.jwt);
   }
 
-  public logOut() {
-    this.sessionInfo.logout();
+  public async logOut() {
+    await this.sessionInfo.logout();
   }
 }
 
 export class IUser {
+  providerID: string;
   firstName: string;
   lastName: string;
   email: string;
