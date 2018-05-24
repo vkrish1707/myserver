@@ -76,7 +76,7 @@ export class UserSessionService {
       else {
         reject();
       }
-    }
+    };
 
     // invoke the promise
     return new Promise(establishPromise);

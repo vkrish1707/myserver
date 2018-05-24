@@ -9,9 +9,10 @@ import { Headers } from '@angular/http';
   templateUrl: './tryme.component.html',
   styleUrls: ['./tryme.component.css']
 })
+
 export class TryMeComponent implements OnInit {
 
-  public restrictedResponse : any;
+  public restrictedResponse: any;
   public genericResponse = 'response from generic';
 
 
