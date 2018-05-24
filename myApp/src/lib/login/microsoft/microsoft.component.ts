@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BaseLoginProvider } from '../base/provider.base';
-import * as Msal from 'msal';
 import { MicrosoftService } from './microsoft.service';
 
 @Component({
@@ -33,7 +32,6 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
   constructor(private microsoftService: MicrosoftService) {
     super();
   }
-
 
   ngOnInit() {
   }

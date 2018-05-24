@@ -9,6 +9,7 @@ declare const IN: any;
 @Injectable()
 export class LinkedinService implements ILogin {
 
+  public providerID: string;
   public firstName: string;
   public lastName: string;
   public photoUrl: string;
@@ -27,6 +28,7 @@ export class LinkedinService implements ILogin {
       let that = this;
       IN.User.authorize(function () {
         IN.API.Raw('/people/~:(id,first-name,last-name,email-address,picture-url)').result(function (res: any) {
+          that.providerID = res.id;
           that.email = res.emailAddress;
           that.photoUrl = res.pictureUrl;
           that.firstName = res.firstName;

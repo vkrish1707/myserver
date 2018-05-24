@@ -5,14 +5,15 @@ import { ILogin } from "../login";
 @Injectable()
 export class MicrosoftService implements ILogin {
 
-    public email: string;
+    public providerID: string;
     public firstName: string;
     public lastName: string;
+    public email: string;
     public photoUrl: string;
     public token: string;
-    public providerName: string = 'microsoft'; 
+    public providerName: string = 'microsoft';
 
-    //Private members
+    // Private members
     private access_token: any = null;
     private app: any;
 
@@ -23,22 +24,23 @@ export class MicrosoftService implements ILogin {
         graphScopes: ["user.read", "email"]
     };
 
-    //constructor
+    // constructor
     constructor() {
-        //intialising app and call back for login redirect
+        // intialising app and call back for login redirect
         this.app = new Msal.UserAgentApplication(
             this.config.clientId,
             '',
             () => { }); // call back for login redirect
     }
 
-    //logIn method 
+    // logIn method 
     // on success - returns a Promise with valid user token - which is retrieved from getToken method
     // on failure - returns a promoise with null user token
     public login() {
         return this.app.loginPopup(this.config.graphScopes)
             .then(idToken => {
                 const user = this.app.getUser();
+                console.log('microsoft response', user);
                 this.email = user.displayableId;
                 this.firstName = user.name;
                 this.token = idToken;

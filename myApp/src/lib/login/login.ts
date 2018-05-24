@@ -3,6 +3,7 @@ export interface ILogin {
     // interface members
     token: string;
     providerName: string;
+    providerID: string;
     firstName: string;
     lastName: string;
     email: string;

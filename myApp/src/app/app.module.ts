@@ -24,6 +24,7 @@ import { FooterComponent } from './components/footer/footer.component';
     AppComponent,
     FooterComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,14 +38,18 @@ import { FooterComponent } from './components/footer/footer.component';
     AppRegisterModule,
     NgbModule.forRoot() 
   ],
-  providers: [UserSessionService,InterceptorService, AppRegisterService,
+
+  providers: [
+    UserSessionService,
+    InterceptorService,
+    AppRegisterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
-    },
-
+    }
   ],
+
   bootstrap: [AppComponent]
 })
 
