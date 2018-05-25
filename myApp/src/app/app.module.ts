@@ -36,11 +36,17 @@ import { InterceptorService } from './services/interceptor.service';
     NgbModule.forRoot() 
   ],
   providers: [UserSessionService,InterceptorService, AppRegisterService,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: InterceptorService,
+    //   multi: true
+    // },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
+      useClass: UserSessionService,
       multi: true
     },
+
 
   ],
   bootstrap: [AppComponent]

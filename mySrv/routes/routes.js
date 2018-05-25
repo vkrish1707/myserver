@@ -46,7 +46,7 @@ router.route('/auth/facebook')
 
         var path = 'https://graph.facebook.com/me?access_token=' + FBtoken;
         request(path, function (error, response, body) {
-            var data = JSON.parse(body);
+            var data = JSON.stringify(body);
 
             if (!error && response && response.statusCode && response.statusCode == 200) {
                 var user = {

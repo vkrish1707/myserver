@@ -4,17 +4,33 @@ import { Observable } from 'rxjs/observable';
 import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from '@angular/common/http';
 
 @Injectable()
-export class UserSessionService {
+export class UserSessionService implements HttpInterceptor {
 
   private jwt: any = null;
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
   constructor() {
+    console.log('this is new instanse');
   }
 
   public get data(): Observable<IUser> {
     return this.userInfoSubject.asObservable();
+  }
+
+  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    console.log('in interceptor');
+    if (this.getjwt() != null) {
+      req = req.clone({
+        headers: req.headers.set("authorization", this.getjwt())
+      });
+    } else {
+      req = req.clone({
+        headers: req.headers.set("authorization", "null")
+      });
+    }
+    return next.handle(req);
   }
 
   public getjwt() {
