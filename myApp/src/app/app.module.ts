@@ -45,7 +45,7 @@ import { FooterComponent } from './components/footer/footer.component';
     AppRegisterService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
+      useExisting: UserSessionService,
       multi: true
     }
   ],

@@ -77,7 +77,6 @@ export class MicrosoftService implements ILogin {
         return new Promise<void>((resolve, reject) => {
             hello('msft').logout()
                 .then(res => {
-                    console.log('logout successful');
                     resolve()
                 });
         });
@@ -118,7 +117,6 @@ export class MicrosoftService implements ILogin {
         client.api('me/photo/$value').get()
             .then((res => {
                 this.photoUrl = JSON.stringify(res);
-                console.log('photo ==== ', JSON.stringify(res));
                 task.complete();
             }))
     }

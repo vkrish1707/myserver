@@ -7,7 +7,7 @@ var UserSchema = mongoose.Schema({
     providerID: {
         type: String
     },
-    
+
     firstName: {
         type: String
     },
@@ -29,4 +29,28 @@ var UserSchema = mongoose.Schema({
     }
 }, { timestamps: true });
 
+UserSchema.statics.addUser = function (id, done) {
+    User.findOne({ providerID: id.providerID })
+        .exec(function (err, user) {
+            if (err) {
+                return done(err)
+            } else if (user) {
+                return done();
+            } else {
+                var user = new User;
+
+                user.providerID = id.providerID;
+                user.firstName = id.firstName;
+                user.lastName = id.lastName;
+                user.email = id.email;
+                user.photoUrl = id.photoUrl;
+
+                user.save();
+                return done();
+            }
+        });
+}
+
 var User = module.exports = mongoose.model('User', UserSchema);
+
+module.exports = User;

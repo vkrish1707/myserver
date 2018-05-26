@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/observable';
 import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from '@angular/common/http';
 
 @Injectable()
-export class UserSessionService {
+export class UserSessionService implements HttpInterceptor {
 
-  private jwt: any = null;
+  private jwt: any;
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
@@ -14,6 +14,19 @@ export class UserSessionService {
 
   public get data(): Observable<IUser> {
     return this.userInfoSubject.asObservable();
+  }
+
+  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.getjwt() != null) {
+      req = req.clone({
+        headers: req.headers.set("authorization", this.getjwt())
+      });
+    } else {
+      req = req.clone({
+        headers: req.headers.set("authorization", "jwt is null")
+      });
+    }
+    return next.handle(req);
   }
 
   public getjwt() {
@@ -33,7 +46,6 @@ export class UserSessionService {
       'email': this.sessionInfo.email,
       'photoUrl': this.sessionInfo.photoUrl
     }
-    console.log('data ===== ', data);
 
     let establishPromise = (resolve, reject) => {
       setTimeout(() => console.log('timer done'), 3000);
@@ -66,7 +78,6 @@ export class UserSessionService {
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
           this.jwt = xhr.response;
-          console.log(this.jwt);
         }
       };
       xhr.send(JSON.stringify(data));
@@ -83,12 +94,9 @@ export class UserSessionService {
     return new Promise(establishPromise);
   }
 
-  public checkSession(res) {
-    res.send(this.jwt);
-  }
-
-  public logOut() {
-    this.sessionInfo.logout();
+  public async logOut() {
+    await this.sessionInfo.logout();
+    this.jwt = null;
   }
 }
 
