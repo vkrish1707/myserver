@@ -3,7 +3,10 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var cors = require('cors');
 
-var Routes = require('./routes/routes');
+var google = require('./routes/google');
+var facebook = require('./routes/facebook');
+var microsoft = require('./routes/microsoft');
+var linkedin = require('./routes/linkedin');
 var alerts = require('./routes/alerts');
 
 var app = express();
@@ -18,7 +21,10 @@ var corsOption = {
 };
 app.use(cors(corsOption));
 
-app.use('/api', Routes);
+app.use('/api', google);
+app.use('/api', facebook);
+app.use('/api', microsoft);
+app.use('/api', linkedin);
 app.use('/api', alerts);
 
 
