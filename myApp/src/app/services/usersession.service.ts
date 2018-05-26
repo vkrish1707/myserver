@@ -6,7 +6,7 @@ import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from '@angular/c
 @Injectable()
 export class UserSessionService implements HttpInterceptor {
 
-  private jwt: any = null;
+  private jwt: any;
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
@@ -27,7 +27,7 @@ export class UserSessionService implements HttpInterceptor {
       });
     } else {
       req = req.clone({
-        headers: req.headers.set("authorization", "null")
+        headers: req.headers.set("authorization", "jwt is null")
       });
     }
     return next.handle(req);
@@ -44,6 +44,7 @@ export class UserSessionService implements HttpInterceptor {
     // defining 'data' object to send the userDetails to
     // the server and save them to the database
     let data: IUser = {
+      'providerID': this.sessionInfo.providerID,
       'firstName': this.sessionInfo.firstName,
       'lastName': this.sessionInfo.lastName,
       'email': this.sessionInfo.email,
@@ -92,22 +93,21 @@ export class UserSessionService implements HttpInterceptor {
       else {
         reject();
       }
-    }
+    };
 
     // invoke the promise
     return new Promise(establishPromise);
   }
 
-  public checkSession(res) {
-    res.send(this.jwt);
-  }
-
-  public logOut() {
-    this.sessionInfo.logout();
+  public async logOut() {
+    await this.sessionInfo.logout();
+    this.jwt = null;
+    await console.log('logout:: ', this.jwt)
   }
 }
 
 export class IUser {
+  providerID: string;
   firstName: string;
   lastName: string;
   email: string;

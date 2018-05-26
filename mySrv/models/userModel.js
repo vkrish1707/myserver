@@ -4,6 +4,10 @@ mongoose.connect('mongodb://localhost:27017/work');
 var db = mongoose.connect;
 
 var UserSchema = mongoose.Schema({
+    providerID: {
+        type: String
+    },
+    
     firstName: {
         type: String
     },

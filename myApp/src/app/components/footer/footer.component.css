@@ -1,0 +1,106 @@
+.footer {
+    position: relative;
+    right: 0px;
+    bottom: -20px;
+    left: 0px;
+    width: 100%;
+    background-color: #151414;
+    color: gainsboro;
+    height: 304px;
+    font-family: Helvetica;
+}
+ 
+.AboutUs {
+    width: 300px;
+    float: left;    
+    margin: 0px 0px 0px 0px;
+    position: absolute;
+    left: 2%;
+    text-align: center;
+    top: 17px;
+ }
+ 
+.ContactUs {
+    width: 300px;
+    position: absolute;
+    left: 500px;
+    top: 17px;
+}
+
+.ContactUs h3 {
+    margin-left: 20px;
+
+}
+ 
+.ContactUs li {
+    font-size: 18px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    list-style: none; 
+ }
+
+.ContactUs i {
+    padding: 0px 0px 0px 0px;
+ } 
+
+.ContactUs a {
+    margin: 4px 0px 0px 2px;
+    padding: 1px 0px 0px 4px;
+    position: absolute;
+}
+ 
+.copyright {
+    position: absolute;
+    left: 50px;
+    bottom: 20px;
+}
+
+.social {
+    width: 250px;
+    height: 100px;
+    position: absolute;
+    top: 268px;
+    left: 484px;
+}
+
+.social img {
+    width: 35px;
+    height: 35px;
+}
+
+.social img:hover {
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.facebook {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 0px;
+    bottom: 45px;
+}
+.google-plus {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 47px;
+    bottom: 45px;
+}
+
+.linkedin {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 89px;
+    bottom: 45px;
+}
+
+.twitter {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 132px;    
+    bottom: 45px;
+}
