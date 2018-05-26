@@ -92,6 +92,7 @@ router.route('/auth/microsoft')
         User.findOne(function (error, user) {
             var user = new User;
 
+            user.providerID = req.body.providerID;
             user.firstName = req.body.firstName;
             user.lastName = req.body.lastName;
             user.email = req.body.email;

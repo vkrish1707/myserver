@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
-import { GoogleService } from './google.service';
 import { ILogin } from '../login';
-import { resolve } from 'q';
 
 declare const gapi: any;
 
@@ -25,7 +23,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
 
   protected auth2: any;
 
-  constructor(private googleService: GoogleService) {
+  constructor() {
     super();
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({

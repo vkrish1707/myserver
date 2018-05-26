@@ -33,6 +33,7 @@ export class UserSessionService {
       'email': this.sessionInfo.email,
       'photoUrl': this.sessionInfo.photoUrl
     }
+    console.log('data ===== ', data);
 
     let establishPromise = (resolve, reject) => {
       setTimeout(() => console.log('timer done'), 3000);
@@ -86,8 +87,8 @@ export class UserSessionService {
     res.send(this.jwt);
   }
 
-  public async logOut() {
-    await this.sessionInfo.logout();
+  public logOut() {
+    this.sessionInfo.logout();
   }
 }
 
