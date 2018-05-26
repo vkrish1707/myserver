@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
-import { GoogleService } from './google.service';
 import { ILogin } from '../login';
-import { resolve } from 'q';
 
 declare const gapi: any;
 
@@ -25,7 +23,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
 
   protected auth2: any;
 
-  constructor(private googleService: GoogleService) {
+  constructor() {
     super();
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
@@ -62,22 +60,17 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
   }
 
   public logout(): Promise<any> {
-    console.log('google-logout implemented');
     return new Promise((resolve, reject) => {
-      console.log('auth2 ====', this.auth2);
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then((err: any) => {
         if (err) {
-          console.log('reached error');
           reject(err);
         } else {
-          console.log('reached disconnect');
           document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:4200";
           auth2.disconnect();
           resolve();
         }
       }).catch((err: any) => {
-        console.log('catch error');
         reject(err);
       });
     });

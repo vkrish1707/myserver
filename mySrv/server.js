@@ -31,7 +31,6 @@ app.use('/api', alerts);
 
 app.post('/api/restricted', function (req, res) {
     let jtoken = req.headers.authorization;
-    console.log(jtoken, typeof jtoken);
     jwt.verify(jtoken, 'twinesoft', function (err, decoded) {
         if (err) {
             return res.status(401).json('Access denied');

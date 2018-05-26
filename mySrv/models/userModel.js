@@ -35,7 +35,6 @@ UserSchema.statics.addUser = function (id, done) {
             if (err) {
                 return done(err)
             } else if (user) {
-                console.log('user already exists');
                 return done();
             } else {
                 var user = new User;

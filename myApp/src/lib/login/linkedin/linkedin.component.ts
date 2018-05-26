@@ -20,7 +20,6 @@ export class LinkedinComponent extends BaseLoginProvider implements OnInit {
 
   private async login() {
     await this.linkedinService.launch();
-    console.log('email', this.linkedinService.email);
     this.success(<ILogin>this.linkedinService);
   }
 
