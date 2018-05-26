@@ -102,7 +102,7 @@ export class UserSessionService implements HttpInterceptor {
   public async logOut() {
     await this.sessionInfo.logout();
     this.jwt = null;
-    await console.log('logout:: ', this.jwt)
+    console.log('logout:: ', this.jwt)
   }
 }
 

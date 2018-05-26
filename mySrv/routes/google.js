@@ -21,7 +21,7 @@ router.post('/auth/google', function (req, res, next) {
             const userid = payload['sub'];
 
             jtoken = jwt.sign({ userid: payload.userid }, 'twinesoft', { expiresIn: '3h' });
-            res.json(jtoken);
+            res.send(jtoken);
         }
         verify().catch(console.error);
 
