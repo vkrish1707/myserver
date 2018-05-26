@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var router = express.Router();
 var cors = require('cors');
+var jwt = require('jsonwebtoken');
 
 var google = require('./routes/google');
 var facebook = require('./routes/facebook');
@@ -29,13 +30,20 @@ app.use('/api', alerts);
 
 
 app.post('/api/restricted', function (req, res) {
-    let jwt = req.headers.authorization;
-    console.log('restricted==', jwt);
+    let jtoken = req.headers.authorization;
+    console.log(jtoken, typeof jtoken);
+    jwt.verify(jtoken, 'twinesoft', function (err, decoded) {
+        if (err) {
+            return res.status(401).json('Access denied');
+        }
+        else {
+            res.status(200).json('Access granted');
+        }
+    })
 })
 
 app.post('/api/generic', function (req, res) {
-    let jwt = req.headers.authorization;
-    console.log('generic==', jwt);
+    res.status(200).json('Success');
 })
 
 app.use('/api', router);
