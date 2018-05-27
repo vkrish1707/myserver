@@ -35,7 +35,6 @@ UserSchema.statics.addUser = function (id, done) {
             if (err) {
                 return done(err)
             } else if (user) {
-                console.log('user already exists');
                 return done();
             } else {
                 var user = new User;
@@ -50,6 +49,19 @@ UserSchema.statics.addUser = function (id, done) {
                 return done();
             }
         });
+}
+
+UserSchema.statics.get = function(id, done) {
+    User.findOne({ providerID: id.providerID })
+    .exec(function (err, user) {
+        if (user) {
+            console.log('====Existing user **user.get**=====')
+            return done(user)
+        } else {
+            console.log('====New User **user.get**=====')
+            return err;
+        }
+    })
 }
 
 var User = module.exports = mongoose.model('User', UserSchema);

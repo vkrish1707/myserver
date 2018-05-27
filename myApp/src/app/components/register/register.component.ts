@@ -21,8 +21,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  public loginSuccess(data: any) {
+  public async loginSuccess(data: any) {
     this.registerService.data = <ILogin> data;
+    await this.registerService.checkUser();
     this.state = 'info';
   }
 

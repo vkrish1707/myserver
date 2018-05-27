@@ -10,17 +10,13 @@ export class UserSessionService implements HttpInterceptor {
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
-  constructor() {
-    console.log('this is new instanse');
-  }
+  constructor() {}
 
   public get data(): Observable<IUser> {
     return this.userInfoSubject.asObservable();
   }
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    console.log('in interceptor');
     if (this.getjwt() != null) {
       req = req.clone({
         headers: req.headers.set("authorization", this.getjwt())
@@ -82,7 +78,6 @@ export class UserSessionService implements HttpInterceptor {
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
           this.jwt = xhr.response;
-          console.log(this.jwt);
         }
       };
       xhr.send(JSON.stringify(data));
@@ -102,7 +97,6 @@ export class UserSessionService implements HttpInterceptor {
   public async logOut() {
     await this.sessionInfo.logout();
     this.jwt = null;
-    await console.log('logout:: ', this.jwt)
   }
 }
 

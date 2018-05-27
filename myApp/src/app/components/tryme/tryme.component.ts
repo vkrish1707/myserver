@@ -16,7 +16,6 @@ export class TryMeComponent implements OnInit {
   public restrictedResponseError;
   public genericResponse;
 
-
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -54,6 +53,5 @@ export class TryMeComponent implements OnInit {
           err => console.log('Generic error: ',err)
       );
     })
-
   }
 }
