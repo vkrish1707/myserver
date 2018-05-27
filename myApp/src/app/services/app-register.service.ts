@@ -11,7 +11,6 @@ export class AppRegisterService {
   constructor(private http: Http, private router: Router, private session: UserSessionService) { }
 
   public checkUser() {
-
     let userData: IUser = {
       'providerID': this.data.providerID,
       'firstName': this.data.firstName,
@@ -30,7 +29,4 @@ export class AppRegisterService {
         err => console.log(err)
       )
   }
-
-  public
-
 }

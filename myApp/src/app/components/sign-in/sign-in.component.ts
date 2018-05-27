@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 export class SignInComponent implements OnInit {
 
-  public state = 'login'
+  public state = 'login';
 
   constructor(private registerService: AppRegisterService, private router: Router) { }
 
