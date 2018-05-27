@@ -9,6 +9,7 @@ var facebook = require('./routes/facebook');
 var microsoft = require('./routes/microsoft');
 var linkedin = require('./routes/linkedin');
 var alerts = require('./routes/alerts');
+var checkuser = require('./routes/checkuser');
 
 var app = express();
 var Port = 3000;
@@ -27,7 +28,7 @@ app.use('/api', facebook);
 app.use('/api', microsoft);
 app.use('/api', linkedin);
 app.use('/api', alerts);
-
+app.use(checkuser);
 
 app.post('/api/restricted', function (req, res) {
     let jtoken = req.headers.authorization;

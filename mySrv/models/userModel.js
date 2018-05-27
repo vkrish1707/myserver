@@ -51,6 +51,19 @@ UserSchema.statics.addUser = function (id, done) {
         });
 }
 
+UserSchema.statics.get = function(id, done) {
+    User.findOne({ providerID: id.providerID })
+    .exec(function (err, user) {
+        if (user) {
+            console.log('user is there')
+            return done(user)
+        } else {
+            console.log('user didnot register')
+            return err;
+        }
+    })
+}
+
 var User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports = User;

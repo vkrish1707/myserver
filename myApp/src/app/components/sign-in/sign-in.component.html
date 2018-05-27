@@ -1,3 +1,4 @@
-<p>
-  sign-in works!
-</p>
+<div [ngSwitch]="state">
+<lib-login *ngSwitchCase="'login'" (oncomplete)="loginSuccess($event)"></lib-login>
+<app-register *ngSwitchCase="'register'"></app-register>
+</div>

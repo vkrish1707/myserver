@@ -5,8 +5,15 @@ var User = require('../models/userModel');
 var app = express();
 
 router.post('/checkuser', function(req, res, done) {
-    var user = new User(req.headers['check']);
-    console.log(user);
+    var user = new User(req.body);
+    console.log(user.firstName);
+    User.get(user, function (done, err) {
+        if (done) {
+            res.json('user died');
+        } else {
+            console.log(err);
+        }        
+    });
 })
 
 module.exports = router;
