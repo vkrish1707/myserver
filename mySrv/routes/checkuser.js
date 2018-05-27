@@ -9,7 +9,7 @@ router.post('/checkuser', function(req, res, done) {
     console.log(user.firstName);
     User.get(user, function (done, err) {
         if (done) {
-            res.json('user died');
+            res.json('=====Existing User======');
         } else {
             console.log(err);
         }        
