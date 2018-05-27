@@ -1,9 +1,12 @@
 <div class="login">
+    <h1>Choose one of the Social Logins to Register</h1>
     <br><br><br><br><br>
     <ng-content select="header"></ng-content>
     <div class="logins">
         <ng-template appLogin></ng-template>
     </div>
     <ng-content select="footer"></ng-content>
+    
     <a [routerLink]="['/home']">Already registered? SignIn Here</a>
+
 </div>

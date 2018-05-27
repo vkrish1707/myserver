@@ -21,6 +21,6 @@ export class SignInComponent implements OnInit {
   public async loginSuccess(data: any) {
     this.registerService.data = <ILogin> data;
     await this.registerService.checkUser();
-    this.state = 'register';
+    this.router.navigate(['/register']);
   }
 }

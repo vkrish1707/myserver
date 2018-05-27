@@ -6,6 +6,7 @@ import { HelpComponent } from './components/help/help.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { HomeComponent } from './components/home/home.component';
 import { HomewithsessionComponent } from './components/homewithsession/homewithsession.component';
+import { RegisteruserconfirmComponent } from './components/registeruserconfirm/registeruserconfirm.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

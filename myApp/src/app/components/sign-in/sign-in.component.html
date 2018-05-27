@@ -1,7 +1,5 @@
 <app-header loginRegister="hide" menu="hide" profile="hide"></app-header>
 
-<h1>Choose one of the Social Logins to Sign In</h1>
-
 <div [ngSwitch]="state">
     <lib-login *ngSwitchCase="'login'" (oncomplete)="loginSuccess($event)"></lib-login>
     <app-register *ngSwitchCase="'register'"></app-register>
