@@ -55,10 +55,17 @@ UserSchema.statics.get = function(id, done) {
     User.findOne({ providerID: id.providerID })
     .exec(function (err, user) {
         if (user) {
+<<<<<<< HEAD
             console.log('----Existing User-----');
             return done(user);
         } else {
             console.log('----New User----');
+=======
+            console.log('====Existing user **user.get**=====')
+            return done(user)
+        } else {
+            console.log('====New User **user.get**=====')
+>>>>>>> a71799b9fd753dc1c4eae47d8164b9e8f3743d59
             return err;
         }
     })
