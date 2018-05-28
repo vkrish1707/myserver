@@ -1,6 +1,5 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var router = express.Router();
 var cors = require('cors');
 var jwt = require('jsonwebtoken');
 
@@ -11,6 +10,7 @@ var linkedin = require('./routes/linkedin');
 var alerts = require('./routes/alerts');
 var checkuser = require('./routes/checkuser');
 
+var router = express.Router();
 var app = express();
 var Port = 3000;
 
