@@ -9,12 +9,13 @@ var router = express.Router();
 var app = express();
 
 router.post('/auth/microsoft', function (req, res, next) {
-        let mToken = req.headers['token'];
+    let mToken = req.headers['token'];
 
     getUserData(mToken, (err, user) => {
         if (!err) {
             console.log(user.body.displayName);
             console.log(user.body.mail);
+            console.log(user.body.givenName);
         } else {
             renderError(err, res);
         }
@@ -28,7 +29,7 @@ router.post('/auth/microsoft', function (req, res, next) {
                 console.log(err);
             }
         });
-    });
+});
 
     function getUserData(accessToken, callback) {
         request
@@ -37,7 +38,7 @@ router.post('/auth/microsoft', function (req, res, next) {
             .end((err, res) => {
                 callback(err, res);
             });
-}
+    }
 
 app.use('/api', router);
 

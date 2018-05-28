@@ -14,6 +14,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class RegisteruserconfirmComponent implements OnInit {
 
   @Output() oncontinue: EventEmitter<any> = new EventEmitter;
+  @Output() oncancel: EventEmitter<any> = new EventEmitter;
 
   constructor(private router: Router,
               private registerService: AppRegisterService,
@@ -25,6 +26,11 @@ export class RegisteruserconfirmComponent implements OnInit {
 
   onContinue() {
     this.oncontinue.emit(null);
+  }
+  onCancel() {
+    this.oncancel.emit(null);
+    console.log('cancel from user-confirm');
+    
   }
 
   openDialog(): void {
@@ -38,6 +44,7 @@ export class RegisteruserconfirmComponent implements OnInit {
   selector: 'app-canceldialogbox',
   templateUrl: 'canceldialogbox.html',
 })
+
 export class CanceldialogboxComponent {
 
   @Output() oncancel: EventEmitter<any> = new EventEmitter;
@@ -52,5 +59,6 @@ export class CanceldialogboxComponent {
 
   onCancel() {
     this.oncancel.emit(null);
+    console.log('cancel from dialog');
   }
 }

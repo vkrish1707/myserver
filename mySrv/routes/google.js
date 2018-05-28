@@ -9,37 +9,38 @@ var config = require('../config');
 var router = express.Router();
 var app = express();
 
-const client = new OAuth2Client(CLIENT_ID = config.google.CLIENT_ID);
-async function verify(accessToken) {
+router.post('/auth/google', async function (req, res, next) {
+    var gToken = req.headers['token'];
+    var id = req.body;
+    var user = new User(req.body);
+
+    try {
+        await verify(gToken);
+
+        User.addUser(user, function (err) {
+            if (err) {
+                console.log(err);
+            }
+        });
+
+        let jToken = jwt.sign({ userid: payload.userid }, 'twinesoft', {expiresIn: '3h'});
+        res.send(jToken);
+    } catch (error) {
+        verify().catch(console.error);
+    }
+});
+
+var client = new OAuth2Client(CLIENT_ID = config.google.CLIENT_ID);
+
+async function verify(token) {
     const ticket = await client.verifyIdToken({
-        idToken: accessToken,
+        idToken: token,
         audience: CLIENT_ID
     });
     const payload = ticket.getPayload();
     const userid = payload['sub'];
+    console.log('payload', payload);
 };
-
-router.post('/auth/google', function (req, res, next) {
-    var gToken = req.headers['token'];
-
-    try {
-        this.verify(gToken);
-
-        jtoken = jwt.sign({ userid: payload.userid }, 'twinesoft', { expiresIn: '3h' });
-        res.send(jtoken);
-
-    } catch (error) {
-        verify().catch(console.error);
-    }
-    var id = req.body;
-
-    var user = new User(req.body);
-    User.addUser(user, function (err) {
-        if (err) {
-            console.log(err);
-        }
-    });
-});
 
 app.use('/api', router);
 
