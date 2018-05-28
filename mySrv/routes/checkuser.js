@@ -1,7 +1,8 @@
 var express = require('express');
-var router = express.Router();
+
 var User = require('../models/userModel');
 
+var router = express.Router();
 var app = express();
 
 router.post('/checkuser', function(req, res, done) {
