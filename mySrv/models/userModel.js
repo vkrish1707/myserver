@@ -41,6 +41,8 @@ UserSchema.statics.addUser = function (id, done) {
             } else if (user) {
                 return done();
             } else {
+                console.log('user saved');
+                
                 var user = new User;
 
                 user.providerID = id.providerID;
