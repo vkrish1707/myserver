@@ -12,9 +12,9 @@ import { Headers } from '@angular/http';
 
 export class TryMeComponent implements OnInit {
 
-  public restrictedResponse: any;
-  public genericResponse = 'response from generic';
-
+  public restrictedResponse;
+  public restrictedResponseError;
+  public genericResponse;
 
   constructor(private http: HttpClient) { }
 
@@ -22,8 +22,8 @@ export class TryMeComponent implements OnInit {
   }
 
   tryme() {
-    this.tryRestricted();
     this.tryGeneric();
+    this.tryRestricted();
   }
 
   tryRestricted(): Promise<void> {
@@ -32,23 +32,26 @@ export class TryMeComponent implements OnInit {
         .subscribe(
           res => {
             this.restrictedResponse = res;
-            console.log(this.restrictedResponse);
+            resolve();
           },
-         err => console.log(err)
+          err => {
+            this.restrictedResponseError = 'Access denied';
+            console.log('Restricted error: ', err);
+          }
         );
-      resolve();
-    });
+    })
   }
 
   tryGeneric(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this.http.post('http://localhost:3000/api/generic', '' )
+      this.http.post('http://localhost:3000/api/generic', '')
         .subscribe(
-          res => console.log(res),
-          // err => console.log(err)
-        );
-      resolve();
-    });
-
+          res => {
+            this.genericResponse = res;
+            resolve();
+          },
+          err => console.log('Generic error: ',err)
+      );
+    })
   }
 }

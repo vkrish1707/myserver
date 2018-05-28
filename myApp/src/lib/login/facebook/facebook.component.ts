@@ -21,7 +21,6 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
   private async login() {
     // check the status first
     let status = await this.facebookService.getStatus();
-    console.log(status);
 
     // attempt login
     await this.facebookService.run();

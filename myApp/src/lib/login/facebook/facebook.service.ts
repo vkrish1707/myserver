@@ -10,6 +10,7 @@ declare const FB: any;
 export class FacebookService implements ILogin {
 
   // interface members
+  public providerID: string;
   public firstName: string;
   public lastName: string;
   public email: string;
@@ -30,7 +31,6 @@ export class FacebookService implements ILogin {
   public getStatus(): Promise<string> {
     let result = new Subject<string>();
     FB.getLoginStatus((response) => {
-      console.log(response);
       result.next(response.status);
       result.complete();
     });
@@ -54,7 +54,6 @@ export class FacebookService implements ILogin {
         task.error('unexpected error -- oauth token missing -- cannot get profile data from facebook');
       } else {
         await this.updateProfile(task);
-        console.log('update profile is called', this.firstName);
       }
     }
     catch (error) {
@@ -94,19 +93,17 @@ export class FacebookService implements ILogin {
 
     FB.api('/me?fields=id,name,email,first_name,last_name,picture.height(500).width(500){url}',
       (response) => {
+        this.providerID = response.id;
         this.firstName = response.first_name;
         this.lastName = response.last_name;
         this.email = response.email;
         this.photoUrl = response.picture.data.url;
-        console.log('got the data successfully');
         task.complete();
       }
     );
   }
 
   public logout(): Promise<void> {
-    console.log('logout from facebook-service is called');
-
     return new Promise<void>((resolve, reject) => {
       FB.getLoginStatus(function (response) {
         if (response && response.status === 'connected') {

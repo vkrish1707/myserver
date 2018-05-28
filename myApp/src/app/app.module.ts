@@ -25,6 +25,7 @@ import { MaterialModule } from './modules/material.module';
     AppComponent,
     FooterComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,14 +40,18 @@ import { MaterialModule } from './modules/material.module';
     MaterialModule,
     NgbModule.forRoot()
   ],
-  providers: [UserSessionService, InterceptorService, AppRegisterService,
+
+  providers: [
+    UserSessionService,
+    InterceptorService,
+    AppRegisterService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
+      useExisting: UserSessionService,
       multi: true
-    },
-
+    }
   ],
+
   bootstrap: [AppComponent]
 })
 

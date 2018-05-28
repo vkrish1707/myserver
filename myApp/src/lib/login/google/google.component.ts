@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
-import { GoogleService } from './google.service';
 import { ILogin } from '../login';
 
 declare const gapi: any;
@@ -14,6 +13,7 @@ declare const gapi: any;
 export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin {
 
   // interface members
+  public providerID: string;
   public firstName: string;
   public lastName: string;
   public email: string;
@@ -23,7 +23,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
 
   protected auth2: any;
 
-  constructor(private googleService: GoogleService) {
+  constructor() {
     super();
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
@@ -36,7 +36,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
   ngOnInit() {
   }
 
-  signIn(): Promise<ILogin> {
+  public signIn(): Promise<ILogin> {
     return new Promise((resolve, reject) => {
       let promise = this.auth2.signIn();
 
@@ -44,9 +44,9 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
         let profile = this.auth2.currentUser.get().getBasicProfile();
         let backendToken = this.auth2.currentUser.get().getAuthResponse(true).id_token;
 
-        // user.id = profile.getId();
+        this.providerID = profile.getId();
         this.email = profile.getEmail();
-        this.photoUrl = profile.getImageUrl();
+        this.photoUrl = profile.Paa;
         this.firstName = profile.getGivenName();
         this.lastName = profile.getFamilyName();
         this.token = backendToken;
@@ -59,26 +59,15 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
     });
   }
 
-  // public onSignIn(googleUser: any) {
-  //   var profile = googleUser.getBasicProfile();
-  //   var id_token = googleUser.getAuthResponse().id_token;
-  //   this.token = id_token;
-  //   this.firstName = profile.ofa;
-  //   this.lastName = profile.wea;
-  //   this.email = profile.U3;
-  //   this.photoUrl = profile.Paa;
-  //   this.success(this);
-  // };
-
-  public onFailure(googleUser: any) {};
-
-  public logout(): Promise<void> {
+  public logout(): Promise<any> {
     return new Promise((resolve, reject) => {
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then((err: any) => {
         if (err) {
           reject(err);
         } else {
+          document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:4200";
+          auth2.disconnect();
           resolve();
         }
       }).catch((err: any) => {

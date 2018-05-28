@@ -11,6 +11,7 @@ import { RegisterComponent } from '../components/register/register.component';
 import { ProgressComponent } from '../../lib/progress/progress.component';
 import { EulaComponent, DeclinedialogboxComponent } from '../components/eula/eula.component';
 import { CanceldialogboxComponent, RegisteruserconfirmComponent} from '../components/registeruserconfirm/registeruserconfirm.component';
+import { SignInComponent } from '../components/sign-in/sign-in.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { CanceldialogboxComponent, RegisteruserconfirmComponent} from '../compon
   declarations: [
     RegisterComponent,
     ProgressComponent,
+    SignInComponent,
     RegisteruserconfirmComponent,
     EulaComponent,
     DeclinedialogboxComponent,
