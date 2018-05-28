@@ -41,6 +41,7 @@ export class UserSessionService implements HttpInterceptor {
     // the server and save them to the database
     let data: IUser = {
       'providerID': this.sessionInfo.providerID,
+      'providerName':this.sessionInfo.providerName,
       'firstName': this.sessionInfo.firstName,
       'lastName': this.sessionInfo.lastName,
       'email': this.sessionInfo.email,
@@ -103,6 +104,7 @@ export class UserSessionService implements HttpInterceptor {
 
 export class IUser {
   providerID: string;
+  providerName: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -111,6 +113,5 @@ export class IUser {
 
 export interface ILogin extends IUser {
   token: string;
-  providerName: string;
   logout(): void;
 }

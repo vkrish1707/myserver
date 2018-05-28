@@ -6,10 +6,9 @@ var User = require('../models/userModel');
 
 var app = express();
 
-router.route('/auth/linkedin')
-    .post(function (req, res, next) {
-        let Ltoken = req.headers['token'];
-        console.log('LinkedIn token from client ==== ', Ltoken);
+router.post('/auth/linkedin', function (req, res, next) {
+        let lToken = req.headers['token'];
+        console.log('LinkedIn token from client ==== ', lToken);
 
         var id = req.body;
 

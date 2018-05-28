@@ -6,10 +6,9 @@ var User = require('../models/userModel');
 
 var app = express();
 
-router.route('/auth/microsoft')
-    .post(function (req, res, next) {
-        let Mtoken = req.headers['token'];
-        console.log('microsoft token from client ==== ', Mtoken);
+router.post('/auth/microsoft', function (req, res, next) {
+        let mToken = req.headers['token'];
+        console.log('microsoft token from client ==== ', mToken);
 
         var id = req.body;
 

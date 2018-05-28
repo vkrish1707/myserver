@@ -13,6 +13,7 @@ export class AppRegisterService {
   public checkUser() {
     let userData: IUser = {
       'providerID': this.data.providerID,
+      'providerName':this.data.providerName,
       'firstName': this.data.firstName,
       'lastName': this.data.lastName,
       'email': this.data.email,

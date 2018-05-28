@@ -9,29 +9,23 @@ var config = require('../config');
 var router = express.Router();
 var app = express();
 
-const client = new OAuth2Client(CLIENT_ID = config.CLIENT_ID);
-async function verify(req) {
-    var gToken = req.headers['token'];
-    const ticket = await client.verifyIdToken({
-        idToken: gToken,
-        audience: CLIENT_ID
-    });
-    const payload = ticket.getPayload();
-    const userid = payload['sub'];
-};
-
-
 router.post('/auth/google', function (req, res, next) {
+    let gToken = req.headers['token'];
 
-    try {
-        this.verify();
+    const client = new OAuth2Client(CLIENT_ID = config.CLIENT_ID);
+    async function verify() {
+        const ticket = await client.verifyIdToken({
+            idToken: gToken,
+            audience: CLIENT_ID
+        });
+        const payload = ticket.getPayload();
+        const userid = payload['sub'];
 
         jtoken = jwt.sign({ userid: payload.userid }, 'twinesoft', { expiresIn: '3h' });
         res.send(jtoken);
-
-    } catch (error) {
-        verify().catch(console.error);
     }
+    verify().catch(console.error);
+
     var id = req.body;
 
     var user = new User(req.body);
