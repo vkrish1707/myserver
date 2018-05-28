@@ -34,6 +34,8 @@ export class LinkedinService implements ILogin {
           that.firstName = res.firstName;
           that.lastName = res.lastName;
           that.token = IN.ENV.auth.oauth_token;
+          console.log(that);
+          
           resolve(that);
         });
       });
