@@ -10,9 +10,9 @@ var router = express.Router();
 var app = express();
 
 const client = new OAuth2Client(CLIENT_ID = config.google.CLIENT_ID);
-async function verify(gToken) {
+async function verify(accessToken) {
     const ticket = await client.verifyIdToken({
-        idToken: gToken,
+        idToken: accessToken,
         audience: CLIENT_ID
     });
     const payload = ticket.getPayload();
@@ -23,7 +23,7 @@ router.post('/auth/google', function (req, res, next) {
     var gToken = req.headers['token'];
 
     try {
-        this.verify();
+        this.verify(gToken);
 
         jtoken = jwt.sign({ userid: payload.userid }, 'twinesoft', { expiresIn: '3h' });
         res.send(jtoken);
