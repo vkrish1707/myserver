@@ -31,10 +31,6 @@ export class EulaComponent implements OnInit {
     let dialogRef = this.dialog.open(DeclinedialogboxComponent, {
       width: '250px'
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
   }
 
 }
