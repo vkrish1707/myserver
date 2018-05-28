@@ -8,8 +8,19 @@ var app = express();
 
 router.route('/auth/microsoft')
     .post(function (req, res, next) {
-        let Mtoken = req.headers['token'];
-        console.log('microsoft token from client ==== ', Mtoken);
+        var Mtoken = req.headers['token'];
+        // console.log('microsoft token from client ==== ', Mtoken);
+
+        async function getUserData(Mtoken, callback) {
+            console.log('token validated====');
+
+            await request
+                .get('https://graph.microsoft.com/v1.0/me')
+                .set('Authorization', 'Bearer ' + Mtoken)
+                .end((err, res) => {
+                    callback(err, res);
+                });
+        }
 
         var id = req.body;
 
