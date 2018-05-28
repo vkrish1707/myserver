@@ -30,6 +30,11 @@ export class RegisterComponent implements OnInit {
     this.state = 'eula';
   }
 
+  private infoCancel() {
+    this.registerService.data.logout();
+    this.router.navigate(['/home']);
+  }
+
   private eulaAccept() {
     this.sessionService.establish(this.registerService.data).then(() => {
       this.state = 'complete';

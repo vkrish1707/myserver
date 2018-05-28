@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-eula',
@@ -10,11 +11,10 @@ import { Router } from '@angular/router';
 export class EulaComponent implements OnInit {
 
   @Output() onaccept: EventEmitter<any> = new EventEmitter();
-  @Output() oncancel: EventEmitter<any> = new EventEmitter();
 
   buttonStatus = true;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -23,12 +23,39 @@ export class EulaComponent implements OnInit {
     this.onaccept.emit(null);
   }
 
-  onDecline() {
-    this.oncancel.emit(null);
-  }
-
   enableAccept() {
     this.buttonStatus = ((this.buttonStatus === true) ? false : true);
   }
+
+  openDialog(): void {
+    let dialogRef = this.dialog.open(DeclinedialogboxComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 }
 
+@Component({
+  selector: 'app-declinedialogbox',
+  templateUrl: 'declinedialogbox.html',
+})
+export class DeclinedialogboxComponent {
+
+  @Output() oncancel: EventEmitter<any> = new EventEmitter();
+
+  constructor(
+    public dialogRef: MatDialogRef<DeclinedialogboxComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onDecline() {
+    this.oncancel.emit(null);
+  }
+}

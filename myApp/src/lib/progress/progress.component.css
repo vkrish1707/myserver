@@ -1,4 +1,4 @@
-.container {
+/* .container {
     margin-top: 225px;
     margin-left: 500px;
 }
@@ -105,4 +105,9 @@
 
 @media only screen and (max-width: 990px){
     .progress{ margin-bottom: 20px; }
+} */
+
+.spinner {
+    margin-left: 40%;
+    margin-top: 20%;
 }

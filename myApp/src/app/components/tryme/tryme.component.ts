@@ -37,7 +37,7 @@ export class TryMeComponent implements OnInit {
          err => console.log(err)
         );
       resolve();
-    })
+    });
   }
 
   tryGeneric(): Promise<void> {
@@ -48,7 +48,7 @@ export class TryMeComponent implements OnInit {
           // err => console.log(err)
         );
       resolve();
-    })
+    });
 
   }
 }

@@ -69,11 +69,11 @@
 
 
   <div class="chkAccept">
-	<mat-checkbox color="primary" (change)="enableAccept()">I agree all the
-		<a href=""> Terms and Conditions </a>
-	</mat-checkbox>
-</div>
-<button mat-raised-button color="primary" class="btnAccept" [disabled]="buttonStatus" (click)="onAccept()">Accept</button>
-<button mat-raised-button color="warn" class="btnDecline" (click)="onDecline()">Decline</button>
+    <mat-checkbox color="primary" (change)="enableAccept()">I agree all the
+      <a href=""> Terms and Conditions </a>
+    </mat-checkbox>
+  </div>
+  <button mat-raised-button color="primary" class="btnAccept" [disabled]="buttonStatus" (click)="onAccept()">Accept</button>
+  <button mat-raised-button color="warn" class="btnDecline" (click)="openDialog()">Decline</button>
 
 </div>

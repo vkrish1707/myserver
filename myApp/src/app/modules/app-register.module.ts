@@ -9,8 +9,8 @@ import { MaterialModule } from '../modules/material.module';
 
 import { RegisterComponent } from '../components/register/register.component';
 import { ProgressComponent } from '../../lib/progress/progress.component';
-import { EulaComponent } from '../components/eula/eula.component';
-import { RegisteruserconfirmComponent } from '../components/registeruserconfirm/registeruserconfirm.component';
+import { EulaComponent, DeclinedialogboxComponent } from '../components/eula/eula.component';
+import { CanceldialogboxComponent, RegisteruserconfirmComponent} from '../components/registeruserconfirm/registeruserconfirm.component';
 
 @NgModule({
   imports: [
@@ -22,13 +22,20 @@ import { RegisteruserconfirmComponent } from '../components/registeruserconfirm/
     MaterialModule
   ],
 
+  entryComponents: [
+    DeclinedialogboxComponent,
+    CanceldialogboxComponent
+  ],
+
   declarations: [
     RegisterComponent,
     ProgressComponent,
     RegisteruserconfirmComponent,
-    EulaComponent
+    EulaComponent,
+    DeclinedialogboxComponent,
+    CanceldialogboxComponent
   ]
-  
+
 })
 
 export class AppRegisterModule { }
