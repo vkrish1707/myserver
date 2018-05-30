@@ -7,17 +7,19 @@ import { Router } from '@angular/router';
 export class AppRegisterService {
 
   public data: ILogin;
+  public date = new Date();
 
   constructor(private http: Http, private router: Router, private session: UserSessionService) { }
 
   public checkUser() {
-    let userData: IUser = {
+    let userData = {
       'providerID': this.data.providerID,
       'providerName':this.data.providerName,
       'firstName': this.data.firstName,
       'lastName': this.data.lastName,
       'email': this.data.email,
-      'photoUrl': this.data.photoUrl
+      'photoUrl': this.data.photoUrl,
+      'loginDate': this.date.toLocaleString()
     };
 
     this.http.post('http://localhost:3000/checkuser', userData)

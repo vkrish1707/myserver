@@ -1,11 +1,12 @@
 var express = require('express');
-var router = express.Router();
 var jwt = require('jsonwebtoken');
 var request = require('superagent');
+
 var User = require('../models/userModel');
 var config = require('../config');
 
 var app = express();
+var router = express.Router();
 
 router.post('/auth/microsoft', function (req, res, next) {
     let mToken = req.headers['token'];
@@ -20,24 +21,24 @@ router.post('/auth/microsoft', function (req, res, next) {
         }
     });
 
-        var id = req.body;
+    var id = req.body;
 
-        var user = new User(req.body);
-        User.addUser(user, function (err) {
-            if (err) {
-                console.log(err);
-            }
-        });
+    var user = new User(req.body);
+    User.addUser(user, function (err) {
+        if (err) {
+            console.log(err);
+        }
+    });
 });
 
-    function getUserData(accessToken, callback) {
-        request
-            .get(config.microsoft.PATH)
-            .set('Authorization', 'Bearer ' + accessToken)
-            .end((err, res) => {
-                callback(err, res);
-            });
-    }
+function getUserData(accessToken, callback) {
+    request
+        .get(config.microsoft.PATH)
+        .set('Authorization', 'Bearer ' + accessToken)
+        .end((err, res) => {
+            callback(err, res);
+        });
+}
 
 app.use('/api', router);
 

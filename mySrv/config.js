@@ -8,6 +8,9 @@ var config = {
     },
     microsoft: {
         PATH: 'https://graph.microsoft.com/v1.0/me'
+    },
+    linkedin: {
+        PATH: 'https://api.linkedin.com/v1/people/~:first-name'
     }
 }
 
