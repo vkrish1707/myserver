@@ -56,9 +56,6 @@ UserSchema.statics.addUser = function (id, done) {
                 user.lastName = id.lastName;
                 user.email = id.email;
                 user.photoUrl = id.photoUrl;
-                user.last_login_date = id.loginDate;
-
-                console.log('user ===== ', user);
 
                 user.save();
                 return done();

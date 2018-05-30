@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export class AppRegisterService {
 
   public data: ILogin;
-  public date = new Date();
+  private date: any;
 
   constructor(private http: Http, private router: Router, private session: UserSessionService) { }
 
@@ -18,8 +18,7 @@ export class AppRegisterService {
       'firstName': this.data.firstName,
       'lastName': this.data.lastName,
       'email': this.data.email,
-      'photoUrl': this.data.photoUrl,
-      'loginDate': this.date.toLocaleString()
+      'photoUrl': this.data.photoUrl
     };
 
     this.http.post('http://localhost:3000/checkuser', userData)
@@ -30,6 +29,10 @@ export class AppRegisterService {
           this.router.navigate(['/homewithsession']);
         },
         err => console.log(err)
-      )
+      );
+
+    this.http.post('http://localhost:3000/signin', this.date)
+      .subscribe(res => console.log(res),
+                  err => console.log(err));
   }
 }
