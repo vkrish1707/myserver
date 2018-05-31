@@ -32,16 +32,6 @@ router.post('/auth/microsoft', function (req, res, next) {
     });
 });
 
-<<<<<<< HEAD
-    function getUserData(accessToken, callback) {
-        request
-            .get(config.development.microsoft.PATH)
-            .set('Authorization', 'Bearer ' + accessToken)
-            .end((err, res) => {
-                callback(err, res);
-            });
-    }
-=======
 function getUserData(accessToken, callback) {
     request
         .get(config.microsoft.PATH)
@@ -50,7 +40,6 @@ function getUserData(accessToken, callback) {
             callback(err, res);
         });
 }
->>>>>>> fbbffdc78c97e2b53276eafef96cf990ce169665
 
 app.use('/api', router);
 

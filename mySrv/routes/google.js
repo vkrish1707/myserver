@@ -15,7 +15,7 @@ router.post('/auth/google', async function (req, res, next) {
     var user = new User(req.body);
 
     try {
-        await verify(gToken);
+        var data = await verify(gToken);
 
         User.addUser(user, function (err) {
             if (err) {
@@ -23,7 +23,7 @@ router.post('/auth/google', async function (req, res, next) {
             }
         })
         
-        var jToken = jwt.sign({ userid: payload.userid }, 'twinesoft', {expiresIn: '3h'});
+        var jToken = jwt.sign({ userid: data.userid }, 'twinesoft', {expiresIn: '3h'});
         res.status(200).send(jToken);
 
     } catch (error) {
@@ -39,7 +39,7 @@ async function verify(gToken) {
     });
     const payload = ticket.getPayload();
     const userid = payload['sub'];
-    console.log('payload', payload);
+    return payload;
 }
 
 

@@ -21,9 +21,7 @@ export class FacebookService implements ILogin {
 
   constructor() {
     FB.init({
-      appId: environment.facebook.appId +
-      ' production? ' +  environment.production +
-      ' env: ' + environment.env ,
+      appId: environment.facebook.appId,
       status: false,
       cookie: false,
       xfbml: false,
