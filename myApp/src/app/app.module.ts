@@ -19,6 +19,7 @@ import { AppRegisterService } from './services/app-register.service';
 import { InterceptorService } from './services/interceptor.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from './modules/material.module';
+import { DialogboxModule } from '../lib/dialog-box/dialogbox.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MaterialModule } from './modules/material.module';
     HttpClientModule,
     BrowserAnimationsModule,
     AlertsModule,
+    DialogboxModule,
     AppHeaderModule,
     AppHomeModule,
     LoginModule,

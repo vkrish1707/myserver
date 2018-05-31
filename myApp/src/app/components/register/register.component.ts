@@ -44,6 +44,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private eulaCancel() {
+    this.registerService.data.logout();
     this.router.navigate(['/home']);
   }
 }

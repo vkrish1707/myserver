@@ -3,6 +3,7 @@ import { UserSessionService } from '../../services/usersession.service';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers } from '@angular/http';
+import { showDialog, DialogboxButtons } from '../../../lib/dialog-box/dialogbox';
 
 @Component({
   selector: 'app-tryme',
@@ -15,10 +16,15 @@ export class TryMeComponent implements OnInit {
   public restrictedResponse;
   public restrictedResponseError;
   public genericResponse;
+  public dialogResult;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+  }
+
+  async test() {
+    this.dialogResult = await showDialog('TryMe', 'Are You Sure?', DialogboxButtons.OkCancel);
   }
 
   tryme() {

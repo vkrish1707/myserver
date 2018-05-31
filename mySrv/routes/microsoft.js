@@ -7,6 +7,7 @@ var config = require('../config');
 
 var router = express.Router();
 var app = express();
+var router = express.Router();
 
 router.post('/auth/microsoft', function (req, res, next) {
     let mToken = req.headers['token'];
@@ -21,16 +22,17 @@ router.post('/auth/microsoft', function (req, res, next) {
         }
     });
 
-        var id = req.body;
+    var id = req.body;
 
-        var user = new User(req.body);
-        User.addUser(user, function (err) {
-            if (err) {
-                console.log(err);
-            }
-        });
+    var user = new User(req.body);
+    User.addUser(user, function (err) {
+        if (err) {
+            console.log(err);
+        }
+    });
 });
 
+<<<<<<< HEAD
     function getUserData(accessToken, callback) {
         request
             .get(config.development.microsoft.PATH)
@@ -39,6 +41,16 @@ router.post('/auth/microsoft', function (req, res, next) {
                 callback(err, res);
             });
     }
+=======
+function getUserData(accessToken, callback) {
+    request
+        .get(config.microsoft.PATH)
+        .set('Authorization', 'Bearer ' + accessToken)
+        .end((err, res) => {
+            callback(err, res);
+        });
+}
+>>>>>>> fbbffdc78c97e2b53276eafef96cf990ce169665
 
 app.use('/api', router);
 

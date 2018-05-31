@@ -39,6 +39,7 @@ export class EulaComponent implements OnInit {
   selector: 'app-declinedialogbox',
   templateUrl: 'declinedialogbox.html',
 })
+
 export class DeclinedialogboxComponent {
 
   @Output() oncancel: EventEmitter<any> = new EventEmitter();
