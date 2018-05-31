@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/observable';
 
 import { ILogin } from '../login';
+import { environment } from '../../../environments/environment';
 
 declare const FB: any;
 
@@ -20,7 +21,9 @@ export class FacebookService implements ILogin {
 
   constructor() {
     FB.init({
-      appId: '1820292001598094',
+      appId: environment.facebook.appId +
+      ' production? ' +  environment.production +
+      ' env: ' + environment.env ,
       status: false,
       cookie: false,
       xfbml: false,

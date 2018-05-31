@@ -11,7 +11,7 @@ var app = express();
 router.post('/auth/facebook', function verifyFacebookUserAccessToken(req, res, FBtoken) {
         var FBtoken = req.headers['token'];
 
-        var path = config.facebook.PATH + FBtoken;
+        var path = config.development.facebook.PATH + FBtoken;
         request(path, function (error, response, body) {
             var data = JSON.stringify(body);
 
@@ -21,7 +21,7 @@ router.post('/auth/facebook', function verifyFacebookUserAccessToken(req, res, F
                     fullName: data.name
                 };
                 var jtoken = jwt.sign({ facebookUserId: data.id }, 'twinesoft', { expiresIn: '3h' });
-                res.send(jtoken);
+                res.json(jtoken);
             }
             else {
                 console.log(data.error);

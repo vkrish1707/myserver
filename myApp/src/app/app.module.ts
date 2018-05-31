@@ -23,7 +23,7 @@ import { MaterialModule } from './modules/material.module';
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent
+    FooterComponent,
   ],
 
   imports: [

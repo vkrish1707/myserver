@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
 import 'rxjs/add/observable/fromPromise';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from "rxjs/Subject";
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import * as MicrosoftGraphClient from "@microsoft/microsoft-graph-client";
 import * as hello from 'hellojs/dist/hello.all.js';
 // import * as Msal from 'msal';
+
 import { ILogin } from "../login";
-import { Subject } from "rxjs/Subject";
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class MicrosoftService implements ILogin {
@@ -20,8 +22,8 @@ export class MicrosoftService implements ILogin {
     public providerName: string = 'microsoft';
 
     private config = {
-        appId: '1c2981ca-6ec8-40c0-9842-41ce9e8ddc01',
-        scope: 'User.Read User.ReadBasic.All'
+        appId: environment.microsoft.appId,
+        scope: environment.microsoft.scope
     };
 
     constructor() {}
@@ -32,13 +34,13 @@ export class MicrosoftService implements ILogin {
                     id: this.config.appId,
                     oauth: {
                         version: 2,
-                        auth: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
+                        auth: environment.microsoft.auth
                     },
                     scope_delim: ' ',
                     form: false
                 },
             },
-            { redirect_uri: 'http://localhost:4200'}
+            { redirect_uri: environment.microsoft.redirect_uri}
         );
     }
 

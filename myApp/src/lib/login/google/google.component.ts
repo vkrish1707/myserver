@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { BaseLoginProvider } from '../base/provider.base';
 import { ILogin } from '../login';
+import { environment } from '../../../environments/environment';
 
 declare const gapi: any;
 
@@ -28,7 +30,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
         scope: 'email',
-        client_id: '284779082637-o4uhhhiirkb7j89r8qd0jfkfmddnmq94.apps.googleusercontent.com'
+        client_id: environment.google.client_id
       });
     })
   }
@@ -66,7 +68,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
         if (err) {
           reject(err);
         } else {
-          document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:4200";
+          document.location.href = environment.google.logout;
           auth2.disconnect();
           resolve();
         }

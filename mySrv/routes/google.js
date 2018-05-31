@@ -21,26 +21,27 @@ router.post('/auth/google', async function (req, res, next) {
             if (err) {
                 console.log(err);
             }
-        });
+        })
+        
+        var jToken = jwt.sign({ userid: payload.userid }, 'twinesoft', {expiresIn: '3h'});
+        res.status(200).send(jToken);
 
-        let jToken = jwt.sign({ userid: payload.userid }, 'twinesoft', {expiresIn: '3h'});
-        res.send(jToken);
     } catch (error) {
-        verify().catch(console.error);
+        res.status(400).send(error);
     }
 });
 
-var client = new OAuth2Client(CLIENT_ID = config.google.CLIENT_ID);
-
-async function verify(token) {
+async function verify(gToken) {
+    const client = new OAuth2Client(CLIENT_ID = config.production.google.CLIENT_ID);
     const ticket = await client.verifyIdToken({
-        idToken: token,
+        idToken: gToken,
         audience: CLIENT_ID
     });
     const payload = ticket.getPayload();
     const userid = payload['sub'];
     console.log('payload', payload);
-};
+}
+
 
 app.use('/api', router);
 
