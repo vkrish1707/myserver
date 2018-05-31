@@ -1,0 +1,13 @@
+<h3 mat-dialog-title>
+  {{title}}
+</h3>
+<div mat-dialog-content>
+  <h4>{{message}}</h4>
+</div>
+<div mat-dialog-actions>
+    <button  *ngIf="showYes" mat-raised-button color="warn" (click)="onClick('Yes')">Yes</button>
+    <button *ngIf="showNo" mat-raised-button color="primary" (click)="onClick('No')">No</button>
+    <button *ngIf="showOk" mat-button (click)="onClick('Ok')">Ok</button>
+    <button *ngIf="showCancel" mat-button (click)="onClick('Cancel')">Cancel</button>
+    <button *ngIf="showClose" mat-button (click)="onClick('Close')">Close</button>
+</div>

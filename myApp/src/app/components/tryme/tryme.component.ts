@@ -3,7 +3,7 @@ import { UserSessionService } from '../../services/usersession.service';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers } from '@angular/http';
-import { showDialog, DialogboxButtons } from '../../../lib/dialog-box/dialogbox';
+import { showDialog, DialogBoxButtons } from '../../../lib/dialogbox/dialogbox';
 
 @Component({
   selector: 'app-tryme',
@@ -23,13 +23,14 @@ export class TryMeComponent implements OnInit {
   ngOnInit() {
   }
 
-  async test() {
-    this.dialogResult = await showDialog('TryMe', 'Are You Sure?', DialogboxButtons.OkCancel);
-  }
-
   tryme() {
     this.tryGeneric();
     this.tryRestricted();
+  }
+
+  async test() {
+    console.log('Test');    
+    this.dialogResult = await showDialog('TryMe', 'Are you sure?', DialogBoxButtons.YesNoCancel);
   }
 
   tryRestricted(): Promise<void> {

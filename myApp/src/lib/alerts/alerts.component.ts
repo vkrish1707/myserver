@@ -5,7 +5,6 @@ import { trigger, style, transition, animate, keyframes, query, stagger } from '
 import { AlertService } from './alert.service';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'lib-alerts',
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.css'],

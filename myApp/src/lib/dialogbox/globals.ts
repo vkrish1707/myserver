@@ -2,7 +2,7 @@ import { Injector } from "@angular/core";
 
 export let InjectorInstance: Injector;
 
-export enum DialogboxResult {
+export enum DialogBoxResult {
     Yes,
     No,
     Ok,
