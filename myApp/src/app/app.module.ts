@@ -34,6 +34,7 @@ import { DialogboxModule } from '../lib/dialogbox/dialogbox.module';
     HttpClientModule,
     BrowserAnimationsModule,
     AlertsModule,
+    DialogboxModule,
     AppHeaderModule,
     DialogboxModule,
     AppHomeModule,

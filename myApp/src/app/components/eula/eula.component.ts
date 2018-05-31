@@ -40,8 +40,4 @@ export class EulaComponent implements OnInit {
       this.router.navigate(['/home']);
     }
   }
-
-  // onDecline(){
-  //   this.oncancel.emit(null);
-  // }
 }

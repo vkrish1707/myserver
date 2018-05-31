@@ -13,6 +13,7 @@ import { showDialog, DialogBoxButtons } from '../../../lib/dialogbox/dialogbox';
 export class RegisteruserconfirmComponent implements OnInit {
 
   @Output() oncontinue: EventEmitter<any> = new EventEmitter;
+  @Output() oncancel: EventEmitter<any> = new EventEmitter;
 
   public dialogResult;
 
@@ -27,6 +28,11 @@ export class RegisteruserconfirmComponent implements OnInit {
 
   onContinue() {
     this.oncontinue.emit(null);
+  }
+  onCancel() {
+    this.oncancel.emit(null);
+    console.log('cancel from user-confirm');
+    
   }
 
   async dialogBox() {

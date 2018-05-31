@@ -30,7 +30,12 @@ var UserSchema = mongoose.Schema({
 
     photoUrl: {
         type: String
+    },
+
+    last_login_date: {
+        type: Date
     }
+
 }, { timestamps: true });
 
 UserSchema.statics.addUser = function (id, done) {
