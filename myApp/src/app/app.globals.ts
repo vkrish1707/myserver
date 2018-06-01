@@ -1,3 +1,5 @@
 import { Injector } from '@angular/core';
 
-export let InjectorInstance: Injector;
+export class Globals {
+    public InjectorInstance: Injector
+};

@@ -6,7 +6,7 @@ export const environment = {
   },
 
   facebook: {
-    appId: '1820292001598094'
+    appId: '1659111817541772'
   },
 
   microsoft: {

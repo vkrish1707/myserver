@@ -1,6 +1,8 @@
 import { Injector } from "@angular/core";
 
-export let InjectorInstance: Injector;
+export class Core {
+    public InjectorInstance: Injector
+}
 
 export enum DialogBoxResult {
     Yes,
