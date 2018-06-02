@@ -1,9 +1,9 @@
 import { MatDialogConfig, MatDialog } from "@angular/material";
+// import { Injector } from "@angular/core";
 import { DialogBoxComponent } from "./dialogbox.component";
 
-// import core = require('./globals');
-import { Core, DialogBoxResult } from './globals';
-import { Injector } from "@angular/core";
+import core = require('./globals');
+
 
 export enum DialogBoxButtons {
     YesNoCancel,
@@ -14,9 +14,9 @@ export enum DialogBoxButtons {
     Close
 }
 
-export function showDialog(title: string, message: string, buttons: DialogBoxButtons): Promise<DialogBoxResult> {
+export function showDialog(title: string, message: string, buttons: DialogBoxButtons): Promise<core.DialogBoxResult> {
 
-    let InjectorInstance: Injector;
+    // let InjectorInstance: Injector;
     
     // prepare the config data
     const config = new MatDialogConfig();
@@ -34,7 +34,7 @@ export function showDialog(title: string, message: string, buttons: DialogBoxBut
 
     // create MatDialog instance
     console.log('in show Dialog');
-    let dialog = InjectorInstance.get<MatDialog>(MatDialog);
+    let dialog = core.InjectorInstance.get<MatDialog>(MatDialog);
     const reference = dialog.open(DialogBoxComponent, config);
 
     // return

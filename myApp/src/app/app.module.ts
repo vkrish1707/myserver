@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { Globals } from './app.globals';
+import globals = require('./app.globals');
+// import * as globals from './app.globals';
 import { AppComponent } from './app.component';
 import { AlertsModule } from '../lib/alerts/alerts.module';
 import { AppHeaderModule } from './modules/app-header.module';
@@ -24,7 +25,7 @@ import { DialogboxModule } from '../lib/dialogbox/dialogbox.module';
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
+    FooterComponent
   ],
 
   imports: [
@@ -59,7 +60,9 @@ import { DialogboxModule } from '../lib/dialogbox/dialogbox.module';
 
 export class AppModule {
 
-  constructor(private injector: Injector, private InjectorInstance: Injector) {
-    InjectorInstance = injector;
+  // public InjectorInstance: Injector;
+
+  constructor(private injector: Injector) {
+    globals.InjectorInstance = injector;
   }
 }
