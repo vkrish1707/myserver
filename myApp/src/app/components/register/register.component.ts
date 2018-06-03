@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit {
   }
 
   public async loginSuccess(data: any) {
+    console.log('login sucesss');
     this.registerService.data = <ILogin> data;
     await this.registerService.checkUser();
     this.state = 'info';
@@ -29,6 +30,11 @@ export class RegisterComponent implements OnInit {
 
   private infoContinue() {
     this.state = 'eula';
+  }
+
+  private infoCancel() {
+    this.registerService.data.logout();
+    this.router.navigate(['/home']);
   }
 
   private eulaAccept() {
@@ -41,4 +47,10 @@ export class RegisterComponent implements OnInit {
   private eulaCancel() {
     this.router.navigate(['/home']);
   }
+
+  private stateChange() {
+    // this.state = 'eula';
+    console.log('it might work');
+  }
+
 }

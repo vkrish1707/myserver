@@ -13,6 +13,7 @@ import { MicrosoftService } from './microsoft/microsoft.service';
 import { GoogleService } from './google/google.service';
 import { LinkedinService } from './linkedin/linkedin.service';
 import { MaterialModule } from '../../app/modules/material.module';
+import { ProgressComponent } from '../progress/progress.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { MaterialModule } from '../../app/modules/material.module';
     GoogleComponent,
     FacebookComponent,
     MicrosoftComponent,
-    LinkedinComponent
+    ProgressComponent,
+    LinkedinComponent,
   ],
 
   declarations: [
@@ -33,11 +35,22 @@ import { MaterialModule } from '../../app/modules/material.module';
     LoginDirective,
     GoogleComponent,
     FacebookComponent,
+    ProgressComponent,
     MicrosoftComponent,
     LinkedinComponent
   ],
-  providers: [FacebookService, MicrosoftService, GoogleService, LinkedinService],
-  exports: [LoginComponent]
+  providers: [
+    FacebookService,
+    MicrosoftService,
+    GoogleService,
+    LinkedinService
+  ],
+
+  exports: [
+    LoginComponent,
+    GoogleComponent,
+    ProgressComponent
+  ]
 })
 
 export class LoginModule { }

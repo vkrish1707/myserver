@@ -18,6 +18,7 @@ import { UserSessionService } from './services/usersession.service';
 import { AppRegisterService } from './services/app-register.service';
 import { InterceptorService } from './services/interceptor.service';
 import { FooterComponent } from './components/footer/footer.component';
+import { MaterialModule } from './modules/material.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FooterComponent } from './components/footer/footer.component';
     AppHomeModule,
     LoginModule,
     AppRegisterModule,
-    NgbModule.forRoot() 
+    MaterialModule,
+    NgbModule.forRoot()
   ],
 
   providers: [

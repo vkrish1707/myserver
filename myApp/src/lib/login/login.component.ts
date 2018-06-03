@@ -1,7 +1,9 @@
-import { Component,
-         Input, Output,
-         AfterViewInit, ViewChild,
-         ComponentFactoryResolver, EventEmitter, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input, Output,
+  AfterViewInit, ViewChild,
+  ComponentFactoryResolver, EventEmitter, OnDestroy
+} from '@angular/core';
 
 import { LoginDirective } from './base/login.directive';
 import { BaseLoginProvider } from './base/provider.base';
@@ -26,6 +28,8 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 
   @Output() oncancel: EventEmitter<any> = new EventEmitter();
   @Output() oncomplete: EventEmitter<any> = new EventEmitter<any>();
+  @Output() test: EventEmitter<any> = new EventEmitter<any>();
+
   @ViewChild(LoginDirective) host: LoginDirective;
 
   private providers: BaseLoginProvider[] = [];
@@ -60,18 +64,23 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     }
 
     let completed = (provider) => {
-      that.oncomplete.emit(<ILogin> provider);
+      that.oncomplete.emit(<ILogin>provider);  
     };
 
     let cancelled = (provider: ILogin) => {
       that.oncancel.emit(null);
     };
 
+    let changeState = (provider) => {
+      that.test.emit(null);
+    }
+
     this.providers = [];
     this.host.viewContainerRef.clear();
     for (const cmp of components) {
       const factory = this.componentFactoryResolver.resolveComponentFactory(cmp);
       const item = this.host.viewContainerRef.createComponent(factory);
+      (<BaseLoginProvider>item.instance).onclick.subscribe(changeState);
       (<BaseLoginProvider>item.instance).onsuccess.subscribe(completed);
       (<BaseLoginProvider>item.instance).oncancel.subscribe(cancelled);
       this.providers.push((<BaseLoginProvider>item.instance));

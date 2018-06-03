@@ -3,15 +3,15 @@ var jwt = require('jsonwebtoken');
 var request = require('request');
 
 var User = require('../models/userModel');
+var config = require('../config');
 
 var router = express.Router();
 var app = express();
 
-router.route('/auth/facebook')
-    .post(function verifyFacebookUserAccessToken(req, res, FBtoken) {
+router.post('/auth/facebook', function verifyFacebookUserAccessToken(req, res, FBtoken) {
         var FBtoken = req.headers['token'];
 
-        var path = 'https://graph.facebook.com/me?access_token=' + FBtoken;
+        var path = config.facebook.PATH + FBtoken;
         request(path, function (error, response, body) {
             var data = JSON.stringify(body);
 

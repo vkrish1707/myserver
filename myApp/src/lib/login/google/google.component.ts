@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
 import { ILogin } from '../login';
 
@@ -74,5 +74,9 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
         reject(err);
       });
     });
+  }
+
+  test() {
+    this.state();
   }
 }

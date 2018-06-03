@@ -17,3 +17,74 @@ input {
     background-color: blueviolet;
     width: 30%;
 }
+
+.main {
+    width: 100%;
+    height: 620px;
+    background-color:mediumaquamarine;
+}
+
+.inner {
+    width: 80%;
+    height: 80%;
+    background-color:gainsboro;
+    position: relative;
+    top:10%;
+    margin: auto;
+}
+
+.box {
+    width: 30%;
+    height: 30%;
+    background-color: yellow;
+    position: relative;
+    top: 7%;
+    left: 1%;
+}
+
+.box2{
+    width: 30%;
+    height: 30%;
+    background-color: blue;
+    position: relative;
+    bottom : 23%;
+    left: 35%;
+    
+}
+
+.box3 {
+    width: 30%;
+    height: 30%;
+    background-color: orange;
+    position: relative;
+    bottom: 53%;
+    float: right;
+    margin-right: 1%;
+}
+
+.box4 {
+    width: 50%;
+    height: 30%;
+    position: relative;
+    left: 46%;
+    top: -20%;
+    display:ruby-base-container;
+    
+} 
+
+.chkAccept {
+ position: relative;
+ top: 6%;
+}
+
+.btnAccept {
+  float: right;
+  margin-top: -6%;
+
+}
+
+.btnDecline {
+  float: right;
+  margin-top: -6%;
+    margin-right: 2%;
+}

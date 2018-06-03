@@ -19,11 +19,13 @@ export class LinkedinComponent extends BaseLoginProvider implements OnInit {
   }
 
   private async login() {
-    await this.linkedinService.launch();
-    this.success(<ILogin>this.linkedinService);
+    this.linkedinService.oauth();
+    // await this.linkedinService.launch();
+    // await this.linkedinService.getAt();
+    // this.success(<ILogin>this.linkedinService);
   }
 
   logOff() {
-    this.linkedinService.logout();
+    // this.linkedinService.logout();
   }
 }

@@ -18,6 +18,10 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
   ngOnInit() {
   }
 
+  test() {
+    this.state();
+  }
+
   private async login() {
     // check the status first
     let status = await this.facebookService.getStatus();

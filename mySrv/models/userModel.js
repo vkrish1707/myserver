@@ -8,6 +8,10 @@ var UserSchema = mongoose.Schema({
         type: String
     },
 
+    providerName: {
+        type: String
+    },
+
     firstName: {
         type: String
     },
@@ -37,9 +41,12 @@ UserSchema.statics.addUser = function (id, done) {
             } else if (user) {
                 return done();
             } else {
+                console.log('user saved');
+                
                 var user = new User;
 
                 user.providerID = id.providerID;
+                user.providerName = id.providerName;
                 user.firstName = id.firstName;
                 user.lastName = id.lastName;
                 user.email = id.email;
