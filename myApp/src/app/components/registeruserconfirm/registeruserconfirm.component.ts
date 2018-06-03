@@ -2,8 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { IUser, UserSessionService } from '../../services/usersession.service';
 import { Router } from '@angular/router';
 import { AppRegisterService } from '../../services/app-register.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-
+import { showDialog, DialogBoxButtons } from '../../../lib/dialogbox/dialogbox';
 
 @Component({
   selector: 'app-registeruserconfirm',
@@ -14,11 +13,15 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class RegisteruserconfirmComponent implements OnInit {
 
   @Output() oncontinue: EventEmitter<any> = new EventEmitter;
+  @Output() oncancel: EventEmitter<any> = new EventEmitter;
+
+  public dialogResult;
+
 
   constructor(private router: Router,
               private registerService: AppRegisterService,
-              private session: UserSessionService,
-              public dialog: MatDialog) {}
+              private session: UserSessionService
+            ) {}
 
   ngOnInit() {
   }
@@ -26,31 +29,21 @@ export class RegisteruserconfirmComponent implements OnInit {
   onContinue() {
     this.oncontinue.emit(null);
   }
-
-  openDialog(): void {
-    let dialogRef = this.dialog.open(CanceldialogboxComponent, {
-      width: '250px'
-    });
-  }
-}
-
-@Component({
-  selector: 'app-canceldialogbox',
-  templateUrl: 'canceldialogbox.html',
-})
-export class CanceldialogboxComponent {
-
-  @Output() oncancel: EventEmitter<any> = new EventEmitter;
-
-  constructor(
-    public dialogRef: MatDialogRef<CanceldialogboxComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
   onCancel() {
     this.oncancel.emit(null);
+    console.log('cancel from user-confirm');
+    
   }
+
+  async dialogBox() {
+    console.log('dialogBox');    
+    this.dialogResult = await showDialog('Decline Confirmation', 'Are you sure?', DialogBoxButtons.YesNo);
+    if (this.dialogResult == 0) {
+      console.log('inside if');
+      
+      this.registerService.data.logout();
+      this.router.navigate(['/home']);
+    }
+  }
+
 }

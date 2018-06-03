@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { showDialog, DialogBoxButtons } from '../../../lib/dialogbox/dialogbox';
+import { AppRegisterService } from '../../services/app-register.service';
 
 @Component({
   selector: 'app-eula',
@@ -11,10 +12,12 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class EulaComponent implements OnInit {
 
   @Output() onaccept: EventEmitter<any> = new EventEmitter();
+  @Output() oncancel: EventEmitter<any> = new EventEmitter();
 
   buttonStatus = true;
+  public dialogResult;
 
-  constructor(private router: Router, public dialog: MatDialog) { }
+  constructor(private router: Router, private registerService: AppRegisterService) { }
 
   ngOnInit() {
   }
@@ -27,35 +30,14 @@ export class EulaComponent implements OnInit {
     this.buttonStatus = ((this.buttonStatus === true) ? false : true);
   }
 
-  openDialog(): void {
-    let dialogRef = this.dialog.open(DeclinedialogboxComponent, {
-      width: '250px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-
-}
-
-@Component({
-  selector: 'app-declinedialogbox',
-  templateUrl: 'declinedialogbox.html',
-})
-export class DeclinedialogboxComponent {
-
-  @Output() oncancel: EventEmitter<any> = new EventEmitter();
-
-  constructor(
-    public dialogRef: MatDialogRef<DeclinedialogboxComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  onDecline() {
-    this.oncancel.emit(null);
+  async dialogBox() {
+    console.log('dialogBox');    
+    this.dialogResult = await showDialog('Decline Confirmation', 'Are you sure?', DialogBoxButtons.YesNo);
+    if (this.dialogResult == 0) {
+      console.log('inside if');
+      
+      this.registerService.data.logout();
+      this.router.navigate(['/home']);
+    }
   }
 }

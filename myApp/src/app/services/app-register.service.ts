@@ -7,11 +7,12 @@ import { Router } from '@angular/router';
 export class AppRegisterService {
 
   public data: ILogin;
+  private date: any;
 
   constructor(private http: Http, private router: Router, private session: UserSessionService) { }
 
   public checkUser() {
-    let userData: IUser = {
+    let userData = {
       'providerID': this.data.providerID,
       'providerName':this.data.providerName,
       'firstName': this.data.firstName,
@@ -28,6 +29,10 @@ export class AppRegisterService {
           this.router.navigate(['/homewithsession']);
         },
         err => console.log(err)
-      )
+      );
+
+    this.http.post('http://localhost:3000/signin', this.date)
+      .subscribe(res => console.log(res),
+                  err => console.log(err));
   }
 }

@@ -11,4 +11,5 @@ import { AlertService } from './alert.service';
   exports: [AlertsComponent]
 
 })
+
 export class AlertsModule { }

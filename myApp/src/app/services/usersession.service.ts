@@ -6,6 +6,7 @@ import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from '@angular/c
 @Injectable()
 export class UserSessionService implements HttpInterceptor {
 
+  private date = new Date();
   private jwt: any;
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
@@ -39,13 +40,14 @@ export class UserSessionService implements HttpInterceptor {
 
     // defining 'data' object to send the userDetails to
     // the server and save them to the database
-    let data: IUser = {
+    let data = {
       'providerID': this.sessionInfo.providerID,
       'providerName':this.sessionInfo.providerName,
       'firstName': this.sessionInfo.firstName,
       'lastName': this.sessionInfo.lastName,
       'email': this.sessionInfo.email,
-      'photoUrl': this.sessionInfo.photoUrl
+      'photoUrl': this.sessionInfo.photoUrl,
+      'loginDate': this.date.toLocaleString()
     }
 
     let establishPromise = (resolve, reject) => {

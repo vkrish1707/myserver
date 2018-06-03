@@ -9,8 +9,29 @@ var config = require('../config');
 var router = express.Router();
 var app = express();
 
-const client = new OAuth2Client(CLIENT_ID = config.google.CLIENT_ID);
+router.post('/auth/google', async function (req, res, next) {
+    var gToken = req.headers['token'];
+    var id = req.body;
+    var user = new User(req.body);
+
+    try {
+        await verify(gToken);
+
+        User.addUser(user, function (err) {
+            if (err) {
+                console.log(err);
+            }
+        });
+
+        let jToken = jwt.sign({ userid: payload.userid }, 'twinesoft', {expiresIn: '3h'});
+        res.status(200).send(jToken);
+    } catch (error) {
+        
+    }
+});
+
 async function verify(token) {
+    let client = new OAuth2Client(CLIENT_ID = config.google.CLIENT_ID);
     const ticket = await client.verifyIdToken({
         idToken: token,
         audience: CLIENT_ID
@@ -18,28 +39,6 @@ async function verify(token) {
     const payload = ticket.getPayload();
     const userid = payload['sub'];
 };
-
-router.post('/auth/google', function (req, res, next) {
-    var gToken = req.headers['token'];
-
-    try {
-        this.verify(gToken);
-
-        jtoken = jwt.sign({ userid: payload.userid }, 'twinesoft', { expiresIn: '3h' });
-        res.send(jtoken);
-
-    } catch (error) {
-        verify().catch(console.error);
-    }
-    var id = req.body;
-
-    var user = new User(req.body);
-    User.addUser(user, function (err) {
-        if (err) {
-            console.log(err);
-        }
-    });
-});
 
 app.use('/api', router);
 

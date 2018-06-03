@@ -8,8 +8,9 @@ import { AppHomeModule } from './app-home.module';
 import { MaterialModule } from '../modules/material.module';
 
 import { RegisterComponent } from '../components/register/register.component';
-import { EulaComponent, DeclinedialogboxComponent } from '../components/eula/eula.component';
-import { CanceldialogboxComponent, RegisteruserconfirmComponent} from '../components/registeruserconfirm/registeruserconfirm.component';
+import { ProgressComponent } from '../../lib/progress/progress.component';
+import { EulaComponent } from '../components/eula/eula.component';
+import { RegisteruserconfirmComponent } from '../components/registeruserconfirm/registeruserconfirm.component';
 import { SignInComponent } from '../components/sign-in/sign-in.component';
 
 @NgModule({
@@ -19,21 +20,17 @@ import { SignInComponent } from '../components/sign-in/sign-in.component';
     AppHeaderModule,
     AppHomeModule,
     LoginModule,
-    MaterialModule
+    MaterialModule,
   ],
 
   entryComponents: [
-    DeclinedialogboxComponent,
-    CanceldialogboxComponent,
   ],
 
   declarations: [
     RegisterComponent,
     SignInComponent,
     RegisteruserconfirmComponent,
-    EulaComponent,
-    DeclinedialogboxComponent,
-    CanceldialogboxComponent
+    EulaComponent
   ]
 
 })
