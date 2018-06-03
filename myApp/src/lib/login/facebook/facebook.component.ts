@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FacebookService } from './facebook.service';
 import { BaseLoginProvider } from '../base/provider.base';
 import { ILogin } from '../login';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'lib-facebook',
@@ -11,15 +12,13 @@ import { ILogin } from '../login';
 
 export class FacebookComponent extends BaseLoginProvider implements OnInit {
 
-  constructor(private facebookService: FacebookService) {
-    super();
+  constructor(private facebookService: FacebookService, private service: LoginService) {
+    super(service)
   }
+
+  disabled: boolean;
 
   ngOnInit() {
-  }
-
-  test() {
-    this.state();
   }
 
   private async login() {
@@ -30,8 +29,15 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
     await this.facebookService.run();
     this.success(<ILogin>this.facebookService);
   }
-
+ 
   logOff() {
     this.facebookService.logout();
   }
+
+  protected freeze(value: boolean) {
+    console.log('facebook==it worked', value);
+    this.disabled = value;
+    
+  }
+
 }

@@ -1,18 +1,22 @@
 import { EventEmitter } from '@angular/core';
 
 import { ILogin } from '../login';
+import { LoginService } from '../login.service';
 
 export abstract class BaseLoginProvider {
     
     private eventCancel = new EventEmitter();
     private eventSuccess = new EventEmitter<ILogin>();
-    private eventState = new EventEmitter();
 
-    constructor() {}
+    constructor(protected loginService: LoginService) {
+        this.loginService.freeze.subscribe(data => {
+            this.freeze(data);
+            console.log(data);
+        })
+    }
 
     oncancel = this.eventCancel.asObservable();
     onsuccess = this.eventSuccess.asObservable();
-    onclick = this.eventState.asObservable();
 
     protected success(data: ILogin) {
         this.eventSuccess.emit(data);
@@ -22,7 +26,5 @@ export abstract class BaseLoginProvider {
         this.eventCancel.emit();
     }
 
-    protected state() {
-        this.eventState.emit();
-    }
+    protected abstract freeze(value: boolean);
 }

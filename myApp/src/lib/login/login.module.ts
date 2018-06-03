@@ -14,6 +14,7 @@ import { GoogleService } from './google/google.service';
 import { LinkedinService } from './linkedin/linkedin.service';
 import { MaterialModule } from '../../app/modules/material.module';
 import { ProgressComponent } from '../progress/progress.component';
+import { LoginService } from './login.service';
 
 @NgModule({
   imports: [
@@ -37,19 +38,19 @@ import { ProgressComponent } from '../progress/progress.component';
     FacebookComponent,
     ProgressComponent,
     MicrosoftComponent,
-    LinkedinComponent
+    LinkedinComponent,
   ],
   providers: [
     FacebookService,
     MicrosoftService,
     GoogleService,
-    LinkedinService
+    LinkedinService,
+    LoginService
   ],
 
   exports: [
     LoginComponent,
-    GoogleComponent,
-    ProgressComponent
+    ProgressComponent,
   ]
 })
 

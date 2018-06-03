@@ -13,10 +13,9 @@ import { showDialog, DialogBoxButtons } from '../../../lib/dialogbox/dialogbox';
 export class RegisteruserconfirmComponent implements OnInit {
 
   @Output() oncontinue: EventEmitter<any> = new EventEmitter;
-  @Output() oncancel: EventEmitter<any> = new EventEmitter;
 
   public dialogResult;
-
+  disabled:boolean = false;
 
   constructor(private router: Router,
               private registerService: AppRegisterService,
@@ -29,11 +28,6 @@ export class RegisteruserconfirmComponent implements OnInit {
   onContinue() {
     this.oncontinue.emit(null);
   }
-  onCancel() {
-    this.oncancel.emit(null);
-    console.log('cancel from user-confirm');
-    
-  }
 
   async dialogBox() {
     console.log('dialogBox');    
@@ -45,5 +39,4 @@ export class RegisteruserconfirmComponent implements OnInit {
       this.router.navigate(['/home']);
     }
   }
-
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
 import { LinkedinService } from './linkedin.service';
 import { ILogin } from '../login';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'lib-linkedin',
@@ -11,9 +12,11 @@ import { ILogin } from '../login';
 
 export class LinkedinComponent extends BaseLoginProvider implements OnInit {
 
-  constructor(private linkedinService: LinkedinService) {
-    super();
+  constructor(private linkedinService: LinkedinService, private service: LoginService) {
+    super(service);
   }
+
+  disabled: boolean = true;
 
   ngOnInit() {
   }
@@ -28,4 +31,15 @@ export class LinkedinComponent extends BaseLoginProvider implements OnInit {
   logOff() {
     // this.linkedinService.logout();
   }
+
+  onClick() {
+    this.service.lock();
+  }
+
+
+  protected freeze(value: boolean) {
+    console.log('linkedin==it worked');
+    this.disabled = value;
+  }
+
 }

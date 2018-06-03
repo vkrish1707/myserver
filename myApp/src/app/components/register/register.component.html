@@ -1,9 +1,9 @@
 <app-header loginRegister="hide" menu="hide" profile="hide"></app-header>
 
 <div [ngSwitch]="state">
-    <lib-login *ngSwitchCase="'signin'" (test)="stateChange($event)" (oncomplete)="loginSuccess($event)" ></lib-login>
-    <app-registeruserconfirm *ngSwitchCase="'info'" (oncontinue)="infoContinue($event)" (oncancel)="infoCancel($event)"></app-registeruserconfirm>
-    <app-eula *ngSwitchCase="'eula'"  (onaccept)="eulaAccept($event)" (oncancel)="eulaCancel($event)"></app-eula>
+    <lib-login *ngSwitchCase="'signin'" (oncomplete)="loginSuccess($event)"></lib-login>
+    <app-registeruserconfirm *ngSwitchCase="'info'" (oncontinue)="infoContinue($event)"></app-registeruserconfirm>
+    <app-eula *ngSwitchCase="'eula'"  (onaccept)="eulaAccept($event)"></app-eula>
     <lib-progress *ngSwitchCase="'progress'"></lib-progress>
 </div>
  

@@ -30,7 +30,7 @@ import { SignInComponent } from '../components/sign-in/sign-in.component';
     RegisterComponent,
     SignInComponent,
     RegisteruserconfirmComponent,
-    EulaComponent
+    EulaComponent,
   ]
 
 })

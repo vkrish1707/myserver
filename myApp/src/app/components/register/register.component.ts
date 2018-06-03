@@ -13,6 +13,7 @@ import { AppRegisterService } from '../../services/app-register.service';
 export class RegisterComponent implements OnInit {
 
   private state: string = 'signin';
+  disabled:boolean= true;
 
   constructor(private router: Router,
               private registerService: AppRegisterService,
@@ -32,11 +33,6 @@ export class RegisterComponent implements OnInit {
     this.state = 'eula';
   }
 
-  private infoCancel() {
-    this.registerService.data.logout();
-    this.router.navigate(['/home']);
-  }
-
   private eulaAccept() {
     this.sessionService.establish(this.registerService.data).then(() => {
       this.state = 'complete';
@@ -44,14 +40,18 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  private eulaCancel() {
-    this.registerService.data.logout();
-    this.router.navigate(['/home']);
+  private stateChange1() {
+    console.log('onclick event catched sct1');
   }
 
-  private stateChange() {
-    // this.state = 'eula';
-    console.log('it might work');
+  private stateChange2() {
+    console.log('onclick event catched sct2');
+  }
+
+  private onLoginCancel() {
+    // this.state = 'signin';
+    console.log('test event catched');
+    
   }
 
 }
