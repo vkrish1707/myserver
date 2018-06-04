@@ -37,7 +37,6 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
   protected freeze(value: boolean) {
     console.log('facebook==it worked', value);
     this.disabled = value;
-    
   }
 
 }
