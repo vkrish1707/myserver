@@ -2,8 +2,8 @@ import { showError } from '../../lib/utilities/globalfunctions';
 import { Subject } from 'rxjs/Subject';
 import { of } from 'rxjs/Observable/of';
 import { HttpClient } from '@angular/common/http';
-import globals = require('../app.globals');
-// import { Injector } from "@angular/core";
+// import globals = require('../app.globals');
+import { Injector } from "@angular/core";
 
 export class AlertCollection {
     private localAlertId: number = -100;
@@ -12,7 +12,7 @@ export class AlertCollection {
 
     public newAlert = this.newAlertSubject.asObservable();
 
-    // public InjectorInstance: Injector;
+    public InjectorInstance: Injector;
 
     add(id: number, message: string, icon: string) {
         if (id == -1) {
@@ -44,7 +44,7 @@ export class AlertCollection {
 
     load() {
         let url = 'http://localhost:3000/api/alerts';
-        let http =  globals.InjectorInstance.get<HttpClient>( HttpClient )
+        let http =  this.InjectorInstance.get<HttpClient>( HttpClient )
         http.get<IAlert[]>(url).subscribe(alerts => {
             for (let alert of alerts) {
                 this.add(alert.id, alert.message, alert.icon);
