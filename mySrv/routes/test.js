@@ -1,27 +1,37 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
+var request = require('request');
 var User = require('../models/userModel');
 
 var app = express();
 
-router.post('/auth/linkedin', function (req, res, next) {
+router.post('/auth/linkedin', async function (req, res, next) {
     let lToken = req.headers['token'];
     console.log('LinkedIn token from client ==== ', lToken);
-    request.get('http://api.linkedin.com/v1/people/~', {
-        'host': 'api.linkedin.com',
-        'connection': 'Keep-Alive',
-        'Authorization': 'Bearer ' + lToken
-    },
-        function (error, data) {
-            console.log('I am here..');
-            if (error) {
-                console.log('This is inside error condition ', error)
-            } else {
-                console.log('this is data== ', data);
-            }
-        });
+    await getAt(lToken)        
 });
+
+// function getAt(authToken) {
+//     var xhr = new XMLHttpRequest();
+//     xhr.open('POST', 'https://www.linkedin.com/oauth/v2/accessToken');
+//     console.log('after post');
+
+//     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+//     console.log('after set header');
+
+//     xhr.onreadystatechange = () => {
+//         console.log('on ready state');
+
+//         if (xhr.readyState == 4 && xhr.status == 200) {
+//             console.log('in if');
+
+//             this.token = xhr.response;
+//             console.log('token======', this.token);
+//         }
+//     };
+//     xhr.send('grant_type=authorization_code&code=' + authToken + '&redirect_uri=' + 'http://localhost:4200/' + '&client_id=78ov5vlwhek3gu&client_secret=yF1vcU7ESIn8e0HI');
+// }
 
 //     getUserData(lToken, (err, user) => {
 //         if (!err) {

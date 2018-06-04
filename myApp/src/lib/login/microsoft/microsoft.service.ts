@@ -9,6 +9,7 @@ import * as hello from 'hellojs/dist/hello.all.js';
 
 import { ILogin } from "../login";
 import { environment } from '../../../environments/environment';
+import { LoginService } from "../login.service";
 
 @Injectable()
 export class MicrosoftService implements ILogin {
@@ -26,7 +27,7 @@ export class MicrosoftService implements ILogin {
         scope: environment.microsoft.scope
     };
 
-    constructor() {}
+    constructor(private service: LoginService) {}
 
     public initAuth() {
         hello.init({
@@ -45,6 +46,10 @@ export class MicrosoftService implements ILogin {
     }
 
     public async run(): Promise<void> {
+
+        // lock all providers
+        this.service.lock();
+
         let task = new Subject<void>();
 
         try {
@@ -57,6 +62,10 @@ export class MicrosoftService implements ILogin {
             }
         }
         catch (error) {
+
+            // release all providers
+            this.service.release();
+            
             console.log(error);
         }
 

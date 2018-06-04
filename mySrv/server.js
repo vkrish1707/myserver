@@ -10,6 +10,7 @@ var linkedin = require('./routes/linkedin');
 var alerts = require('./routes/alerts');
 var signin = require('./routes/signin');
 var checkuser = require('./routes/checkuser');
+// var test = require('./routes/test');
 
 var router = express.Router();
 var app = express();
@@ -31,6 +32,7 @@ app.use('/api', linkedin);
 app.use('/api', alerts);
 app.use('/api', signin);
 app.use(checkuser);
+// app.use('/api', test);
 
 app.post('/api/restricted', function (req, res) {
     let jtoken = req.headers.authorization;

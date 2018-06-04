@@ -25,7 +25,7 @@ import { DialogboxModule } from '../lib/dialogbox/dialogbox.module';
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent
+    FooterComponent,
   ],
 
   imports: [
