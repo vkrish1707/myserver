@@ -32,15 +32,13 @@ export class RegisteruserconfirmComponent implements OnInit {
   onCancel() {
     this.oncancel.emit(null);
     console.log('cancel from user-confirm');
-    
   }
 
   async dialogBox() {
     console.log('dialogBox');    
     this.dialogResult = await showDialog('Decline Confirmation', 'Are you sure?', DialogBoxButtons.YesNo);
     if (this.dialogResult == 0) {
-      console.log('inside if');
-      
+      console.log('inside if');      
       this.registerService.data.logout();
       this.router.navigate(['/home']);
     }
