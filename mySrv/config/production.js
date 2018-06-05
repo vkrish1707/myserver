@@ -6,7 +6,7 @@ var prod = {
     },
 
     facebook: {
-        PATH: process.env.PATH || 'https://graph.facebook.com/me?access_token='
+        FACEBOOK_PATH: process.env.FACEBOOK_PATH || 'https://graph.facebook.com/me?access_token='
     },
 
     microsoft: {
