@@ -1,7 +1,9 @@
-import { Component,
-         Input, Output,
-         AfterViewInit, ViewChild,
-         ComponentFactoryResolver, EventEmitter, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input, Output,
+  AfterViewInit, ViewChild,
+  ComponentFactoryResolver, EventEmitter, OnDestroy, ChangeDetectorRef
+} from '@angular/core';
 
 import { LoginDirective } from './base/login.directive';
 import { BaseLoginProvider } from './base/provider.base';
@@ -10,6 +12,7 @@ import { GoogleComponent } from './google/google.component';
 import { FacebookComponent } from './facebook/facebook.component';
 import { MicrosoftComponent } from './microsoft/microsoft.component';
 import { LinkedinComponent } from './linkedin/linkedin.component';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'lib-login',
@@ -26,14 +29,16 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 
   @Output() oncancel: EventEmitter<any> = new EventEmitter();
   @Output() oncomplete: EventEmitter<any> = new EventEmitter<any>();
+
   @ViewChild(LoginDirective) host: LoginDirective;
 
   private providers: BaseLoginProvider[] = [];
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private cdr: ChangeDetectorRef, private service: LoginService) { }
 
   ngAfterViewInit() {
     this.loadComponents();
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
@@ -60,10 +65,10 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     }
 
     let completed = (provider) => {
-      that.oncomplete.emit(<ILogin> provider);
+      that.oncomplete.emit(<ILogin>provider);  
     };
 
-    let cancelled = (provider: ILogin) => {
+    let cancelled = (provider) => {
       that.oncancel.emit(null);
     };
 

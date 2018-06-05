@@ -1,3 +1,4 @@
-<button id="googleBtn"  (click)="signIn()">
-    <span class="fa fa-google"></span>Google
+<button mat-raised-button id="googleBtn" (click)="signIn()" [disabled]="disabled">
+    <span class="fa fa-google"></span><mat-divider>Google</mat-divider>
 </button>
+

@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+
 import { BaseLoginProvider } from '../base/provider.base';
 import { ILogin } from '../login';
+import { FacebookService } from '../facebook/facebook.service';
+import { LoginService } from '../login.service';
+import { environment } from '../../../environments/environment';
+
 
 declare const gapi: any;
 
@@ -11,6 +16,8 @@ declare const gapi: any;
 })
 
 export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin {
+
+disabled: boolean;
 
   // interface members
   public providerID: string;
@@ -23,12 +30,12 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
 
   protected auth2: any;
 
-  constructor() {
-    super();
+  constructor(private fbService: FacebookService, private service: LoginService) {
+    super(service);
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
         scope: 'email',
-        client_id: '284779082637-o4uhhhiirkb7j89r8qd0jfkfmddnmq94.apps.googleusercontent.com'
+        client_id: environment.google.client_id
       });
     })
   }
@@ -37,6 +44,11 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
   }
 
   public signIn(): Promise<ILogin> {
+
+    // lock all providers
+    this.service.lock();
+
+    // invoke google login
     return new Promise((resolve, reject) => {
       let promise = this.auth2.signIn();
 
@@ -54,6 +66,10 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
         this.success(this);
       }).catch((err: any) => {
         reject(err);
+
+        // release all providers
+        this.service.release();
+        
         this.cancelled();
       });
     });
@@ -66,7 +82,7 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
         if (err) {
           reject(err);
         } else {
-          document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:4200";
+          document.location.href = environment.google.logout;
           auth2.disconnect();
           resolve();
         }
@@ -75,4 +91,10 @@ export class GoogleComponent extends BaseLoginProvider implements OnInit, ILogin
       });
     });
   }
+
+  protected freeze(value: boolean) {
+    console.log('google==it worked');
+    this.disabled = value;
+  }
+
 }

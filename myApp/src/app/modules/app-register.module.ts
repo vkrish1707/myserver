@@ -24,15 +24,13 @@ import { SignInComponent } from '../components/sign-in/sign-in.component';
   ],
 
   entryComponents: [
-
   ],
 
   declarations: [
     RegisterComponent,
-    ProgressComponent,
     SignInComponent,
     RegisteruserconfirmComponent,
-    EulaComponent
+    EulaComponent,
   ]
 
 })

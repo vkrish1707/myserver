@@ -12,7 +12,6 @@ import { AppRegisterService } from '../../services/app-register.service';
 export class EulaComponent implements OnInit {
 
   @Output() onaccept: EventEmitter<any> = new EventEmitter();
-  @Output() oncancel: EventEmitter<any> = new EventEmitter();
 
   buttonStatus = true;
   public dialogResult;
