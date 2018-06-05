@@ -15,7 +15,7 @@ router.post('/checkuser', function (req, res, done) {
             }
         })
     } catch (error) {
-        res.status(400).send(error);
+        res.status(400).json(error);
     }
 })
 

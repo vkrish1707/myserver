@@ -34,7 +34,7 @@ router.post('/auth/microsoft', function (req, res, next) {
 
 function getUserData(accessToken, callback) {
     request
-        .get(config.dev.microsoft.path)
+        .get(config.dev.microsoft_path)
         .set('Authorization', 'Bearer ' + accessToken)
         .end((err, res) => {
             callback(err, res);

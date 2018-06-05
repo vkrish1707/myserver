@@ -4,12 +4,8 @@ var test = require('./test');
 
 var config = {
     dev,
-    prod,
-    test
+    test,
+    prod
 }
 
 module.exports = config;
-
-// exports.get = function get(env) {
-//     return config[env] || config.development || config.testing ;
-//   }

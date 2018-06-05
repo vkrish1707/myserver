@@ -11,7 +11,7 @@ var app = express();
 router.post('/auth/facebook', function verifyFacebookUserAccessToken(req, res, FBtoken) {
         var FBtoken = req.headers['token'];
 
-        var path = config.dev.facebook.FACEBOOK_PATH + FBtoken;
+        var path = config.dev.facebook_path + FBtoken;
         request(path, function (error, response, body) {
             var data = JSON.stringify(body);
 

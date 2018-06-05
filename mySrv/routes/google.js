@@ -32,7 +32,7 @@ router.post('/auth/google', async function (req, res, next) {
 });
 
 async function verify(gToken) {
-    const client = new OAuth2Client(CLIENT_ID = process.env.CLIENT_ID);
+    const client = new OAuth2Client(CLIENT_ID = config.dev.google_client_id);
     const ticket = await client.verifyIdToken({
         idToken: gToken,
         audience: CLIENT_ID
