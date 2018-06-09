@@ -29,7 +29,7 @@ export class TryMeComponent implements OnInit {
   }
 
   async test() {
-    console.log('Test');    
+    console.log('Test');
     this.dialogResult = await showDialog('TryMe', 'Are you sure?', DialogBoxButtons.YesNoCancel);
   }
 

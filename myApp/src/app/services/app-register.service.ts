@@ -27,6 +27,7 @@ export class AppRegisterService {
           console.log(res)
           this.session.establish(this.data);
           this.router.navigate(['/homewithsession']);
+          return true;
         },
         err => console.log(err)
       );

@@ -11,6 +11,8 @@ var alerts = require('./routes/alerts');
 var signin = require('./routes/signin');
 var checkuser = require('./routes/checkuser');
 // var test = require('./routes/test');
+var cfg = require('./config/config');
+var tryme = require('./routes/tryme');
 
 var router = express.Router();
 var app = express();
@@ -31,24 +33,9 @@ app.use('/api', microsoft);
 app.use('/api', linkedin);
 app.use('/api', alerts);
 app.use('/api', signin);
+app.use('/api', tryme);
 app.use(checkuser);
 // app.use('/api', test);
-
-app.post('/api/restricted', function (req, res) {
-    let jtoken = req.headers.authorization;
-    jwt.verify(jtoken, 'twinesoft', function (err, decoded) {
-        if (err) {
-            return res.status(401).json('Access denied');
-        }
-        else {
-            res.status(200).json('Access granted');
-        }
-    })
-})
-
-app.post('/api/generic', function (req, res) {
-    res.status(200).json('Success');
-})
 
 app.use('/api', router);
 

@@ -1,11 +1,4 @@
-var prod = require('./production');
-var dev = require('./development');
-var test = require('./test');
+var env = process.env.NODE_ENV || 'development'
+  , cfg = require('./config.' + env);
 
-var config = {
-    dev,
-    test,
-    prod
-}
-
-module.exports = config;
+module.exports = cfg;
