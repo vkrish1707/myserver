@@ -11,11 +11,14 @@ router.post('/checkuser', function (req, res, done) {
     try {
         User.get(user, function (done) {
             if (done) {
-                res.status(200).json('=====Existing User======');
+                console.log('DONE');                
+                res.status(200).json('hello');
             }
         })
-    } catch (error) {
-        res.status(400).send(error);
+        console.log('in try, after user.get');
+    } catch (err) {
+        console.log('from catch');
+        res.status(400).send(err);
     }
 })
 

@@ -7,6 +7,7 @@ export abstract class BaseLoginProvider {
     
     private eventCancel = new EventEmitter();
     private eventSuccess = new EventEmitter<ILogin>();
+    private eventClick = new EventEmitter();
 
     constructor(protected loginService: LoginService) {
         this.loginService.freeze.subscribe(data => {
@@ -17,6 +18,7 @@ export abstract class BaseLoginProvider {
 
     oncancel = this.eventCancel.asObservable();
     onsuccess = this.eventSuccess.asObservable();
+    onclick = this.eventClick.asObservable();
 
     protected success(data: ILogin) {
         this.eventSuccess.emit(data);
@@ -24,6 +26,10 @@ export abstract class BaseLoginProvider {
 
     protected cancelled() {
         this.eventCancel.emit();
+    }
+
+    protected clicked() {
+        this.eventClick.emit();
     }
 
     protected abstract freeze(value: boolean);

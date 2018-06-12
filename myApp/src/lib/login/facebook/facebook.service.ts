@@ -75,6 +75,7 @@ export class FacebookService extends BaseLoginProvider implements ILogin {
     let task = new Subject<void>();
 
     // lock other providers
+    this.clicked();
     this.service.lock();
     
     // invoke facebook login

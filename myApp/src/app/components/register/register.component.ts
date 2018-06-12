@@ -17,37 +17,41 @@ export class RegisterComponent implements OnInit {
   public dialogResult;
 
   constructor(private router: Router,
-              private registerService: AppRegisterService,
-              private sessionService: UserSessionService) { }
+    private registerService: AppRegisterService,
+    private sessionService: UserSessionService) { }
 
   ngOnInit() {
   }
 
   public async loginSuccess(data: any) {
     console.log('login sucesss');
-    this.registerService.data = <ILogin> data;
-    await this.registerService.checkUser();
-    // if ( ) {
-    //   this.dialogBox();
-    // }
-    this.state = 'info';
+
+    this.registerService.data = <ILogin>data;
+    
+    let newUser: boolean = await this.registerService.checkUser();
+    if (newUser == true) {
+      await this.dialogBox();
+      console.log('return == true');
+      this.sessionService.establish(data);
+      this.router.navigate(['/homewithsession']);
+    } else {
+      console.log('return == false');
+    }
   }
 
-  async dialogBox() {  
+  async dialogBox() {
     this.dialogResult = await showDialog(
-                            'Already registered',
-                            'User Already registered .Redirecting you to Home', 
-                            DialogBoxButtons.OkCancel
-                        );
+      'Already registered',
+      'User Already registered .Redirecting you to Home',
+      DialogBoxButtons.OkCancel
+    );
 
-      if (this.dialogResult == 2) {        
-        this.router.navigate(['/homewithsession']);
-      } else {
-        this.registerService.data.logout();
-        this.router.navigate(['/home']);
-      }
+    if (this.dialogResult == 3) {
+      this.registerService.data.logout();
+      this.router.navigate(['/home']);
+    }
   }
-  
+
   private infoContinue() {
     this.state = 'eula';
   }
@@ -59,18 +63,14 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  private stateChange1() {
+  private change() {
     console.log('onclick event catched sct1');
-  }
-
-  private stateChange2() {
-    console.log('onclick event catched sct2');
   }
 
   private onLoginCancel() {
     // this.state = 'signin';
     console.log('test event catched');
-    
+
   }
 
 }

@@ -71,7 +71,7 @@ UserSchema.statics.get = function(id, done) {
             return done(user)
         } else {
             console.log('====New User **user.get**=====')
-            return err;
+            throw err;
         }
     })
 }

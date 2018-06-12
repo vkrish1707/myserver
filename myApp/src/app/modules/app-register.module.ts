@@ -12,6 +12,7 @@ import { ProgressComponent } from '../../lib/progress/progress.component';
 import { EulaComponent } from '../components/eula/eula.component';
 import { RegisteruserconfirmComponent } from '../components/registeruserconfirm/registeruserconfirm.component';
 import { SignInComponent } from '../components/sign-in/sign-in.component';
+import { LoadingComponent } from '../components/loading/loading.component';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { SignInComponent } from '../components/sign-in/sign-in.component';
     SignInComponent,
     RegisteruserconfirmComponent,
     EulaComponent,
+    LoadingComponent
   ]
 
 })

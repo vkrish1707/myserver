@@ -34,8 +34,14 @@ export class FacebookComponent extends BaseLoginProvider implements OnInit {
     this.facebookService.logout();
   }
 
+  // onClick() {
+  //   this.clicked();
+  //   console.log(this.clicked);
+    
+  // }
+
   protected freeze(value: boolean) {
-    console.log('facebook==it worked', value);
+    // console.log('facebook==it worked', value);
     this.disabled = value;
   }
 

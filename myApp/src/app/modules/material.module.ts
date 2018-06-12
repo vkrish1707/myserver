@@ -3,21 +3,24 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule,
          MatCheckboxModule,
          MatProgressSpinnerModule,
-         MatDialogModule } from '@angular/material';
+         MatDialogModule,
+         MatDividerModule } from '@angular/material';
 
 @NgModule({
   imports: [
     MatButtonModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDividerModule
   ],
 
   exports: [
     MatButtonModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDividerModule
   ]
 
 })

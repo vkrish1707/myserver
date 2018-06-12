@@ -29,6 +29,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 
   @Output() oncancel: EventEmitter<any> = new EventEmitter();
   @Output() oncomplete: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onclick: EventEmitter<any> = new EventEmitter();
 
   @ViewChild(LoginDirective) host: LoginDirective;
 
@@ -72,6 +73,10 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       that.oncancel.emit(null);
     };
 
+    let clicked = (provider) => {
+      that.onclick.emit(null);
+    };
+
     this.providers = [];
     this.host.viewContainerRef.clear();
     for (const cmp of components) {
@@ -79,6 +84,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       const item = this.host.viewContainerRef.createComponent(factory);
       (<BaseLoginProvider>item.instance).onsuccess.subscribe(completed);
       (<BaseLoginProvider>item.instance).oncancel.subscribe(cancelled);
+      (<BaseLoginProvider>item.instance).onclick.subscribe(clicked);
       this.providers.push((<BaseLoginProvider>item.instance));
     }
   }

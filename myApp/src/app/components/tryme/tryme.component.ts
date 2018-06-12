@@ -4,6 +4,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient } from
 import { Observable } from 'rxjs/Observable';
 import { Headers } from '@angular/http';
 import { showDialog, DialogBoxButtons } from '../../../lib/dialogbox/dialogbox';
+import { AppRegisterService } from '../../services/app-register.service';
 
 @Component({
   selector: 'app-tryme',
@@ -17,8 +18,9 @@ export class TryMeComponent implements OnInit {
   public restrictedResponseError;
   public genericResponse;
   public dialogResult;
+  private test2;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private registerservice: AppRegisterService) { }
 
   ngOnInit() {
   }

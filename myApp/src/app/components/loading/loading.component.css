@@ -1,0 +1,19 @@
+.login {
+    width: 80%;
+    height: 325px;
+    background-color: rgb(206, 233, 221);
+    position: relative;
+    top: auto;
+    left: 8%;
+    bottom: auto;
+    right: auto;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 5px 5px 5px 5px #888888;
+    display:inline-block;
+}
+.login img {
+    margin: 7% 0% 0% 42%;
+    width: 15%;
+    height: 50%;
+}
