@@ -25,6 +25,4 @@ router.post('/alerts', function (req, res) {
     });
 });
 
-app.use('/api', router);
-
-module.exports = app;
+module.exports = router;

@@ -1,5 +1,5 @@
-<div class="alerts" *ngFor="let alert of alerts" [@alerts]="filteredALerts">
-  <div class="alertAndImage" [@alerts]="filteredAlerts">
+<div class="alerts" *ngFor="let alert of alerts" [@alerts]="alerts">
+  <div class="alertAndImage" [@alerts]="alerts">
     <i class="material-icons" *ngIf="alert.canDismiss == true">{{alert.icon}}</i> {{alert.elipsisMessage}}
     <button class="btn-dismissAlert" *ngIf="alert.canDismiss == true" (click)="dismissAlert(alert)">X</button>
   </div>

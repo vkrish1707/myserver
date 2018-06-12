@@ -22,7 +22,7 @@ export class AppRegisterService {
     };
 
     console.log('in chk user');
-
+    
     try {
       let response = await this.http.post('http://localhost:3000/checkuser', userData).toPromise();
       console.log('res == ', response);

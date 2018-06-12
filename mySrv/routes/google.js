@@ -4,7 +4,7 @@ var request = require('request');
 var { OAuth2Client } = require('google-auth-library');
 
 var User = require('../models/userModel');
-var config = require('../config/config');
+var cfg = require('../config/config');
 
 var router = express.Router();
 var app = express();
@@ -32,7 +32,7 @@ router.post('/auth/google', async function (req, res, next) {
 });
 
 async function verify(gToken) {
-    const client = new OAuth2Client(CLIENT_ID = process.env.CLIENT_ID);
+    const client = new OAuth2Client(CLIENT_ID = cfg.google.google_client_id);
     const ticket = await client.verifyIdToken({
         idToken: gToken,
         audience: CLIENT_ID

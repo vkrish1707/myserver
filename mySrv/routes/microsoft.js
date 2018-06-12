@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 var request = require('superagent');
 
 var User = require('../models/userModel');
-var config = require('../config/config');
+var cfg = require('../config/config');
 
 var router = express.Router();
 var app = express();
@@ -34,7 +34,7 @@ router.post('/auth/microsoft', function (req, res, next) {
 
 function getUserData(accessToken, callback) {
     request
-        .get(config.dev.microsoft.path)
+        .get(cfg.microsoft.microsoft_path)
         .set('Authorization', 'Bearer ' + accessToken)
         .end((err, res) => {
             callback(err, res);
