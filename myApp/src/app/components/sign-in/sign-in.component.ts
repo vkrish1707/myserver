@@ -50,6 +50,6 @@ export class SignInComponent implements OnInit {
       this.registerService.data.logout();
       this.router.navigate(['/home']);
     }
-    }
   }
 }
+

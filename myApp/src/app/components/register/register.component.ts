@@ -36,6 +36,7 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['/homewithsession']);
     } else {
       console.log('return == false');
+      this.state = 'info';
     }
   }
 

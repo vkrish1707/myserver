@@ -63,15 +63,15 @@ UserSchema.statics.addUser = function (id, done) {
         });
 }
 
-UserSchema.statics.get = function(id, done) {
-    User.findOne({ providerID: id.providerID })
-    .exec(function (err, user) {
-        if (user) {
-            console.log('====Existing user **user.get**=====')
-            return done(user)
+UserSchema.statics.get = function(user, next) {
+    User.findOne({ providerID: user.providerID })
+    .exec(function (error, result) {
+        if (result) {
+            console.log('====Existing user **user.get**=====');
+            return next(result);
         } else {
-            console.log('====New User **user.get**=====')
-            throw err;
+            console.log('====New User **user.get**=====');
+            return next(null);
         }
     })
 }

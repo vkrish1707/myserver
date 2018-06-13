@@ -8,18 +8,15 @@ var app = express();
 router.post('/checkuser', function (req, res, done) {
     var user = new User(req.body);
 
-    try {
-        User.get(user, function (done) {
-            if (done) {
-                console.log('DONE');                
-                res.status(200).json('hello');
-            }
-        })
-        console.log('in try, after user.get');
-    } catch (err) {
-        console.log('from catch');
-        res.status(400).send(err);
-    }
+    User.get(user, function (result) {
+        if (result) {
+            console.log('DONE');
+            res.status(200).json('hello');
+        } else {
+            console.log('from catch');
+            res.status(400).json('User Not Found');
+        }
+    })
 })
 
 module.exports = router;
