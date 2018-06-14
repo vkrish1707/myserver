@@ -30,10 +30,9 @@ export class RegisterComponent implements OnInit {
     
     let newUser: boolean = await this.registerService.checkUser();
     if (newUser == true) {
-      await this.dialogBox();
-      console.log('return == true');
+      this.dialogBox();
       this.sessionService.establish(data);
-      this.router.navigate(['/homewithsession']);
+      console.log('return == true');
     } else {
       console.log('return == false');
       this.state = 'info';
@@ -47,7 +46,9 @@ export class RegisterComponent implements OnInit {
       DialogBoxButtons.OkCancel
     );
 
-    if (this.dialogResult == 3) {
+    if (this.dialogResult == 2) {
+      this.router.navigate(['/homewithsession']);
+    } else {
       this.registerService.data.logout();
       this.router.navigate(['/home']);
     }
