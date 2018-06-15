@@ -20,8 +20,6 @@ router.post('/auth/facebook', function verifyFacebookUserAccessToken(req, res, F
                     facebookUserId: data.id,
                     fullName: data.name
                 };
-                var jtoken = jwt.sign({ facebookUserId: data.id }, 'twinesoft', { expiresIn: '3h' });
-                res.send(jtoken);
             }
             else {
                 console.log(data.error);
@@ -33,6 +31,9 @@ router.post('/auth/facebook', function verifyFacebookUserAccessToken(req, res, F
             User.addUser(user, function (err) {
                 if (err) {
                     console.log(err);
+                } else {
+                    var jtoken = jwt.sign({ facebookUserId: user.id }, 'twinesoft', { expiresIn: '1m' });
+                    res.send(jtoken);
                 }
             });
         })

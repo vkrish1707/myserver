@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var jwt = require('jsonwebtoken');
+var jwt = require('jsonwebtoken-refresh');
 
 var google = require('./routes/google');
 var facebook = require('./routes/facebook');
@@ -15,6 +15,7 @@ var checkuser = require('./routes/checkuser');
 var router = express.Router();
 var app = express();
 var Port = 3000;
+var refreshTokens = {}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,7 +42,10 @@ app.post('/api/restricted', function (req, res) {
             return res.status(401).json('Access denied');
         }
         else {
-            res.status(200).json('Access granted');
+            res.status(200).send(refreshedJwt);
+            var jwtdecoded = jwt.decode(jtoken, {completed: true});
+            var refreshedJwt = jwt.refresh(jwtdecoded, '20m', 'twinesoft');
+            console.log(refreshedJwt);
         }
     })
 })

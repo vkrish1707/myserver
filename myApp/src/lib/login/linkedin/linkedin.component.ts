@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
-import { LinkedinService } from './linkedin.service';
 import { ILogin } from '../login';
 import { LoginService } from '../login.service';
 
@@ -12,7 +11,7 @@ import { LoginService } from '../login.service';
 
 export class LinkedinComponent extends BaseLoginProvider implements OnInit {
 
-  constructor(private linkedinService: LinkedinService, private service: LoginService) {
+  constructor(private service: LoginService) {
     super(service);
   }
 
@@ -22,7 +21,7 @@ export class LinkedinComponent extends BaseLoginProvider implements OnInit {
   }
 
   private async login() {
-    this.linkedinService.oauth();
+    // this.oauth();
     // await this.linkedinService.launch();
     // await this.linkedinService.getAt();
     // this.success(<ILogin>this.linkedinService);

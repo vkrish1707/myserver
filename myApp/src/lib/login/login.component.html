@@ -6,8 +6,9 @@
     <br>
     <br>
     <ng-content select="header"></ng-content>
-    <div class="logins">
+    <div class="logins" [ngSwitch]="state">
         <ng-template appLogin></ng-template>
+        <lib-loading *ngSwitchCase="'loading'"></lib-loading>
     </div>
     <ng-content select="footer"></ng-content>
 

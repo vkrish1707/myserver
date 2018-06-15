@@ -2,3 +2,8 @@
     width: 200px;
     height: 50px;
 }
+.disable {
+    background-color: gray;
+}
+button.facebookBtn[disabled] { background: green; }
+

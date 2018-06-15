@@ -23,7 +23,7 @@ router.post('/auth/google', async function (req, res, next) {
             }
         });
 
-        let jToken = jwt.sign({ userid: payload.userid }, 'twinesoft', {expiresIn: '3h'});
+        let jToken = jwt.sign({ googleUserId: user.id }, 'twinesoft', {expiresIn: '3h'});
         res.status(200).send(jToken);
     } catch (error) {
         

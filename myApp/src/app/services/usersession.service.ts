@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/observable';
 import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from '@angular/common/http';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class UserSessionService implements HttpInterceptor {
 
-  private date = new Date();
   private jwt: any;
+  private Rjwt: any;
   private sessionInfo: ILogin = <ILogin>{};
   private userInfoSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.sessionInfo);
 
-  constructor() {}
+  constructor(private http: Http) { }
 
   public get data(): Observable<IUser> {
     return this.userInfoSubject.asObservable();
@@ -30,7 +31,7 @@ export class UserSessionService implements HttpInterceptor {
     return next.handle(req);
   }
 
-  public getjwt() {
+  public getjwt(): any {
     return this.jwt;
   }
 
@@ -42,12 +43,11 @@ export class UserSessionService implements HttpInterceptor {
     // the server and save them to the database
     let data = {
       'providerID': this.sessionInfo.providerID,
-      'providerName':this.sessionInfo.providerName,
+      'providerName': this.sessionInfo.providerName,
       'firstName': this.sessionInfo.firstName,
       'lastName': this.sessionInfo.lastName,
       'email': this.sessionInfo.email,
       'photoUrl': this.sessionInfo.photoUrl,
-      'loginDate': this.date.toLocaleString()
     }
 
     let establishPromise = (resolve, reject) => {

@@ -32,7 +32,14 @@ var UserSchema = mongoose.Schema({
         type: String
     },
 
-    last_login_date: {
+    login: {
+        type: Object
+    },
+
+    last_login_UTC: {
+        type: Date
+    },
+    last_logout_UTC: {
         type: Date
     }
 
@@ -47,7 +54,7 @@ UserSchema.statics.addUser = function (id, done) {
                 return done();
             } else {
                 console.log('user saved');
-                
+
                 var user = new User;
 
                 user.providerID = id.providerID;
@@ -56,24 +63,51 @@ UserSchema.statics.addUser = function (id, done) {
                 user.lastName = id.lastName;
                 user.email = id.email;
                 user.photoUrl = id.photoUrl;
-
+                // user.login.last_login_UTC;
+                // user.login.last_logout_UTC;
                 user.save();
                 return done();
             }
         });
 }
 
-UserSchema.statics.get = function(id, done) {
+Date.prototype.getUTCTime = function () {
+    return this.getTime() + (this.getTimezoneOffset() * 60000);
+};
+
+var utctime = new Date().getUTCTime();
+
+UserSchema.statics.get = function (id, done) {
     User.findOne({ providerID: id.providerID })
-    .exec(function (err, user) {
-        if (user) {
-            console.log('====Existing user **user.get**=====')
-            return done(user)
-        } else {
-            console.log('====New User **user.get**=====')
-            return err;
-        }
-    })
+        .exec(function (err, user) {
+            if (user) {
+                user.login = {};
+                user.login.last_login_UTC = new Date();
+                user.last_login_UTC = new Date().getUTCTime();
+                user.save();
+                console.log('====Existing user **user.get**=====')
+                return done(user)
+            } else {
+                console.log('====New User **user.get**=====')
+                return err;
+            }
+        })
+}
+
+UserSchema.statics.logoff = function (id, done) {
+    User.findOne({ providerID: id.providerID })
+        .exec(function (err, user) {
+            if (user) {
+                user.login = {};
+                user.login.last_logout_UTC = new Date();
+                user.last_logout_UTC = new Date().getUTCTime();
+                user.save();
+                console.log('user logged out');
+                return done(user)
+            } else {
+                console.log(err);
+            }
+        })
 }
 
 var User = module.exports = mongoose.model('User', UserSchema);

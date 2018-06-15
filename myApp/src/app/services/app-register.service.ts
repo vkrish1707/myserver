@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 export class AppRegisterService {
 
   public data: ILogin;
-  private date: any;
 
   constructor(private http: Http, private router: Router, private session: UserSessionService) { }
 
@@ -30,9 +29,5 @@ export class AppRegisterService {
         },
         err => console.log(err)
       );
-
-    this.http.post('http://localhost:3000/signin', this.date)
-      .subscribe(res => console.log(res),
-                  err => console.log(err));
   }
 }
