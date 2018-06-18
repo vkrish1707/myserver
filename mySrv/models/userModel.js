@@ -47,7 +47,7 @@ UserSchema.statics.addUser = function (id, done) {
                 return done();
             } else {
                 console.log('user saved');
-                
+
                 var user = new User;
 
                 user.providerID = id.providerID;
@@ -63,17 +63,17 @@ UserSchema.statics.addUser = function (id, done) {
         });
 }
 
-UserSchema.statics.get = function(id, done) {
+UserSchema.statics.get = function (id, done) {
     User.findOne({ providerID: id.providerID })
-    .exec(function (err, user) {
-        if (user) {
-            console.log('====Existing user **user.get**=====')
-            return done(user)
-        } else {
-            console.log('====New User **user.get**=====')
-            return err;
-        }
-    })
+        .exec(function (err, user) {
+            if (user) {
+                console.log('====Existing user **user.get**=====')
+                return done(user)
+            } else {
+                console.log('====New User **user.get**=====')
+                return done(err);
+            }
+        })
 }
 
 var User = module.exports = mongoose.model('User', UserSchema);

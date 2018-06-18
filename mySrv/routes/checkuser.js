@@ -14,8 +14,9 @@ router.post('/checkuser', function (req, res, done) {
                 res.status(200).json('=====Existing User======');
             }
         })
-    } catch (error) {
-        res.status(401).json(error);
+    } catch (err) {
+        console.log('error');
+        res.status(401).json(err);
     }
 })
 
