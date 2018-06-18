@@ -2,7 +2,6 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { BaseLoginProvider } from '../base/provider.base';
 import { ILogin } from '../login';
-import { FacebookService } from '../facebook/facebook.service';
 import { LoginService } from '../login.service';
 import { environment } from '../../../environments/environment';
 
@@ -30,7 +29,7 @@ disabled: boolean;
 
   protected auth2: any;
 
-  constructor(private fbService: FacebookService, private service: LoginService) {
+  constructor(private service: LoginService) {
     super(service);
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
@@ -64,13 +63,14 @@ disabled: boolean;
         this.token = backendToken;
         resolve(this);
         this.success(this);
-      }).catch((err: any) => {
-        reject(err);
+      }).catch((error) => {
+        console.log(error);
+        this.cancelled();
+        // reject(err);
 
         // release all providers
         this.service.release();
         
-        this.cancelled();
       });
     });
   }
@@ -95,6 +95,11 @@ disabled: boolean;
   protected freeze(value: boolean) {
     console.log('google==it worked');
     this.disabled = value;
+  }
+
+  change() {
+    // console.log('loading hey from component');
+    this.click();
   }
 
 }

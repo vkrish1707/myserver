@@ -14,7 +14,8 @@ router.post('/auth/microsoft', function (req, res, next) {
 
     getUserData(mToken, (err, user) => {
         if (!err) {
-            console.log(user.body.displayName);
+
+            console.log(user.body.id);
             console.log(user.body.mail);
             console.log(user.body.givenName);
         } else {
@@ -28,6 +29,9 @@ router.post('/auth/microsoft', function (req, res, next) {
     User.addUser(user, function (err) {
         if (err) {
             console.log(err);
+        } else {
+            let jToken = jwt.sign({ microsoftUserId: user.id }, 'twinesoft', { expiresIn: '3h' });
+            res.status(200).send(jToken);
         }
     });
 });

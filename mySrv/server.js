@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var jwt = require('jsonwebtoken');
+var jwt = require('jsonwebtoken-refresh');
 
 var google = require('./routes/google');
 var facebook = require('./routes/facebook');
@@ -17,6 +17,7 @@ var tryme = require('./routes/tryme');
 var router = express.Router();
 var app = express();
 var Port = 3000;
+var refreshTokens = {}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

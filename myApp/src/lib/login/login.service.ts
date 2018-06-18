@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/observable';
+import { BaseLoginProvider } from './base/provider.base';
 
 @Injectable()
 export class LoginService {

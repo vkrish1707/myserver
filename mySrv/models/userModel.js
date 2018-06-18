@@ -32,7 +32,14 @@ var UserSchema = mongoose.Schema({
         type: String
     },
 
-    last_login_date: {
+    login: {
+        type: Object
+    },
+
+    last_login_UTC: {
+        type: Date
+    },
+    last_logout_UTC: {
         type: Date
     }
 
@@ -56,22 +63,59 @@ UserSchema.statics.addUser = function (id, done) {
                 user.lastName = id.lastName;
                 user.email = id.email;
                 user.photoUrl = id.photoUrl;
-
+                // user.login.last_login_UTC;
+                // user.login.last_logout_UTC;
                 user.save();
                 return done();
             }
         });
 }
 
+<<<<<<< HEAD
+=======
+Date.prototype.getUTCTime = function () {
+    return this.getTime() + (this.getTimezoneOffset() * 60000);
+};
+
+var utctime = new Date().getUTCTime();
+
+>>>>>>> 0f39d487e802955948f010f96028b807db76f7bd
 UserSchema.statics.get = function (id, done) {
     User.findOne({ providerID: id.providerID })
         .exec(function (err, user) {
             if (user) {
+<<<<<<< HEAD
+=======
+                user.login = {};
+                user.login.last_login_UTC = new Date();
+                user.last_login_UTC = new Date().getUTCTime();
+                user.save();
+>>>>>>> 0f39d487e802955948f010f96028b807db76f7bd
                 console.log('====Existing user **user.get**=====')
                 return done(user)
             } else {
                 console.log('====New User **user.get**=====')
+<<<<<<< HEAD
                 return done(err);
+=======
+                return err;
+            }
+        })
+}
+
+UserSchema.statics.logoff = function (id, done) {
+    User.findOne({ providerID: id.providerID })
+        .exec(function (err, user) {
+            if (user) {
+                user.login = {};
+                user.login.last_logout_UTC = new Date();
+                user.last_logout_UTC = new Date().getUTCTime();
+                user.save();
+                console.log('user logged out');
+                return done(user)
+            } else {
+                console.log(err);
+>>>>>>> 0f39d487e802955948f010f96028b807db76f7bd
             }
         })
 }

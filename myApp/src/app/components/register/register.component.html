@@ -1,9 +1,10 @@
 <app-header loginRegister="hide" menu="hide" profile="hide"></app-header>
 
 <div [ngSwitch]="state">
-    <lib-login *ngSwitchCase="'signin'" (oncomplete)="loginSuccess($event)"></lib-login>
+    <lib-login *ngSwitchCase="'signin'" (onclick)="change($event)" (oncomplete)="loginSuccess($event)"></lib-login>
     <app-registeruserconfirm *ngSwitchCase="'info'" (oncontinue)="infoContinue($event)"></app-registeruserconfirm>
     <app-eula *ngSwitchCase="'eula'"  (onaccept)="eulaAccept($event)"></app-eula>
     <lib-progress *ngSwitchCase="'progress'"></lib-progress>
+    <app-loading *ngSwitchCase="'loading'"></app-loading>
 </div>
  

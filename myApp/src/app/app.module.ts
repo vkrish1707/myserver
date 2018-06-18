@@ -17,7 +17,6 @@ import { AppRegisterModule } from './modules/app-register.module';
 import { LoginModule } from '../lib/login/login.module';
 import { UserSessionService } from './services/usersession.service';
 import { AppRegisterService } from './services/app-register.service';
-import { InterceptorService } from './services/interceptor.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from './modules/material.module';
 import { DialogboxModule } from '../lib/dialogbox/dialogbox.module';
@@ -46,7 +45,6 @@ import { DialogboxModule } from '../lib/dialogbox/dialogbox.module';
 
   providers: [
     UserSessionService,
-    InterceptorService,
     AppRegisterService,
     {
       provide: HTTP_INTERCEPTORS,
