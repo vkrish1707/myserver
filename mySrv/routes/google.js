@@ -4,7 +4,7 @@ var request = require('request');
 var { OAuth2Client } = require('google-auth-library');
 
 var User = require('../models/userModel');
-var config = require('../config');
+var cfg = require('../config/config');
 
 var router = express.Router();
 var app = express();
@@ -15,30 +15,33 @@ router.post('/auth/google', async function (req, res, next) {
     var user = new User(req.body);
 
     try {
-        await verify(gToken);
+        var data = await verify(gToken);
 
         User.addUser(user, function (err) {
             if (err) {
                 console.log(err);
             }
-        });
-
-        let jToken = jwt.sign({ googleUserId: user.id }, 'twinesoft', {expiresIn: '3h'});
-        res.status(200).send(jToken);
-    } catch (error) {
+        })
         
+        var jToken = jwt.sign({ userid: data.userid }, 'twinesoft', {expiresIn: '3h'});
+        res.status(200).send(jToken);
+
+    } catch (error) {
+        res.status(400).send(error);
     }
 });
 
-async function verify(token) {
-    let client = new OAuth2Client(CLIENT_ID = config.google.CLIENT_ID);
+async function verify(gToken) {
+    const client = new OAuth2Client(CLIENT_ID = cfg.google.google_client_id);
     const ticket = await client.verifyIdToken({
-        idToken: token,
+        idToken: gToken,
         audience: CLIENT_ID
     });
     const payload = ticket.getPayload();
     const userid = payload['sub'];
-};
+    return payload;
+}
+
 
 app.use('/api', router);
 

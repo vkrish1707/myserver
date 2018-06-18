@@ -1,7 +1,9 @@
 import { MatDialogConfig, MatDialog } from "@angular/material";
+import { Injector } from "@angular/core";
 import { DialogBoxComponent } from "./dialogbox.component";
 
 import core = require('./globals');
+
 
 export enum DialogBoxButtons {
     YesNoCancel,
@@ -12,7 +14,15 @@ export enum DialogBoxButtons {
     Close
 }
 
-export function showDialog(title: string, message: string, buttons: DialogBoxButtons): Promise<core.DialogBoxResult> {
+export enum DialogBoxResult {
+    Yes,
+    No,
+    Ok,
+    Cancel,
+    Close
+}
+
+export function showDialog(title: string, message: string, buttons: DialogBoxButtons): Promise<DialogBoxResult> {
     
     // prepare the config data
     const config = new MatDialogConfig();

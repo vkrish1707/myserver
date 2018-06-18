@@ -7,6 +7,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { HomeComponent } from './components/home/home.component';
 import { HomewithsessionComponent } from './components/homewithsession/homewithsession.component';
 import { RegisteruserconfirmComponent } from './components/registeruserconfirm/registeruserconfirm.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "signin", component: SignInComponent },
   { path: "homewithsession", component: HomewithsessionComponent },
+  { path: "loading", component: LoadingComponent}
 ];
 
 @NgModule({

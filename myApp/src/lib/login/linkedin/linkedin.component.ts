@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BaseLoginProvider } from '../base/provider.base';
 import { ILogin } from '../login';
 import { LoginService } from '../login.service';
+import { Http } from '@angular/http';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+
+declare var IN: any;
 
 @Component({
   selector: 'lib-linkedin',
@@ -11,21 +16,36 @@ import { LoginService } from '../login.service';
 
 export class LinkedinComponent extends BaseLoginProvider implements OnInit {
 
-  constructor(private service: LoginService) {
+  constructor(private service: LoginService, private http: Http, private route: ActivatedRoute) {
     super(service);
   }
 
-  disabled: boolean = true;
+  disabled: boolean
 
   ngOnInit() {
   }
 
-  private async login() {
-    // this.oauth();
-    // await this.linkedinService.launch();
-    // await this.linkedinService.getAt();
-    // this.success(<ILogin>this.linkedinService);
+  // client_id = 78ov5vlwhek3gu;
+  redirect_uri:String = encodeURI("http://localhost:4200/");
+  url1 = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78ov5vlwhek3gu&redirect_uri=" + this.redirect_uri;
+  url = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78ov5vlwhek3gu&redirect_uri=http%3A%2F%2Flocalhost:4200%2F&state=987654321&scope=r_basicprofile";
+
+  
+  async login() {
+    // window.location.href = this.url;
+    // this.http.get(this.url);
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/X-www-form-urlencoded');
+    this.http.post(this.url, {headers: headers}).subscribe((res) => {
+      console.log(res);
+    })
+    
   }
+
+  log() {
+
+    return this.http.get(this.url)    
+    }
 
   logOff() {
     // this.linkedinService.logout();

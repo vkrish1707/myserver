@@ -31,6 +31,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 
   // @Output() oncancel: EventEmitter<any> = new EventEmitter();
   @Output() oncomplete: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onclick: EventEmitter<any> = new EventEmitter();
 
   @ViewChild(LoginDirective) host: LoginDirective;
 

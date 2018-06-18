@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 var request = require('request');
 
 var User = require('../models/userModel');
-var config = require('../config');
+var cfg = require('../config/config');
 
 var router = express.Router();
 var app = express();
@@ -11,7 +11,7 @@ var app = express();
 router.post('/auth/facebook', function verifyFacebookUserAccessToken(req, res, FBtoken) {
         var FBtoken = req.headers['token'];
 
-        var path = config.facebook.PATH + FBtoken;
+        var path = cfg.facebook.facebook_path + FBtoken;
         request(path, function (error, response, body) {
             var data = JSON.stringify(body);
 
@@ -20,6 +20,8 @@ router.post('/auth/facebook', function verifyFacebookUserAccessToken(req, res, F
                     facebookUserId: data.id,
                     fullName: data.name
                 };
+                var jtoken = jwt.sign({ facebookUserId: data.id }, 'twinesoft', { expiresIn: '3h' });
+                res.json(jtoken);
             }
             else {
                 console.log(data.error);

@@ -47,6 +47,12 @@ export class FacebookComponent extends BaseLoginProvider implements ILogin, OnIn
     this.success(this);
   }
 
+  // onClick() {
+  //   this.clicked();
+  //   console.log(this.clicked);
+    
+  // }
+
   protected freeze(value: boolean) {
     // console.log('facebook==it worked');
     this.disabled = value;

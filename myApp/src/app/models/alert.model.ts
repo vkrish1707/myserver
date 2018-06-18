@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { of } from 'rxjs/Observable/of';
 import { HttpClient } from '@angular/common/http';
 import globals = require('../app.globals');
+// import { Injector } from "@angular/core";
 
 export class AlertCollection {
     private localAlertId: number = -100;
@@ -10,6 +11,8 @@ export class AlertCollection {
     private newAlertSubject = new Subject<IAlert>();
 
     public newAlert = this.newAlertSubject.asObservable();
+
+    // public InjectorInstance: Injector;
 
     add(id: number, message: string, icon: string) {
         if (id == -1) {

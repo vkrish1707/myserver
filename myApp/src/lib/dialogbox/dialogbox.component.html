@@ -4,7 +4,7 @@
 <div mat-dialog-content>
   <h4>{{message}}</h4>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions style="margin: auto; width: auto;">
     <button  *ngIf="showYes" mat-raised-button color="warn" (click)="onClick('Yes')">Yes</button>
     <button *ngIf="showNo" mat-raised-button color="primary" (click)="onClick('No')">No</button>
     <button *ngIf="showOk" mat-button (click)="onClick('Ok')">Ok</button>
