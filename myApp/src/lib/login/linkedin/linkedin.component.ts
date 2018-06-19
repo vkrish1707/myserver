@@ -5,6 +5,7 @@ import { LoginService } from '../login.service';
 import { Http } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { LinkedinService } from './linkedin.service';
 
 declare var IN: any;
 
@@ -16,7 +17,7 @@ declare var IN: any;
 
 export class LinkedinComponent extends BaseLoginProvider implements OnInit {
 
-  constructor(private service: LoginService, private http: Http, private route: ActivatedRoute) {
+  constructor(private service: LoginService, private http: Http, private Lservice: LinkedinService) {
     super(service);
   }
 
@@ -34,12 +35,7 @@ export class LinkedinComponent extends BaseLoginProvider implements OnInit {
   async login() {
     // window.location.href = this.url;
     // this.http.get(this.url);
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/X-www-form-urlencoded');
-    this.http.post(this.url, {headers: headers}).subscribe((res) => {
-      console.log(res);
-    })
-    
+    this.Lservice.obtainAuthCode()
   }
 
   log() {

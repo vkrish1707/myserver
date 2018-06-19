@@ -12,6 +12,7 @@ import { MaterialModule } from '../../app/modules/material.module';
 import { ProgressComponent } from '../progress/progress.component';
 import { LoginService } from './login.service';
 import { LoadingComponent } from '../loading/loading.component';
+import { LinkedinService } from './linkedin/linkedin.service';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { LoadingComponent } from '../loading/loading.component';
     LoadingComponent
   ],
   providers: [
-    LoginService
+    LoginService,
+    LinkedinService
   ],
 
   exports: [
