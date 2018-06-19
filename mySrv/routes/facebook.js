@@ -33,6 +33,9 @@ router.post('/auth/facebook', function verifyFacebookUserAccessToken(req, res, F
             User.addUser(user, function (err) {
                 if (err) {
                     console.log(err);
+                } else {
+                    var jtoken = jwt.sign({ facebookUserId: user.id }, 'twinesoft', { expiresIn: '1m' });
+                    res.send(jtoken);
                 }
             });
         })

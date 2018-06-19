@@ -27,7 +27,9 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   @Input() microsoft = 'yes';
   @Input() linkedin = 'yes';
 
-  @Output() oncancel: EventEmitter<any> = new EventEmitter();
+  private state: string = 'login';
+
+  // @Output() oncancel: EventEmitter<any> = new EventEmitter();
   @Output() oncomplete: EventEmitter<any> = new EventEmitter<any>();
   @Output() onclick: EventEmitter<any> = new EventEmitter();
 
@@ -69,12 +71,15 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       that.oncomplete.emit(<ILogin>provider);  
     };
 
-    let cancelled = (provider) => {
-      that.oncancel.emit(null);
+    let cancelled = () => {
+      console.log('cancelled from login');
+      this.state = null;
+      // that.oncancel.emit(null);      
     };
 
-    let clicked = (provider) => {
-      that.onclick.emit(null);
+    let clicked = (provider) => {    
+      console.log('click from login component');        
+      this.state = 'loading';
     };
 
     this.providers = [];
@@ -82,9 +87,9 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     for (const cmp of components) {
       const factory = this.componentFactoryResolver.resolveComponentFactory(cmp);
       const item = this.host.viewContainerRef.createComponent(factory);
-      (<BaseLoginProvider>item.instance).onsuccess.subscribe(completed);
-      (<BaseLoginProvider>item.instance).oncancel.subscribe(cancelled);
       (<BaseLoginProvider>item.instance).onclick.subscribe(clicked);
+      (<BaseLoginProvider>item.instance).oncancel.subscribe(cancelled);
+      (<BaseLoginProvider>item.instance).onsuccess.subscribe(completed);
       this.providers.push((<BaseLoginProvider>item.instance));
     }
   }

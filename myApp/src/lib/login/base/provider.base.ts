@@ -12,7 +12,7 @@ export abstract class BaseLoginProvider {
     constructor(protected loginService: LoginService) {
         this.loginService.freeze.subscribe(data => {
             this.freeze(data);
-            console.log(data);
+            // console.log(data);
         })
     }
 
@@ -25,10 +25,12 @@ export abstract class BaseLoginProvider {
     }
 
     protected cancelled() {
+        console.log(this.eventCancel);
         this.eventCancel.emit();
     }
 
-    protected clicked() {
+    protected click() {
+        console.log('click from base');
         this.eventClick.emit();
     }
 

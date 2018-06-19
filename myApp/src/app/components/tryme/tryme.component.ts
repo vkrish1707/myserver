@@ -40,7 +40,8 @@ export class TryMeComponent implements OnInit {
       this.http.post('http://localhost:3000/api/restricted', '')
         .subscribe(
           res => {
-            this.restrictedResponse = res;
+            this.restrictedResponse = 'Access Granted';
+            console.log(res);
             resolve();
           },
           err => {

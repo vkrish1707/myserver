@@ -19,4 +19,18 @@ router.post('/checkuser', function (req, res, done) {
     })
 })
 
+router.post('/logoff', function(req, res, done) {
+    console.log('api called');
+    var user = new User(req.body);
+    User.logoff(user, function (done, err) {
+        if (done) {
+            res.json('user logged out');
+        } else {
+            console.log('User not logged out');
+        }        
+    });
+
+})
+
+
 module.exports = router;
