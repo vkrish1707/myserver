@@ -66,39 +66,30 @@ UserSchema.statics.addUser = function (id, done) {
                 // user.login.last_login_UTC;
                 // user.login.last_logout_UTC;
                 user.save();
-                return done();
+                return done(user);
             }
         });
 }
 
-<<<<<<< HEAD
-=======
 Date.prototype.getUTCTime = function () {
     return this.getTime() + (this.getTimezoneOffset() * 60000);
 };
 
 var utctime = new Date().getUTCTime();
 
->>>>>>> 0f39d487e802955948f010f96028b807db76f7bd
-UserSchema.statics.get = function (id, done) {
-    User.findOne({ providerID: id.providerID })
-        .exec(function (err, user) {
-            if (user) {
-<<<<<<< HEAD
-=======
+UserSchema.statics.get = function (user, next) {
+    User.findOne({ providerID: user.providerID })
+        .exec(function (error, result) {
+            if (result) {
                 user.login = {};
                 user.login.last_login_UTC = new Date();
                 user.last_login_UTC = new Date().getUTCTime();
-                user.save();
->>>>>>> 0f39d487e802955948f010f96028b807db76f7bd
+                // user.save();
                 console.log('====Existing user **user.get**=====')
-                return done(user)
+                return next(result)
             } else {
                 console.log('====New User **user.get**=====')
-<<<<<<< HEAD
-                return done(err);
-=======
-                return err;
+                return next(null);
             }
         })
 }
@@ -115,7 +106,6 @@ UserSchema.statics.logoff = function (id, done) {
                 return done(user)
             } else {
                 console.log(err);
->>>>>>> 0f39d487e802955948f010f96028b807db76f7bd
             }
         })
 }
