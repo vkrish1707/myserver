@@ -63,8 +63,6 @@ UserSchema.statics.addUser = function (id, done) {
                 user.lastName = id.lastName;
                 user.email = id.email;
                 user.photoUrl = id.photoUrl;
-                // user.login.last_login_UTC;
-                // user.login.last_logout_UTC;
                 user.save();
                 return done(user);
             }
@@ -79,7 +77,7 @@ var utctime = new Date().getUTCTime();
 
 UserSchema.statics.get = function (user, next) {
     User.findOne({ providerID: user.providerID })
-        .exec(function (error, result) {
+        .exec(function (err, result) {
             if (result) {
                 user.login = {};
                 user.login.last_login_UTC = new Date();
