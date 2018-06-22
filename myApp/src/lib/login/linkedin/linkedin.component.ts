@@ -48,7 +48,7 @@ export class LinkedinComponent extends BaseLoginProvider implements OnInit {
   }
 
   onClick() {
-    this.service.lock();
+    // this.service.lock();
   }
 
 

@@ -63,8 +63,6 @@ UserSchema.statics.addUser = function (id, done) {
                 user.lastName = id.lastName;
                 user.email = id.email;
                 user.photoUrl = id.photoUrl;
-                // user.login.last_login_UTC;
-                // user.login.last_logout_UTC;
                 user.save();
                 return done();
             }
