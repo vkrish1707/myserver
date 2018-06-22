@@ -32,9 +32,7 @@ export class RegisterComponent implements OnInit {
     if (newUser == true) {
       this.dialogBox();
       this.sessionService.establish(data);
-      console.log('return == true');
     } else {
-      console.log('return == false');
       this.state = 'info';
     }
   }

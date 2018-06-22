@@ -64,7 +64,7 @@ UserSchema.statics.addUser = function (id, done) {
                 user.email = id.email;
                 user.photoUrl = id.photoUrl;
                 user.save();
-                return done();
+                return done(user);
             }
         });
 }
@@ -75,19 +75,19 @@ Date.prototype.getUTCTime = function () {
 
 var utctime = new Date().getUTCTime();
 
-UserSchema.statics.get = function (id, done) {
-    User.findOne({ providerID: id.providerID })
-        .exec(function (err, user) {
-            if (user) {
+UserSchema.statics.get = function (user, next) {
+    User.findOne({ providerID: user.providerID })
+        .exec(function (err, result) {
+            if (result) {
                 user.login = {};
                 user.login.last_login_UTC = new Date();
                 user.last_login_UTC = new Date().getUTCTime();
-                user.save();
+                // user.save();
                 console.log('====Existing user **user.get**=====')
-                return done(user)
+                return next(result)
             } else {
                 console.log('====New User **user.get**=====')
-                return err;
+                return next(null);
             }
         })
 }

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/observable/fromPromise';
-import { Observable } from 'rxjs/Observable';
-import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import * as MicrosoftGraphClient from "@microsoft/microsoft-graph-client";
-import * as hello from 'hellojs/dist/hello.all.js';
+import * as Msal from 'msal';
 
 
 import { BaseLoginProvider } from '../base/provider.base';
@@ -27,13 +25,20 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
   public providerName: string = 'microsoft';
 
   private config = {
-    appId: '1c2981ca-6ec8-40c0-9842-41ce9e8ddc01',
-    scope: 'User.Read User.ReadBasic.All'
+    appId: 'e5fe74b6-d86e-4bf4-957e-ba5c562e4b61',
+    scope: ['User.Read User.ReadBasic.All']
   };
+
+  private app: any;
 
   constructor(private service: LoginService) {
     super(service);
-    this.initAuth();
+    //intialising app and call back for login redirect
+    this.app = new Msal.UserAgentApplication(
+      this.config.appId,
+      '',
+      () => {
+      }); // call back for login redirect
   }
 
   disabled: boolean;
@@ -48,7 +53,7 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
 
 
   protected freeze(value: boolean) {
-    console.log('microsoft==it worked');
+    console.log('microsoft==it worked', value);
     this.disabled = value;
   }
 
@@ -59,26 +64,22 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
   // ========================
   // methods of microsoft
   // ========================
-  public initAuth() {
-    hello.init({
-      msft: {
-        id: this.config.appId,
-        oauth: {
-          version: 2,
-          auth: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
-        },
-        scope_delim: ' ',
-        form: false
-      },
-    },
-      { redirect_uri: 'http://localhost:4200' }
-    );
+
+  public login() {
+    return this.app.loginPopup(this.config.scope)
+      .then(idToken => {
+        const user = this.app.getUser();
+        if (user) {
+          return this.getAccessToken().then(token => token);
+        } else {
+          return null;
+        }
+      }, () => {
+        return null;
+      });
   }
 
   public async run(): Promise<void> {
-
-    // lock all providers
-    this.service.lock();
 
     let task = new Subject<void>();
 
@@ -92,47 +93,41 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
       }
     }
     catch (error) {
-      this.cancelled();
-      // release all providers
-      this.service.release();
-
       console.log(error);
     }
 
     return task.asObservable().toPromise();
   }
 
-  private async login(): Promise<void> {
-    let task = new Subject<void>();
-
-    await hello('msft').login({ scope: this.config.scope })
-      .then(res => {
-        this.getAccessToken();
-        task.complete();
-      });
-
-    return task.asObservable().toPromise();
-  }
-
   public logout(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      hello('msft').logout()
+      this.app.logout()
         .then(res => {
           resolve()
         });
     });
   }
 
-  private getAccessToken() {
-    let msft = hello('msft').getAuthResponse();
-    this.token = msft.access_token;
-    return this.token;
+  public getAccessToken() {
+    return this.app.acquireTokenSilent(this.config.scope)
+      .then(accessToken => {
+        this.token = accessToken
+        return this.token;
+      }, error => {
+        return this.app.acquireTokenPopup(this.config.scope)
+          .then(accessToken => {
+            this.token = accessToken
+            return this.token;
+          }, err => {
+            console.error(err);
+          });
+      });
   }
 
   private getClient(): MicrosoftGraphClient.Client {
     var client = MicrosoftGraphClient.Client.init({
       authProvider: (done) => {
-        done(null, this.getAccessToken());
+        done(null, this.token);
       }
     });
     return client;
