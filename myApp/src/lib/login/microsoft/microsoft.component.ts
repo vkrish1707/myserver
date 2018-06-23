@@ -87,7 +87,8 @@ export class MicrosoftComponent extends BaseLoginProvider implements OnInit {
       await this.login();
 
       if (this.token == null) {
-        task.error('unexpected error -- oauth token missing -- cannot get profile data from microsoft');
+        // task.error('unexpected error -- oauth token missing -- cannot get profile data from microsoft');
+        this.cancelled();
       } else {
         await this.getMe(task);
       }

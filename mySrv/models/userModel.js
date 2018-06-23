@@ -73,18 +73,16 @@ Date.prototype.getUTCTime = function () {
     return this.getTime() + (this.getTimezoneOffset() * 60000);
 };
 
-var utctime = new Date().getUTCTime();
-
-UserSchema.statics.get = function (user, next) {
-    User.findOne({ providerID: user.providerID })
-        .exec(function (err, result) {
-            if (result) {
+UserSchema.statics.get = function (id, next) {
+    User.findOne({ providerID: id.providerID })
+        .exec(function (err, user, result) {
+            if (user) {
                 user.login = {};
-                user.login.last_login_UTC = new Date();
+                user.login.last_login_UTC = new Date(); 
                 user.last_login_UTC = new Date().getUTCTime();
-                // user.save();
+                user.save();
                 console.log('====Existing user **user.get**=====')
-                return next(result)
+                return next(user)
             } else {
                 console.log('====New User **user.get**=====')
                 return next(null);

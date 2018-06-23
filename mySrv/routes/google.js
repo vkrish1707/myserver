@@ -1,6 +1,5 @@
 var express = require('express');
 var jwt = require('jsonwebtoken');
-var request = require('request');
 var { OAuth2Client } = require('google-auth-library');
 
 var User = require('../models/userModel');
