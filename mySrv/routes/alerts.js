@@ -10,7 +10,7 @@ router.get('/alerts', function (req, res, next) {
             res.sendStatus(401);
         }
 
-        res.json(alerts);
+        res.status(200).json(alerts);
     });
 });
 
@@ -21,7 +21,7 @@ router.post('/alerts', function (req, res) {
             res.sendStatus(401);
         }
 
-        res.json(alert);
+        res.status(200).json(alert);
     });
 });
 
