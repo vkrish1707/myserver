@@ -4,7 +4,7 @@ var Alert = require('../models/alerts');
 
 var app = express();
 
-router.get('/alerts', function (req, res, next) {
+router.get('/alerts', function (res, next) {
     Alert.getAlerts(function (err, alerts) {
         if (err) {
             res.sendStatus(401);

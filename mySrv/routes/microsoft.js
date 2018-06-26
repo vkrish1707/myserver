@@ -12,12 +12,16 @@ var router = express.Router();
 router.post('/auth/microsoft', function (req, res, next) {
     let mToken = req.headers['token'];
 
-    getUserData(mToken, (err, user) => {
+    verify(mToken, (err, user) => {
         if (!err) {
 
             console.log(user.body.id);
             console.log(user.body.mail);
             console.log(user.body.givenName);
+
+            let jToken = jwt.sign({ microsoftUserId: user.id }, 'twinesoft', { expiresIn: '3h' });
+            res.status(200).send(jToken);
+
         } else {
             renderError(err, res);
         }
@@ -29,14 +33,11 @@ router.post('/auth/microsoft', function (req, res, next) {
     User.addUser(user, function (err) {
         if (err) {
             console.log(err);
-        } else {
-            let jToken = jwt.sign({ microsoftUserId: user.id }, 'twinesoft', { expiresIn: '3h' });
-            res.status(200).send(jToken);
-        }
+        } 
     });
 });
 
-function getUserData(accessToken, callback) {
+function verify(accessToken, callback) {
     request
         .get('https://graph.microsoft.com/v1.0/me')
         .set('Authorization', 'Bearer ' + accessToken)

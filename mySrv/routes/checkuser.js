@@ -26,7 +26,7 @@ router.post('/logoff', function(req, res, done) {
         if (done) {
             res.status(200).json('user logged out');
         } else {
-            console.log('User not logged out');
+            res.status(401).json('user not logged out')
         }        
     });
 

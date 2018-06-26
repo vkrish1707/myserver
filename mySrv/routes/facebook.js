@@ -22,19 +22,20 @@ router.post('/auth/facebook', function verifyFacebookUserAccessToken(req, res, F
                 };
                 var jtoken = jwt.sign({ facebookUserId: data.id }, 'twinesoft', { expiresIn: '3h' });
                 res.status(200).send(jtoken);
+
+                // var id = req.body;
+                var user = new User(req.body);
+                User.addUser(user, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+    
             }
             else {
                 console.log(data.error);
             }
 
-            var id = req.body;
-
-            var user = new User(req.body);
-            User.addUser(user, function (err) {
-                if (err) {
-                    console.log(err);
-                }
-            });
         })
     });
 

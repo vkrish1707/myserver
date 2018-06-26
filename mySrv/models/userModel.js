@@ -75,7 +75,7 @@ Date.prototype.getUTCTime = function () {
 
 UserSchema.statics.get = function (id, next) {
     User.findOne({ providerID: id.providerID })
-        .exec(function (err, user, result) {
+        .exec(function (err, user) {
             if (user) {
                 user.login = {};
                 user.login.last_login_UTC = new Date(); 
