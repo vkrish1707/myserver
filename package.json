@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "main work application",
+  "main": "server.js",
+  "scripts": {
+    "test": "node test | tap-spec",
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cors": "^2.8.4",
+    "express": "*",
+    "google-auth-library": "^1.4.0",
+    "jsonwebtoken": "^8.2.1",
+    "jsonwebtoken-refresh": "^5.7.0",
+    "mongoose": "*",
+    "passport": "^0.4.0",
+    "passport-azure-ad": "^3.0.12",
+    "rand-token": "^0.4.0",
+    "request": "^2.85.0",
+    "superagent": "^3.8.3",
+    "tap-spec": "^5.0.0"
+  },
+  "author": "vZen Team",
+  "license": "ISC",
+  "devDependencies": {
+    "supertest": "^3.1.0",
+    "tape": "^4.9.1"
+  }
+}
